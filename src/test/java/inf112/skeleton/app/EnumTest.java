@@ -11,5 +11,6 @@ public class EnumTest {
     public void oppositeTest() {
         Direction dir = Direction.LEFT;
         assertEquals(Direction.RIGHT, dir.getOpposite());
+
     }
 }
