@@ -1,7 +1,6 @@
 package inf112.skeleton.app;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import Enums.Direction;
 import org.junit.Test;
