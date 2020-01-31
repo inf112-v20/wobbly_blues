@@ -1,8 +1,17 @@
 package Interface;
 
-public interface IHand {
-    //holdCards
+import java.util.List;
 
-    //removeCards
+public interface IHand {
+    /**
+     * HUSKER IKKE
+     * @param cards A list of cards in hand.
+     */
+    void holdCards(List<ICard> cards);
+
+    /**
+     * Removes cards from hand.
+     */
+    void removeCards();
 
 }
