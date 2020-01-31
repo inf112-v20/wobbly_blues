@@ -1,6 +1,8 @@
 package Interface;
 
+import Enums.Direction;
+
 public interface IMap {
-    boolean canGo();
-    ICell getCell(int x , int y);
+    boolean canGo(Direction dir);
+    ICell getCell(int x, int y);
 }
