@@ -1,30 +1,44 @@
 package inf112.skeleton.app;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.maps.tiled.*;
+import com.badlogic.gdx.maps.tiled.renderers.*;
+
 
 public class HelloWorld implements ApplicationListener {
     private SpriteBatch batch;
     private BitmapFont font;
-    private Sprite background;
-    private Sprite player;
-    private float w;
-    private float h;
+    private TiledMap map;
+    private TiledMapTileLayer Board;
+    private TiledMapTileLayer Flag;
+    private TiledMapTileLayer Hole;
+    private TiledMapTileLayer Player;
+    private OrthogonalTiledMapRenderer TMrenderer;
+    private OrthographicCamera Camera;
 
     @Override
     public void create() {
-        w = Gdx.graphics.getWidth();
-        h = Gdx.graphics.getHeight();
-
         batch = new SpriteBatch();
         font = new BitmapFont();
-        background = new Sprite( new Texture(Gdx.files.internal("Chasm.bmp")));
-        player = new Sprite(( new Texture((Gdx.files.internal(("testRobot.bmp"))))));
-        background.setSize(900,900);
-        player.setSize(70,70);
-        player.setPosition(0,0);
         font.setColor(Color.RED);
+        map = new TmxMapLoader().load("example.xml");
+        Board = (TiledMapTileLayer) map.getLayers().get("Board");
+        Flag = (TiledMapTileLayer) map.getLayers().get("Flag");
+        Hole = (TiledMapTileLayer) map.getLayers().get("Hole");
+        Player = (TiledMapTileLayer) map.getLayers().get("Player");
+        Camera = new OrthographicCamera();
+        TMrenderer = new OrthogonalTiledMapRenderer(map, (float) 0.00333);
+
+        Camera.setToOrtho(false,5,5);
+        float h = Camera.viewportHeight;
+        float w = Camera.viewportWidth;
+        Camera.position.set(h/2,w/2,0);
+        Camera.update();
+
+        TMrenderer.setView(Camera);
     }
 
     @Override
@@ -37,34 +51,10 @@ public class HelloWorld implements ApplicationListener {
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT )&& player.getX() > 0){
-            if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-                player.translateX(-1f);
-            else
-                player.translateX(-10.0f);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getX() < 830){
-            if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-                player.translateX(1f);
-            else
-                player.translateX(10.0f);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.UP )&& player.getY() < 830){
-            if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-                player.translateY(1f);
-            else
-                player.translateY(10.0f);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.getY() > 0){
-            if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-                player.translateY(-1f);
-            else
-                player.translateY(-10.0f);
-        }
 
+        TMrenderer.render();
         batch.begin();
-        background.draw(batch);
-        player.draw(batch);
+        font.draw(batch, "Hello World", 200, 200);
         batch.end();
     }
 
