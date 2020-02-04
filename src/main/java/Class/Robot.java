@@ -6,18 +6,18 @@ import Interface.IRobot;
 
 public class Robot implements IRobot {
 
-    private int hp;
+    private int damage;
     private Direction dir;
     private IHand hand;
 
     public Robot() {
-        hp = 10;
+        damage = 0;
         dir = Direction.UP;
     }
 
     @Override
     public void takeDamage() {
-        hp--;
+        damage++;
     }
 
     @Override
