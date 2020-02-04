@@ -11,22 +11,12 @@ import com.badlogic.gdx.math.*;
 public class Test_robot implements IRobot {
 
     private Texture Robot;
-
-    private TiledMapTileLayer.Cell Normal;
-    private TiledMapTileLayer.Cell Dead;
-    private TiledMapTileLayer.Cell Won;
     private TiledMapTileLayer.Cell state;
 
     private Vector2 PlayerPos = new Vector2().set(0,0);
 
-    public Test_robot(){
-       Robot = new Texture(Gdx.files.internal("player.png"));
-
-        Normal = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(Robot,900,300).split(300,300)[0][0]));
-        Dead = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(Robot,900,300).split(300,300)[0][1]));
-        Won = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(Robot,900,300).split(300,300)[0][2]));
-
-        state = Normal;
+    public Test_robot(TiledMapTileLayer.Cell start){
+        state = start;
     }
 
     @Override

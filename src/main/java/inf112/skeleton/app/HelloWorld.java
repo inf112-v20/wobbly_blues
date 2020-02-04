@@ -23,8 +23,9 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell Won;
     private Vector2 PlayerPos;
     private TiledMapTileLayer.Cell state;
+    private Vector2 Pos;
 
-    private Test_robot robot = new Test_robot();
+    private Test_robot robot;
 
     @Override
     public void create() {
@@ -38,6 +39,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
         Robot = new Texture(Gdx.files.internal("player.png"));
         PlayerPos = new Vector2();
+        Pos = new Vector2();
 
         Normal = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(Robot,900,300).split(300,300)[0][0]));
         Dead = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(Robot,900,300).split(300,300)[0][1]));
@@ -45,11 +47,12 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
         Camera = new OrthographicCamera();
         TMrenderer = new OrthogonalTiledMapRenderer(map, (float) 0.00333);
-
+        robot = new Test_robot(Normal);
         state = robot.getState();
 
         state = Normal;
         PlayerPos.set(0,0);
+        Pos.set(4,4);
 
         Camera.setToOrtho(false,5,5);
         float h = Camera.viewportHeight;
@@ -61,6 +64,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         TMrenderer.setView(Camera);
 
     }
+
 
     @Override
     public void dispose() {
@@ -76,6 +80,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         else state = Normal;
 
         PlayerLayer.setCell((int)PlayerPos.x,(int)PlayerPos.y,state);
+        PlayerLayer.setCell(((int)Pos.x),(int)Pos.y, Dead);
         TMrenderer.render();
     }
 
