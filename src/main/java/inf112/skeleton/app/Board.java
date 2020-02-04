@@ -8,7 +8,7 @@ import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
 import Class.*;
 
-public class HelloWorld extends InputAdapter implements ApplicationListener {
+public class Board extends InputAdapter implements ApplicationListener {
     private TiledMap map;
     private TiledMapTileLayer Board;
     private TiledMapTileLayer FlagLayer;
