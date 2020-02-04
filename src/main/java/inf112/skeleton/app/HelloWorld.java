@@ -2,19 +2,20 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
 
 public class HelloWorld implements ApplicationListener {
     private SpriteBatch batch;
     private BitmapFont font;
+    private Sprite background;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
+        background = new Sprite( new Texture(Gdx.files.internal("Chasm.bmp")));
+        background.setSize(900,900);
         font.setColor(Color.RED);
     }
 
@@ -30,7 +31,8 @@ public class HelloWorld implements ApplicationListener {
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        font.draw(batch, "Hello World", 200, 200);
+        background.draw(batch);
+        font.draw(batch, "Hello World", 430, 450);
         batch.end();
     }
 
