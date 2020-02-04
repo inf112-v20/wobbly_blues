@@ -11,7 +11,7 @@ public interface IRobot {
      */
     void shootLaser();
     /*
-    determins what the robot is going to do
+    determines what the robot is going to do
      */
     void input();
     /*
@@ -19,9 +19,9 @@ public interface IRobot {
      */
     boolean powerDown();
     /*
-    Creats the hand that holds the program cards that relates to that robot
+    Creates the hand that holds the program cards that relates to that robot
      */
-    void creatHand();
+    void createHand();
 
     /*
     not sure

@@ -3,6 +3,7 @@ package Interface;
 public interface IMapPiece {
 
     void setPos(IPosition pos);
+
     IPosition getPos();
 
     /**
