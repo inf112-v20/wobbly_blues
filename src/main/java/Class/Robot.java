@@ -8,14 +8,15 @@ import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
 import com.badlogic.gdx.math.*;
 
-public class Test_robot implements IRobot {
+public class Robot implements IRobot {
 
     private Texture Robot;
     private TiledMapTileLayer.Cell state;
 
-    private Vector2 PlayerPos = new Vector2().set(0,0);
+    private Vector2 Pos;
 
-    public Test_robot(TiledMapTileLayer.Cell start){
+    public Robot(TiledMapTileLayer.Cell start){
+        Pos = new Vector2().set(0,0);
         state = start;
     }
 
@@ -55,14 +56,14 @@ public class Test_robot implements IRobot {
         this.state = state;
     }
     public void setPos(float x, float y){
-        this.PlayerPos.set(x,y);
+        this.Pos.set(x,y);
     }
     public float getPosX(){
-        return PlayerPos.x;
+        return Pos.x;
     }
 
     public float getPosY(){
-        return PlayerPos.y;
+        return Pos.y;
     }
 
 }
