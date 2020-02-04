@@ -3,6 +3,7 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.maps.*;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
@@ -22,21 +23,29 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell Dead;
     private TiledMapTileLayer.Cell Won;
     private Vector2 PlayerPos;
+    private TiledMapTileLayer.Cell state;
 
     @Override
     public void create() {
         Gdx.input.setInputProcessor(this);
+
         map = new TmxMapLoader().load("example.xml");
         Board = (TiledMapTileLayer) map.getLayers().get("Board");
         FlagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
         HoleLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
         PlayerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
+
         Robot = new Texture(Gdx.files.internal("player.png"));
         PlayerPos = new Vector2();
+
         Camera = new OrthographicCamera();
         TMrenderer = new OrthogonalTiledMapRenderer(map, (float) 0.00333);
 
-        Normal = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(Robot,300,300)));
+        Normal = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(Robot,900,300).split(300,300)[0][0]));
+        Dead = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(Robot,900,300).split(300,300)[0][1]));
+        Won = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(Robot,900,300).split(300,300)[0][2]));
+
+        state = Normal;
         PlayerPos.set(0,0);
 
         Camera.setToOrtho(false,5,5);
@@ -47,6 +56,9 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         Camera.update();
 
         TMrenderer.setView(Camera);
+
+
+
     }
 
     @Override
@@ -57,7 +69,14 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-        PlayerLayer.setCell(0,0,Normal);
+
+
+
+        if(HoleLayer.getCell((int)PlayerPos.x,(int)PlayerPos.y) != null) state = Dead;
+        else if(FlagLayer.getCell((int)PlayerPos.x, (int)PlayerPos.y) != null) state = Won;
+        else state = Normal;
+
+        PlayerLayer.setCell((int)PlayerPos.x,(int)PlayerPos.y,state);
         TMrenderer.render();
     }
 
@@ -75,6 +94,36 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
     @Override
     public boolean keyUp(int keycode) {
-        return super.keyUp(keycode);
+        if(state == Dead) System.out.println("You are dead!");
+        else if(state == Won){
+            System.out.println("You won!");
+        }
+       else{
+            if (keycode == Input.Keys.LEFT && PlayerPos.x > 0) {
+                PlayerLayer.setCell((int) PlayerPos.x, (int) PlayerPos.y, null);
+                PlayerPos.set(PlayerPos.x - 1, PlayerPos.y);
+                PlayerLayer.setCell((int) PlayerPos.x, (int) PlayerPos.y, state);
+            }
+
+            if (keycode == Input.Keys.RIGHT && PlayerPos.x < 4) {
+                PlayerLayer.setCell((int) PlayerPos.x, (int) PlayerPos.y, null);
+                PlayerPos.set(PlayerPos.x + 1, PlayerPos.y);
+                PlayerLayer.setCell((int) PlayerPos.x, (int) PlayerPos.y, state);
+            }
+
+            if (keycode == Input.Keys.UP && PlayerPos.y < 4) {
+                PlayerLayer.setCell((int) PlayerPos.x, (int) PlayerPos.y, null);
+                PlayerPos.set(PlayerPos.x, PlayerPos.y + 1);
+                PlayerLayer.setCell((int) PlayerPos.x, (int) PlayerPos.y, state);
+            }
+
+            if (keycode == Input.Keys.DOWN && PlayerPos.y > 0) {
+                PlayerLayer.setCell((int) PlayerPos.x, (int) PlayerPos.y, null);
+                PlayerPos.set(PlayerPos.x, PlayerPos.y - 1);
+                PlayerLayer.setCell((int) PlayerPos.x, (int) PlayerPos.y, state);
+            }
+        }
+
+        return false;
     }
 }
