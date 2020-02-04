@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
-import com.badlogic.gdx.math.*;
 import Class.*;
 
 public class HelloWorld extends InputAdapter implements ApplicationListener {

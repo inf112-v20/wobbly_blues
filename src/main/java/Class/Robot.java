@@ -1,11 +1,8 @@
 package Class;
 
 import Interface.*;
-import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.tiled.*;
-import com.badlogic.gdx.maps.tiled.tiles.*;
 import com.badlogic.gdx.math.*;
 
 public class Robot implements IRobot {
