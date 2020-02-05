@@ -8,6 +8,9 @@ public interface IRobot {
     this does not need to take in anything or return, because it is an internal action
      */
     void takeDamage();
+
+    void die();
+
     /**
     It shoots the laser
      */

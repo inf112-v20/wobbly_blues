@@ -1,5 +1,6 @@
 package Class;
 
+import Enums.Direction;
 import Interface.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.maps.tiled.*;
@@ -23,6 +24,11 @@ public class Robot implements IRobot {
     }
 
     @Override
+    public void die() {
+
+    }
+
+    @Override
     public void shootLaser() {
 
     }
@@ -38,11 +44,12 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public void creatHand() {
+    public void createHand() {
     }
 
     @Override
-    public void getDirection() {
+    public Direction getDirection() {
+        return null;
     }
 
     public TiledMapTileLayer.Cell getState(){
