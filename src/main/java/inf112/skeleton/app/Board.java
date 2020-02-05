@@ -9,26 +9,50 @@ import com.badlogic.gdx.maps.tiled.tiles.*;
 import Class.*;
 
 public class Board extends InputAdapter implements ApplicationListener {
+
+    /*
+    Creates the map, and the layers with different mappieces.
+     */
     private TiledMap map;
     private TiledMapTileLayer Board;
     private TiledMapTileLayer FlagLayer;
     private TiledMapTileLayer HoleLayer;
     private TiledMapTileLayer PlayerLayer;
+
+    /*
+    The camra and the viewpoint
+     */
     private OrthogonalTiledMapRenderer TMrenderer;
     private OrthographicCamera Camera;
+
+    /*
+    contains the textures of the robot
+     */
     private Texture Robot;
+
+    /*
+    The different states the robot can have it will fill the cell with the related texture
+     */
     private TiledMapTileLayer.Cell Normal;
     private TiledMapTileLayer.Cell Dead;
     private TiledMapTileLayer.Cell Won;
     private TiledMapTileLayer.Cell state;
 
+    /*
+    Creates a robot that reacts to input
+     */
     private Robot robot;
 
     @Override
     public void create() {
+
         creatState();
+        /*Input controller*/
         Gdx.input.setInputProcessor(this);
 
+        /*
+        Loads the map and the layers
+         */
         map = new TmxMapLoader().load("example.xml");
         Board = (TiledMapTileLayer) map.getLayers().get("Board");
         FlagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
@@ -37,10 +61,9 @@ public class Board extends InputAdapter implements ApplicationListener {
 
         Camera = new OrthographicCamera();
         TMrenderer = new OrthogonalTiledMapRenderer(map, (float) 0.00333);
+
         robot = new Robot(Normal);
         state = robot.getState();
-
-        state = Normal;
 
         Camera.setToOrtho(false,5,5);
 
@@ -55,6 +78,7 @@ public class Board extends InputAdapter implements ApplicationListener {
     }
 
     private void creatState(){
+        /*loads the different textures and states to the robot */
         Robot = new Texture(Gdx.files.internal("player.png"));
         Normal = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(Robot,900,300).split(300,300)[0][0]));
         Dead = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(Robot,900,300).split(300,300)[0][1]));
@@ -70,7 +94,9 @@ public class Board extends InputAdapter implements ApplicationListener {
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-
+        /*
+        Checks if the robot has hit a hole or a flag
+         */
         if(HoleLayer.getCell((int)robot.getPosX(),(int)robot.getPosY()) != null) robot.setState(Dead);
         else if(FlagLayer.getCell((int)robot.getPosX(), (int)robot.getPosY()) != null) robot.setState(Won);
         else robot.setState(Normal);
@@ -93,6 +119,8 @@ public class Board extends InputAdapter implements ApplicationListener {
 
     @Override
     public boolean keyUp(int keycode) {
+        /*input controller*/
+
         if(robot.getState()== Dead) System.out.println("You are dead!");
         else if(robot.getState() == Won) System.out.println("You won!");
         else{
