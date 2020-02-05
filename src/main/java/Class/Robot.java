@@ -39,36 +39,30 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public boolean powerDown() {
-        return false;
-    }
+    public boolean powerDown(boolean input) {return input;}
 
     @Override
     public void createHand() {
+
     }
 
     @Override
-    public Direction getDirection() {
-        return null;
-    }
+    public Direction getDirection() {return null;}
 
-    public TiledMapTileLayer.Cell getState(){
-        return state;
-    }
+    @Override
+    public TiledMapTileLayer.Cell getState(){return state;}
 
-    public void setState(TiledMapTileLayer.Cell state){
-        this.state = state;
-    }
-    public void setPos(float x, float y){
-        this.Pos.set(x,y);
-    }
-    public float getPosX(){
-        return Pos.x;
-    }
+    @Override
+    public void setState(TiledMapTileLayer.Cell state){this.state = state;}
 
-    public float getPosY(){
-        return Pos.y;
-    }
+    @Override
+    public void setPos(float x, float y){this.Pos.set(x,y);}
+
+    @Override
+    public float getPosX(){ return Pos.x;}
+
+    @Override
+    public float getPosY(){return Pos.y;}
 
 }
 
