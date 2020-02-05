@@ -1,23 +1,25 @@
 package Class;
 
-import Enums.Direction;
-import Interface.IHand;
-import Interface.IRobot;
+import Interface.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.maps.tiled.*;
+import com.badlogic.gdx.math.*;
 
 public class Robot implements IRobot {
 
-    private int damage;
-    private Direction dir;
-    private IHand hand;
+    private Texture Robot;
+    private TiledMapTileLayer.Cell state;
 
-    public Robot() {
-        damage = 0;
-        dir = Direction.UP;
+    private Vector2 Pos;
+
+    public Robot(TiledMapTileLayer.Cell start){
+        Pos = new Vector2().set(0,0);
+        state = start;
     }
 
     @Override
     public void takeDamage() {
-        damage++;
+
     }
 
     @Override
@@ -36,12 +38,30 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public void createHand() {
-
+    public void creatHand() {
     }
 
     @Override
-    public Direction getDirection() {
-        return dir;
+    public void getDirection() {
     }
+
+    public TiledMapTileLayer.Cell getState(){
+        return state;
+    }
+
+    public void setState(TiledMapTileLayer.Cell state){
+        this.state = state;
+    }
+    public void setPos(float x, float y){
+        this.Pos.set(x,y);
+    }
+    public float getPosX(){
+        return Pos.x;
+    }
+
+    public float getPosY(){
+        return Pos.y;
+    }
+
 }
+
