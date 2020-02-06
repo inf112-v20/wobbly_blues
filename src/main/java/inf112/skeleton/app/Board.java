@@ -121,8 +121,8 @@ public class Board extends InputAdapter implements ApplicationListener {
     public boolean keyUp(int keycode) {
         /*input controller*/
 
-        if(robot.getState()== Dead) System.out.println("You are dead!");
-        else if(robot.getState() == Won) System.out.println("You won!");
+        if(robot.getState()== Dead){System.out.println("You are dead!");System.exit(-1);}
+        else if(robot.getState() == Won){ System.out.println("You won!"); System.exit(-1);}
         else{
             if (keycode == Input.Keys.LEFT && robot.getPosX() > 0) {
                 PlayerLayer.setCell((int) robot.getPosX(), (int) robot.getPosY(), null);
