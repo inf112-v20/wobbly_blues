@@ -13,7 +13,7 @@ public class RobotTest {
         float posX = robot.getPosX();
         float posY = robot.getPosY();
         robot.setPos(posX+1,posY+1);
-        assertEquals((int)robot.getPosX(), (int)posX+1);
-        assertEquals((int)robot.getPosY(), (int)posY+1);
+        assertEquals(robot.getPosX(), posX+1, 0);
+        assertEquals(robot.getPosY(), posY+1, 0);
     }
 }
