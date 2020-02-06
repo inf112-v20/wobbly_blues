@@ -10,7 +10,7 @@ Roller:
 - Hans Martin: Tester (Har lyst til å teste)
 - Sindre: Utvikler (Flink til å kode)
 
-Deloppgave 2
+### Deloppgave 2
 Overordnet mål: Å lage et spill som fungerer og minner om roborally.
 
 Krav til systemet: vi tok vekk ting som ikke er fullstendig essensielle
@@ -42,7 +42,7 @@ Prioritet i dag (31. Jan)
 - Flytte brikken
 - Få koden til å fungere på linux, mac og windows
 
-Deloppgave 3
+### Deloppgave 3
 Prosjektmetodikk: Scrum med fokus på å møtes og jobbe sammen,
  vi liker at det ikke skal være mulig å legge til mer i TODO listen før den er tom,
   men vi vil jobbe nært som i XP. 
@@ -63,9 +63,32 @@ Kommunikasjon mellom møter:
 - Slack og Trello
 
 Arbeidsfordeling:
-- Førstemann til mølla, på likt gjør hver person rollen sin
+- Førstemann til mølla. Hver person gjør oppgavene tilknyttet rollen sin 
 
 Oppfølging av arbeid:
  
  Bruke starten av hvert møte for å diskutere og forklare hva som har blitt gjort
 Deling og oppbevaring av felles dokumenter, diagram og kodebase: Bruke git til codebase, google docs til felles dokumenter.
+
+Brukerhistorier: 
+- Som en spiller trenger jeg et spillebrett for å orientere meg i spillet.
+- Som en spiller trenger jeg en representasjon av brikken for å orientere meg i spillet.
+- Som en spiller trenger jeg en en brikke som kan gjøre ulike handlinger basert på mine
+ tastaturtrykk/kommandoer for å kunne bevege meg i spillet
+ 
+ Arbeidsoppgaver som må gjøres:
+ - lage og dokumentere interfaces
+ - lage et brett som kan vises
+ - lage en brikke som kan flyttes på en måte
+ - teste brett og brikke
+ 
+ ### prosjekt-retrospektiv
+ 
+ Hva gikk bra:
+ 
+ Hva virket ikke: 
+ 
+ Nye aktiviteter/teknologier: 
+ 
+ Hvor bra traff vi på oppgaven?
+   
