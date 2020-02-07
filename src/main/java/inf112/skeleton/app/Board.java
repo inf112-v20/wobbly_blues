@@ -46,7 +46,7 @@ public class Board extends InputAdapter implements ApplicationListener {
     @Override
     public void create() {
 
-        creatState();
+        createState();
         /*Input controller*/
         Gdx.input.setInputProcessor(this);
 
@@ -78,7 +78,7 @@ public class Board extends InputAdapter implements ApplicationListener {
 
     }
 
-    private void creatState(){
+    private void createState(){
         /*loads the different textures and states to the robot */
         sprite = new Texture(Gdx.files.internal("player.png"));
         normal = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(sprite,900,300).split(300,300)[0][0]));
