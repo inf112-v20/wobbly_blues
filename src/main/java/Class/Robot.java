@@ -53,6 +53,16 @@ public class Robot implements IRobot {
     public TiledMapTileLayer.Cell getState(){return state;}
 
     @Override
+    public void setBackup() {
+
+    }
+
+    @Override
+    public Vector2 getBackup() {
+        return null;
+    }
+
+    @Override
     public void setState(TiledMapTileLayer.Cell state){this.state = state;}
 
     @Override

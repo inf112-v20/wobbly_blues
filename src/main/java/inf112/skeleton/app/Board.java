@@ -53,7 +53,7 @@ public class Board extends InputAdapter implements ApplicationListener {
         /*
         Loads the map and the layers
          */
-        map = new TmxMapLoader().load("example.xml");
+        map = new TmxMapLoader().load("fullboard.tmx");
         Board = (TiledMapTileLayer) map.getLayers().get("Board");
         FlagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
         HoleLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
@@ -62,10 +62,11 @@ public class Board extends InputAdapter implements ApplicationListener {
         Camera = new OrthographicCamera();
         TMrenderer = new OrthogonalTiledMapRenderer(map, (float) 0.00333);
 
+
         robot = new Robot(Normal);
         state = robot.getState();
 
-        Camera.setToOrtho(false,5,5);
+        Camera.setToOrtho(false,12,12);
 
         float h = Camera.viewportHeight;
         float w = Camera.viewportWidth;
@@ -120,7 +121,6 @@ public class Board extends InputAdapter implements ApplicationListener {
     @Override
     public boolean keyUp(int keycode) {
         /*input controller*/
-
         if(robot.getState()== Dead){System.out.println("You are dead!");System.exit(-1);}
         else if(robot.getState() == Won){ System.out.println("You won!"); System.exit(-1);}
         else{

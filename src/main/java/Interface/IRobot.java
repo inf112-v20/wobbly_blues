@@ -2,6 +2,7 @@ package Interface;
 
 import Enums.Direction;
 import com.badlogic.gdx.maps.tiled.*;
+import com.badlogic.gdx.math.*;
 
 public interface IRobot {
 
@@ -37,6 +38,12 @@ public interface IRobot {
 
     /*Returns the current state of the robot*/
     TiledMapTileLayer.Cell getState();
+
+    /*sets the backup of the robot, it stores the current pos.*/
+    void setBackup();
+
+    /*returns the backup pos*/
+    Vector2 getBackup();
 
     /*sets the state of the robot*/
     void setState(TiledMapTileLayer.Cell state);
