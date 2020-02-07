@@ -1,6 +1,5 @@
 package Interface;
 
-import Enums.Direction;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.math.*;
 
@@ -29,12 +28,6 @@ public interface IRobot {
     Creates the hand that holds the program cards that relates to that robot
      */
     void createHand();
-
-    /**
-     *
-     * @return the direction the robot is facing
-     */
-    Direction getDirection();
 
     /*Returns the current state of the robot*/
     TiledMapTileLayer.Cell getState();

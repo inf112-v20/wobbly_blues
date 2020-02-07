@@ -1,14 +1,11 @@
 package Class;
 
-import Enums.Direction;
 import Interface.*;
-import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.math.*;
 
 public class Robot implements IRobot {
 
-    private Texture Robot;
     private TiledMapTileLayer.Cell state;
 
     private Vector2 Pos;
@@ -45,9 +42,6 @@ public class Robot implements IRobot {
     public void createHand() {
 
     }
-
-    @Override
-    public Direction getDirection() {return null;}
 
     @Override
     public TiledMapTileLayer.Cell getState(){return state;}
