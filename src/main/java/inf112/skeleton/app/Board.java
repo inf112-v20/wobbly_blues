@@ -53,7 +53,7 @@ public class Board extends InputAdapter implements ApplicationListener {
         /*
         Loads the map and the layers
          */
-        map = new TmxMapLoader().load("fullboard.tmx");
+        map = new TmxMapLoader().load("example.xml");
         Board = (TiledMapTileLayer) map.getLayers().get("Board");
         FlagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
         HoleLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
@@ -66,7 +66,7 @@ public class Board extends InputAdapter implements ApplicationListener {
         robot = new Robot(Normal);
         state = robot.getState();
 
-        Camera.setToOrtho(false,12,12);
+        Camera.setToOrtho(false,5,5);
 
         float h = Camera.viewportHeight;
         float w = Camera.viewportWidth;
