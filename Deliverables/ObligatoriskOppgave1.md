@@ -84,11 +84,11 @@ Brukerhistorier:
  
  ### prosjekt-retrospektiv
  
- Hva gikk bra:
+ Hva gikk bra: Vi klarte å gjøre oppgaven, og fikk til å laste inn textures
  
- Hva virket ikke: 
+ Hva virket ikke: Litt dårlig kommunikasjon, vanskelig å lage tester
  
- Nye aktiviteter/teknologier: 
+ Nye aktiviteter/teknologier: Scene2D
  
- Hvor bra traff vi på oppgaven?
+ Hvor bra traff vi på oppgaven? Vi traff veldig bra
    
