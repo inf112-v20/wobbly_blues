@@ -1,7 +1,7 @@
 package inf112.skeleton.app;
 
 import org.junit.Test;
-import Class.*;
+import classes.*;
 
 import static org.junit.Assert.assertEquals;
 

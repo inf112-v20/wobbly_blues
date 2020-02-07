@@ -1,6 +1,6 @@
-package Class;
+package classes;
 
-import Interface.IPosition;
+import interfaces.IPosition;
 
 public class Position implements IPosition {
     private int x;

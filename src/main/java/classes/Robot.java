@@ -1,7 +1,7 @@
-package Class;
+package classes;
 
-import Enums.Direction;
-import Interface.*;
+import enums.Direction;
+import interfaces.*;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.math.*;
 

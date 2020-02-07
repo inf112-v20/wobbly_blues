@@ -1,6 +1,6 @@
-package Interface;
+package interfaces;
 
-import Enums.Direction;
+import enums.Direction;
 
 public interface IMap {
     void setCell();

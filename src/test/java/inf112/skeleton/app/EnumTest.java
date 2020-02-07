@@ -2,7 +2,7 @@ package inf112.skeleton.app;
 
 import static org.junit.Assert.assertEquals;
 
-import Enums.Direction;
+import enums.Direction;
 import org.junit.Test;
 
 public class EnumTest {

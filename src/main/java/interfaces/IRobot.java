@@ -1,6 +1,6 @@
-package Interface;
+package interfaces;
 
-import Enums.Direction;
+import enums.Direction;
 import com.badlogic.gdx.maps.tiled.*;
 
 public interface IRobot {
