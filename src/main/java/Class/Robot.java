@@ -2,13 +2,11 @@ package Class;
 
 import Enums.Direction;
 import Interface.*;
-import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.math.*;
 
 public class Robot implements IRobot {
 
-    private Texture Robot;
     private TiledMapTileLayer.Cell state;
 
     private Vector2 Pos;
