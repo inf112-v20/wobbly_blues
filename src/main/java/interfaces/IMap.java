@@ -1,5 +1,6 @@
 package interfaces;
 
+import cells.BlankCell;
 import enums.Direction;
 
 public interface IMap {
@@ -8,4 +9,5 @@ public interface IMap {
     ICell getCell(IPosition pos);
     void createRobot();
 
+    void addCell(int i, int j, ICell cell);
 }
