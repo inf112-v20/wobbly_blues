@@ -1,13 +1,10 @@
 package interfaces;
 
-import java.util.List;
-
 public interface IHand {
     /**
-     * HUSKER IKKE
-     * @param cards A list of cards in hand.
+     * Holds the players cards in hand.
      */
-    void holdCards(List<ICard> cards);
+    void holdCards();
 
     /**
      * Removes cards from hand.
