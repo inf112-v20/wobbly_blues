@@ -1,5 +1,6 @@
 package inf112.skeleton.app;
 
+import classes.*;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -9,6 +10,8 @@ import com.badlogic.gdx.maps.tiled.tiles.*;
 import classes.*;
 
 public class Board extends InputAdapter implements ApplicationListener {
+
+    private Card_Left cardLeft;
 
     /*
     Creates the map, and the layers with different mappieces.
@@ -22,7 +25,7 @@ public class Board extends InputAdapter implements ApplicationListener {
     /*
     The camra and the viewpoint
      */
-    private OrthogonalTiledMapRenderer tMrenderer;
+    private OrthogonalTiledMapRenderer TMrenderer;
     private OrthographicCamera camera;
 
     /*
@@ -60,13 +63,15 @@ public class Board extends InputAdapter implements ApplicationListener {
         playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
 
         camera = new OrthographicCamera();
-        tMrenderer = new OrthogonalTiledMapRenderer(map, (float) 0.00333);
+        TMrenderer = new OrthogonalTiledMapRenderer(map, (float) 0.00333);
 
 
         robot = new Robot(normal);
         state = robot.getState();
 
-        camera.setToOrtho(false,12,12);
+        cardLeft = new Card_Left(robot);
+
+        camera.setToOrtho(false,5,5);
 
         float h = camera.viewportHeight;
         float w = camera.viewportWidth;
@@ -74,8 +79,7 @@ public class Board extends InputAdapter implements ApplicationListener {
         camera.position.set(h/2,w/2,0);
         camera.update();
 
-        tMrenderer.setView(camera);
-
+        TMrenderer.setView(camera);
     }
 
     private void createState(){
@@ -88,7 +92,7 @@ public class Board extends InputAdapter implements ApplicationListener {
 
     @Override
     public void dispose(){
-        tMrenderer.dispose();
+        TMrenderer.dispose();
     }
 
     @Override
@@ -103,7 +107,7 @@ public class Board extends InputAdapter implements ApplicationListener {
         else robot.setState(normal);
 
         playerLayer.setCell((int)robot.getPosX(),(int)robot.getPosY(),robot.getState());
-        tMrenderer.render();
+        TMrenderer.render();
     }
 
     @Override
@@ -121,7 +125,9 @@ public class Board extends InputAdapter implements ApplicationListener {
     @Override
     public boolean keyUp(int keycode) {
         /*input controller*/
-        if(robot.getState()== dead){System.out.println("You are dead!");System.exit(-1);}
+        if(robot.getState()== dead){
+            System.out.println("You are dead!");
+            Gdx.app.exit();}
         else if(robot.getState() == won){ System.out.println("You won!"); System.exit(-1);}
         else{
             if (keycode == Input.Keys.LEFT && robot.getPosX() > 0) {
