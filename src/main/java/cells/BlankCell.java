@@ -1,4 +1,7 @@
 package cells;
 
-public class BlankCell {
+import interfaces.ICell;
+
+public class BlankCell implements ICell {
+
 }
