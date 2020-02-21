@@ -1,13 +1,11 @@
-package inf112.skeleton.app;
+package deprecated;
 
 import cells.BlankCell;
 import cells.FlagCell;
 import cells.HoleCell;
-import classes.Map;
-import classes.ParseXML;
-import classes.ReadXML;
-import interfaces.ICell;
-import interfaces.IMap;
+import deprecated.classes.Map;
+import deprecated.classes.ParseXML;
+import deprecated.classes.ReadXML;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

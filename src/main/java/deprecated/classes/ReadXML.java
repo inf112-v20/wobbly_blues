@@ -1,4 +1,4 @@
-package classes;
+package deprecated.classes;
 
 
 import java.io.*;
@@ -14,11 +14,8 @@ public class ReadXML {
     public int[][][] readFile(int x, int y, int z) {
         int[][][] result = new int[x][y][z];
 
-        BufferedReader reader = null;
 
-
-        try {
-            reader = new BufferedReader(new FileReader(file));
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String text;
 
             //i = row index, j = column index, k = cell index
@@ -35,7 +32,7 @@ public class ReadXML {
                     read = false;
                     k++;
                 }
-                if(read) {
+                if (read) {
                     String[] line = text.split(",");
                     for (String str : line) {
                         result[i][j][k] = Integer.parseInt(str);
@@ -45,17 +42,8 @@ public class ReadXML {
                     j = 0;
                 }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException e) {
-            }
         }
 
         //print out the list

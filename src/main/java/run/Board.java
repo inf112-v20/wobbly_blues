@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package run;
 
 import classes.*;
 import com.badlogic.gdx.*;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
+import deprecated.classes.Map;
 
 public class Board extends InputAdapter implements ApplicationListener {
 
@@ -42,8 +43,8 @@ public class Board extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell won;
     private TiledMapTileLayer.Cell state;
 
-    final int WIDTH = 5;
-    final int HEIGHT = 5;
+    final int WIDTH = 12;
+    final int HEIGHT = 12;
 
     /*
     Creates a robot that reacts to input
@@ -52,8 +53,6 @@ public class Board extends InputAdapter implements ApplicationListener {
 
     @Override
     public void create() {
-
-        map = new Map(WIDTH,HEIGHT);
 
         createState();
         /*Input controller*/

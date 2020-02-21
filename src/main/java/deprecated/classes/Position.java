@@ -1,6 +1,6 @@
-package classes;
+package deprecated.classes;
 
-import interfaces.IPosition;
+import deprecated.interfaces.IPosition;
 
 public class Position implements IPosition {
     private int x;

@@ -1,9 +1,9 @@
-package classes;
+package deprecated.classes;
 
+import deprecated.interfaces.IMap;
+import deprecated.interfaces.IPosition;
 import enums.Direction;
 import interfaces.ICell;
-import interfaces.IMap;
-import interfaces.IPosition;
 
 import java.util.ArrayList;
 

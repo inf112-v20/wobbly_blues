@@ -1,5 +1,7 @@
 package interfaces;
 
+import deprecated.interfaces.IPosition;
+
 public interface IMapPiece {
 
     void setPos(IPosition pos);

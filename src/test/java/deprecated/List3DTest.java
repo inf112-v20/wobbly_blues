@@ -1,8 +1,9 @@
-package inf112.skeleton.app;
+package deprecated;
 
 import cells.BlankCell;
-import classes.List3D;
+import deprecated.classes.List3D;
 import interfaces.ICell;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
