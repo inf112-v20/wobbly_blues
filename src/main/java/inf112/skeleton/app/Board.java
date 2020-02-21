@@ -7,16 +7,17 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
-import classes.*;
 
 public class Board extends InputAdapter implements ApplicationListener {
 
     private Card_Left cardLeft;
 
+    private Map map;
+
     /*
     Creates the map, and the layers with different mappieces.
      */
-    private TiledMap map;
+    private TiledMap tileMapp;
     private TiledMapTileLayer board;
     private TiledMapTileLayer flagLayer;
     private TiledMapTileLayer holeLayer;
@@ -41,6 +42,9 @@ public class Board extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell won;
     private TiledMapTileLayer.Cell state;
 
+    final int WIDTH = 5;
+    final int HEIGHT = 5;
+
     /*
     Creates a robot that reacts to input
      */
@@ -49,6 +53,8 @@ public class Board extends InputAdapter implements ApplicationListener {
     @Override
     public void create() {
 
+        map = new Map(WIDTH,HEIGHT);
+
         createState();
         /*Input controller*/
         Gdx.input.setInputProcessor(this);
@@ -56,14 +62,14 @@ public class Board extends InputAdapter implements ApplicationListener {
         /*
         Loads the map and the layers
          */
-        map = new TmxMapLoader().load("fullboard.tmx");
-        board = (TiledMapTileLayer) map.getLayers().get("Board");
-        flagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
-        holeLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
-        playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
+        tileMapp = new TmxMapLoader().load("fullboard.tmx");
+        board = (TiledMapTileLayer) tileMapp.getLayers().get("Board");
+        flagLayer = (TiledMapTileLayer) tileMapp.getLayers().get("Flag");
+        holeLayer = (TiledMapTileLayer) tileMapp.getLayers().get("Hole");
+        playerLayer = (TiledMapTileLayer) tileMapp.getLayers().get("Player");
 
         camera = new OrthographicCamera();
-        TMrenderer = new OrthogonalTiledMapRenderer(map, (float) 0.00333);
+        TMrenderer = new OrthogonalTiledMapRenderer(tileMapp, (float) 0.00333);
 
 
         robot = new Robot(normal);
@@ -71,7 +77,7 @@ public class Board extends InputAdapter implements ApplicationListener {
 
         cardLeft = new Card_Left(robot);
 
-        camera.setToOrtho(false,5,5);
+        camera.setToOrtho(false,WIDTH,HEIGHT);
 
         float h = camera.viewportHeight;
         float w = camera.viewportWidth;
