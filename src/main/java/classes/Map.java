@@ -1,9 +1,9 @@
 package classes;
 
+import com.badlogic.gdx.math.Vector2;
 import enums.Direction;
 import interfaces.ICell;
 import interfaces.IMap;
-import interfaces.IPosition;
 
 import java.util.ArrayList;
 
@@ -11,24 +11,37 @@ public class Map implements IMap {
 
     List3D<ICell> mapList;
 
-    public Map(int x, int y){
-        mapList = new List3D<>(x, y);
+    public Map(int w, int h){
+        mapList = new List3D<>(w, h);
     }
 
-
-    @Override
-    public void setCell() {
-
+    public int getWidth(){
+        return mapList.getWidth();
     }
 
-    @Override
-    public boolean canGo(Direction dir) {
-        return false;
+    public int getHeight() {
+        return mapList.getHeight();
     }
 
     @Override
-    public ICell getCell(IPosition pos) {
-        return null;
+    public void setCell(){
+    }
+
+    @Override
+    public boolean canGo(int x, int y, Direction dir) {
+        switch (dir){
+            case DOWN:
+                getCellsAtPos(x, y-1);
+                return false;
+            case UP:
+                return false;
+            case RIGHT:
+                return false;
+            case LEFT:
+                return false;
+            default:
+                return false;
+        }
     }
 
     public ArrayList<ICell> getCellsAtPos(int x, int y) {

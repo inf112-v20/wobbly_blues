@@ -9,10 +9,11 @@ public class Robot implements IRobot {
 
     private TiledMapTileLayer.Cell state;
 
-    private Vector2 Pos;
+    private int x, y;
 
     public Robot(TiledMapTileLayer.Cell start){
-        Pos = new Vector2().set(0,0);
+        x = 0;
+        y = 0;
         state = start;
     }
 
@@ -54,13 +55,16 @@ public class Robot implements IRobot {
     public void setState(TiledMapTileLayer.Cell state){this.state = state;}
 
     @Override
-    public void setPos(float x, float y){this.Pos.set(x,y);}
+    public void setPos(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
 
     @Override
-    public float getPosX(){ return Pos.x;}
+    public int getPosX(){ return x;}
 
     @Override
-    public float getPosY(){return Pos.y;}
+    public int getPosY(){return y;}
 
 }
 
