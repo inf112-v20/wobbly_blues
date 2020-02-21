@@ -17,6 +17,14 @@ public class List3D<T> {
         }
     }
 
+    public int getWidth(){
+        return list.size();
+    }
+
+    public int getHeight(){
+        return list.get(0).size();
+    }
+
     public T get(int x,int y,int z){
         return list.get(x).get(y).get(z);
     }
