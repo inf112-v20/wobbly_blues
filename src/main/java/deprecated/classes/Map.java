@@ -1,7 +1,6 @@
 package deprecated.classes;
 
 import deprecated.interfaces.IMap;
-import deprecated.interfaces.IPosition;
 import enums.Direction;
 import interfaces.ICell;
 

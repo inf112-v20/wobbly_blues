@@ -1,12 +1,12 @@
 package interfaces;
 
-import deprecated.interfaces.IPosition;
 
 public interface IMapPiece {
 
-    void setPos(IPosition pos);
+    void setPos(int x, int y);
 
-    IPosition getPos();
+    int getX();
+    int getY();
 
     /**
      * Do an end of the turn action based on the type of the map piece
