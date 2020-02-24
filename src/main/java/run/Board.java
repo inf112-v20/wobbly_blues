@@ -7,27 +7,25 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
-import deprecated.classes.Map;
+import enums.Direction;
 
 public class Board extends InputAdapter implements ApplicationListener {
 
     private Card_Left cardLeft;
-
-    private Map map;
-
     /*
     Creates the map, and the layers with different mappieces.
      */
-    private TiledMap tileMapp;
-    private TiledMapTileLayer board;
-    private TiledMapTileLayer flagLayer;
-    private TiledMapTileLayer holeLayer;
-    private TiledMapTileLayer playerLayer;
+    Map map;
+//    private TiledMap tiledMap;
+//    private TiledMapTileLayer board;
+//    private TiledMapTileLayer flagLayer;
+//    private TiledMapTileLayer holeLayer;
+//    private TiledMapTileLayer playerLayer;
 
     /*
     The camra and the viewpoint
      */
-    private OrthogonalTiledMapRenderer TMrenderer;
+//    private OrthogonalTiledMapRenderer TMrenderer;
     private OrthographicCamera camera;
 
     /*
@@ -61,30 +59,33 @@ public class Board extends InputAdapter implements ApplicationListener {
         /*
         Loads the map and the layers
          */
-        tileMapp = new TmxMapLoader().load("fullboard.tmx");
-        board = (TiledMapTileLayer) tileMapp.getLayers().get("Board");
-        flagLayer = (TiledMapTileLayer) tileMapp.getLayers().get("Flag");
-        holeLayer = (TiledMapTileLayer) tileMapp.getLayers().get("Hole");
-        playerLayer = (TiledMapTileLayer) tileMapp.getLayers().get("Player");
+
+//        tiledMap = new TmxMapLoader().load("fullboard.tmx");
+//        board = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
+//        flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
+//        holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
+//        playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
 
         camera = new OrthographicCamera();
-        TMrenderer = new OrthogonalTiledMapRenderer(tileMapp, (float) 0.00333);
+//        TMrenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 0.00333);
 
 
         robot = new Robot(normal);
         state = robot.getState();
-
+        map = new Map();
         cardLeft = new Card_Left(robot);
 
         camera.setToOrtho(false,WIDTH,HEIGHT);
+
+        map.setPlayer(robot);
 
         float h = camera.viewportHeight;
         float w = camera.viewportWidth;
 
         camera.position.set(h/2,w/2,0);
         camera.update();
-
-        TMrenderer.setView(camera);
+        map.setCamera(camera);
+//        TMrenderer.setView(camera);
     }
 
     private void createState(){
@@ -97,7 +98,7 @@ public class Board extends InputAdapter implements ApplicationListener {
 
     @Override
     public void dispose(){
-        TMrenderer.dispose();
+//        TMrenderer.dispose();
     }
 
     @Override
@@ -107,12 +108,14 @@ public class Board extends InputAdapter implements ApplicationListener {
         /*
         Checks if the robot has hit a hole or a flag
          */
-        if(holeLayer.getCell((int)robot.getPosX(),(int)robot.getPosY()) != null) robot.setState(dead);
-        else if(flagLayer.getCell((int)robot.getPosX(), (int)robot.getPosY()) != null) robot.setState(won);
+//        if(holeLayer.getCell((int)robot.getPosX(),(int)robot.getPosY()) != null) robot.setState(dead);
+//        else if(flagLayer.getCell((int)robot.getPosX(), (int)robot.getPosY()) != null) robot.setState(won);
+        if(map.isHole(robot.getPosX(),robot.getPosY())) robot.setState(dead);
+        else if(map.isFlag(robot.getPosX(),robot.getPosY())) robot.setState(won);
         else robot.setState(normal);
 
-        playerLayer.setCell((int)robot.getPosX(),(int)robot.getPosY(),robot.getState());
-        TMrenderer.render();
+        map.moveRobot(robot);
+        map.render();
     }
 
     @Override
@@ -136,27 +139,19 @@ public class Board extends InputAdapter implements ApplicationListener {
         else if(robot.getState() == won){ System.out.println("You won!"); System.exit(-1);}
         else{
             if (keycode == Input.Keys.LEFT && robot.getPosX() > 0) {
-                playerLayer.setCell((int) robot.getPosX(), (int) robot.getPosY(), null);
-                robot.setPos(robot.getPosX() - 1, robot.getPosY());
-                playerLayer.setCell((int) robot.getPosX(), (int) robot.getPosY(), robot.getState());
+                map.moveRobot(robot,Direction.LEFT);
             }
 
             if (keycode == Input.Keys.RIGHT && robot.getPosX() < camera.viewportWidth-1) {
-                playerLayer.setCell((int) robot.getPosX(), (int) robot.getPosY(), null);
-                robot.setPos(robot.getPosX() + 1, robot.getPosY());
-                playerLayer.setCell((int) robot.getPosX(), (int) robot.getPosY(), robot.getState());
+                map.moveRobot(robot, Direction.RIGHT);
             }
 
             if (keycode == Input.Keys.UP && robot.getPosY() < camera.viewportHeight-1) {
-                playerLayer.setCell((int) robot.getPosX(), (int) robot.getPosY(), null);
-                robot.setPos(robot.getPosX(), robot.getPosY() + 1);
-                playerLayer.setCell((int) robot.getPosX(), (int) robot.getPosY(), robot.getState());
+                map.moveRobot(robot, Direction.UP);
             }
 
             if (keycode == Input.Keys.DOWN && robot.getPosY() > 0) {
-                playerLayer.setCell((int) robot.getPosX(), (int) robot.getPosY(), null);
-                robot.setPos(robot.getPosX() , robot.getPosY() - 1);
-                playerLayer.setCell((int) robot.getPosX(), (int) robot.getPosY(), robot.getState());
+                map.moveRobot(robot, Direction.DOWN);
             }
         }
         return false;
