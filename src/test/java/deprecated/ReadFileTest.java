@@ -1,6 +1,6 @@
-package inf112.skeleton.app;
+package deprecated;
 
-import classes.ReadXML;
+import deprecated.classes.ReadXML;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

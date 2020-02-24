@@ -1,9 +1,9 @@
-package classes;
+package deprecated.classes;
 
-import com.badlogic.gdx.math.Vector2;
+import deprecated.interfaces.IMap;
+import deprecated.interfaces.IPosition;
 import enums.Direction;
 import interfaces.ICell;
-import interfaces.IMap;
 
 import java.util.ArrayList;
 

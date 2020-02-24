@@ -1,8 +1,8 @@
-package interfaces;
+package deprecated.interfaces;
 
 import cells.BlankCell;
-import com.badlogic.gdx.math.Vector2;
 import enums.Direction;
+import interfaces.ICell;
 
 public interface IMap {
     void setCell();

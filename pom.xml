@@ -31,6 +31,11 @@
       <artifactId>gdx-backend-lwjgl</artifactId>
       <version>1.9.10</version>
     </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>3.2.4</version>
+    </dependency>
 
     <dependency>
       <groupId>com.badlogicgames.gdx</groupId>
@@ -43,6 +48,12 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-backend-headless</artifactId>
+      <version>1.9.10</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

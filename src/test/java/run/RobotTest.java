@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package run;
 
 import org.junit.Test;
 import classes.*;
