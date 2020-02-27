@@ -1,4 +1,4 @@
-package cells;
+package deprecated.classes;
 
 import enums.Direction;
 

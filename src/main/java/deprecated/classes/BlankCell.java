@@ -1,8 +1,8 @@
-package cells;
+package deprecated.classes;
 
 import interfaces.ICell;
 
-public class HoleCell implements ICell {
+public class BlankCell implements ICell {
 
     public String toString(){
         return "BlankCell";

@@ -1,6 +1,5 @@
 package deprecated.interfaces;
 
-import cells.BlankCell;
 import enums.Direction;
 import interfaces.ICell;
 
