@@ -42,11 +42,11 @@ public interface IRobot {
     void setState(TiledMapTileLayer.Cell state);
 
     /*sets the current Pos of the robot in a Vector2(2dvector)*/
-    void setPos(float x, float y);
+    void setPos(int x, int y);
 
     /*returns the Y of the robot*/
-    float getPosX();
+    int getPosX();
 
     /*returns the X of the robot*/
-    float getPosY();
+    int getPosY();
 }
