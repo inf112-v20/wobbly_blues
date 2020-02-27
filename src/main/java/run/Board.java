@@ -13,7 +13,7 @@ public class Board extends InputAdapter implements ApplicationListener {
 
     private Card_Left cardLeft;
     /*
-    Creates the map, and the layers with different mappieces.
+    Creates the map, and the layers with different map pieces.
      */
     Map map;
 //    private TiledMap tiledMap;
@@ -25,7 +25,7 @@ public class Board extends InputAdapter implements ApplicationListener {
     /*
     The camra and the viewpoint
      */
-//    private OrthogonalTiledMapRenderer TMrenderer;
+    private OrthogonalTiledMapRenderer TMRenderer;
     private OrthographicCamera camera;
 
     /*
@@ -67,7 +67,6 @@ public class Board extends InputAdapter implements ApplicationListener {
 //        playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
 
         camera = new OrthographicCamera();
-//        TMrenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 0.00333);
 
 
         robot = new Robot(normal);
@@ -81,11 +80,12 @@ public class Board extends InputAdapter implements ApplicationListener {
 
         float h = camera.viewportHeight;
         float w = camera.viewportWidth;
-
         camera.position.set(h/2,w/2,0);
         camera.update();
-        map.setCamera(camera);
-//        TMrenderer.setView(camera);
+
+        TMRenderer = new OrthogonalTiledMapRenderer(map.getMap(), (float) 0.00333);
+        TMRenderer.setView(camera);
+        TMRenderer.setView(camera);
     }
 
     private void createState(){
@@ -98,7 +98,7 @@ public class Board extends InputAdapter implements ApplicationListener {
 
     @Override
     public void dispose(){
-//        TMrenderer.dispose();
+        TMRenderer.dispose();
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Board extends InputAdapter implements ApplicationListener {
         else robot.setState(normal);
 
         map.moveRobot(robot);
-        map.render();
+        TMRenderer.render();
     }
 
     @Override
@@ -133,25 +133,24 @@ public class Board extends InputAdapter implements ApplicationListener {
     @Override
     public boolean keyUp(int keycode) {
         /*input controller*/
-        if(robot.getState()== dead){
+        if(robot.getState() == dead){
             System.out.println("You are dead!");
             Gdx.app.exit();}
         else if(robot.getState() == won){ System.out.println("You won!"); System.exit(-1);}
         else{
-            if (keycode == Input.Keys.LEFT && robot.getPosX() > 0) {
-                map.moveRobot(robot,Direction.LEFT);
-            }
-
-            if (keycode == Input.Keys.RIGHT && robot.getPosX() < camera.viewportWidth-1) {
-                map.moveRobot(robot, Direction.RIGHT);
-            }
-
-            if (keycode == Input.Keys.UP && robot.getPosY() < camera.viewportHeight-1) {
-                map.moveRobot(robot, Direction.UP);
-            }
-
-            if (keycode == Input.Keys.DOWN && robot.getPosY() > 0) {
-                map.moveRobot(robot, Direction.DOWN);
+            switch (keycode){
+                case Input.Keys.LEFT:
+                    map.moveRobot(robot,Direction.LEFT);
+                    break;
+                case Input.Keys.RIGHT:
+                    map.moveRobot(robot, Direction.RIGHT);
+                    break;
+                case Input.Keys.UP:
+                    map.moveRobot(robot, Direction.UP);
+                    break;
+                case Input.Keys.DOWN:
+                    map.moveRobot(robot, Direction.DOWN);
+                    break;
             }
         }
         return false;
