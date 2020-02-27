@@ -1,3 +1,6 @@
+/*
+  Code copied from https://github.com/TomGrill/gdx-testing all credit goes to Tom Grill
+ */
 package testrunner;
 
 
