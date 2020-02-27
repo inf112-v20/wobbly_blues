@@ -9,6 +9,8 @@ import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
 import classes.*;
 
+import java.util.*;
+
 public class Board extends InputAdapter implements ApplicationListener {
 
     private Card_Left cardLeft;
@@ -39,8 +41,6 @@ public class Board extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell normal;
     private TiledMapTileLayer.Cell dead;
     private TiledMapTileLayer.Cell won;
-    private TiledMapTileLayer.Cell state;
-
     /*
     Creates a robot that reacts to input
      */
@@ -67,11 +67,10 @@ public class Board extends InputAdapter implements ApplicationListener {
 
 
         robot = new Robot(normal);
-        state = robot.getState();
 
         cardLeft = new Card_Left(robot);
 
-        camera.setToOrtho(false,5,5);
+        camera.setToOrtho(false,12,12);
 
         float h = camera.viewportHeight;
         float w = camera.viewportWidth;
