@@ -1,5 +1,6 @@
 package run;
 
+import classes.Map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import org.junit.Test;
@@ -16,7 +17,7 @@ public class TestWithoutRunner {
     public void testWithoutRunner() {
         //This should be a null pointer exception
         try {
-            TiledMap tileMap = new TmxMapLoader().load("fullboard.tmx");
+            Map map = new Map();
         } catch (NullPointerException exp){
             return;
         }
