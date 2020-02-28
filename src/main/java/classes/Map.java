@@ -30,17 +30,8 @@ public class Map {
 
     }
 
-
-    public boolean isHole(float x, float y){
-        return isHole((int)x,(int)y);
-    }
-
     public boolean isHole(int x, int y){
         return holeLayer.getCell(x,y) != null;
-    }
-
-    public boolean isFlag(float x, float y){
-        return isFlag((int)x,(int)y);
     }
 
     public boolean isFlag(int x, int y){
