@@ -2,10 +2,8 @@ package run;
 
 import classes.Map;
 import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import testrunner.GdxTestRunner;
@@ -24,7 +22,6 @@ public class TestMapInit {
         TiledMap mapt = map.getMap();
         MapLayer lsr = mapt.getLayers().get("Laser");
         TiledMapTileLayer lyr = (TiledMapTileLayer) mapt.getLayers().get("Belt");
-        TiledMapTileMapObject ts = (TiledMapTileMapObject) lsr.getObjects().get(0);
         System.out.println(lyr.getCell(5,5).getRotation());
     }
 }
