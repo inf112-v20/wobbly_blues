@@ -1,8 +1,8 @@
 package deprecated;
 
-import cells.BlankCell;
-import cells.FlagCell;
-import cells.HoleCell;
+import deprecated.classes.BlankCell;
+import deprecated.classes.FlagCell;
+import deprecated.classes.HoleCell;
 import deprecated.classes.Map;
 import deprecated.classes.ParseXML;
 import deprecated.classes.ReadXML;

@@ -1,9 +1,8 @@
 package deprecated;
 
-import cells.BlankCell;
+import deprecated.classes.BlankCell;
 import deprecated.classes.List3D;
 import interfaces.ICell;
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

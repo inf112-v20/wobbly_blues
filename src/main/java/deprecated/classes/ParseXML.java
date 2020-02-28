@@ -1,8 +1,5 @@
 package deprecated.classes;
 
-import cells.BlankCell;
-import cells.FlagCell;
-import cells.HoleCell;
 import deprecated.interfaces.IMap;
 
 public class ParseXML {
