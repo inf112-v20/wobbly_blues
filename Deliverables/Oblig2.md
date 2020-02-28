@@ -1,6 +1,6 @@
-Oppgave 2
+##Oppgave 2
 
-Deloppgave 1: Prosjekt og prosjektstruktur
+###Deloppgave 1: Prosjekt og prosjektstruktur
 
 Hvordan fungerer rollene i teamet? Trenger dere å oppdatere hvem som er teamlead eller kundekontakt? 
 
@@ -51,7 +51,7 @@ Bli enige om maks tre forbedringspunkter fra retrospektivet, som skal følges op
     Bedre til å bruke Trello, vi vurderer å 
     Bli bedre til å arrangere møter
 
-Deloppgave 2: krav
+###Deloppgave 2: krav
 
 For hvert krav dere jobber med, må dere lage 
 1) ordentlige brukerhistorier
@@ -89,19 +89,21 @@ Forklar kort hvordan dere har prioritert oppgavene fremover
     Turn Handler er prioritet, det er viktig å få logikken i spillet til å fungere, å implementere cards er en essensiell del av Turn Handler, så det er også prioritet. Ellers vil vi jobbe litt med scenes, så vi kan få en oversikt over å lage forskjellige menyer og grafiske grensesnitt. Noen scenes vi skal lage inneholder kort, så det må implementers.
 
 Forklar kort hvilke hovedkrav dere anser som en del av MVP og hvorfor. Hvis det er gjort endringer i rekkefølge ut ifra hva som er gitt fra kunde, hvorfor er dette gjort?
-Spillbrett
-Vise en og/eller flere roboter
-Flytte en brikke med kort
-Vise flagg og hull på brett
-Kunne dø og vinne
-Dele ut kort
-Registrere at en robot har vært innom et flagg
-Håndtere konflikter i bevegelser
-
-Vi har valgt å prioritere dette først for å få en grei start for videre utvikling.
+    
+    Spillbrett
+    Vise en og/eller flere roboter
+    Flytte en brikke med kort
+    Vise flagg og hull på brett
+    Kunne dø og vinne
+    Dele ut kort
+    Registrere at en robot har vært innom et flagg
+    Håndtere konflikter i bevegelser
+    
+    Vi har valgt å prioritere dette først for å få en grei start for videre utvikling.
 
 Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang.
-Vi har absolutt prioritet å få lagd et logisk spillbrett i form av Map. Det vi har gjort siden forrige gang er å få styr på strukturen til Map (bruk av TIledMap) og flyttet dette mye ut av grafikken. Vi har også startet lett på en implementasjon av Kort
+
+    Vi har absolutt prioritet å få lagd et logisk spillbrett i form av Map. Det vi har gjort siden forrige gang er å få styr på strukturen til Map (bruk av TIledMap) og flyttet dette mye ut av grafikken. Vi har også startet lett på en implementasjon av Kort    
 
 Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det finnes bugs).
 
@@ -124,13 +126,10 @@ Kodekvalitet og testdekning vektlegges. Merk at testene dere skriver skal brukes
 
 Utførte oppgaver skal være ferdige.
 Lever klassediagram. (Hvis det er veldig mange klasser, lager dere for de viktigste.)
-
-
+    
+   ![](Oblig2UML.png)
 
 
 Hvis dere tester manuelt: lever beskrivelser av hvordan testen foregår, slik at gruppeleder kan utføre testen selv.
 
-
-
-
-![](Oblig2UML.png)
+    
