@@ -9,7 +9,7 @@ import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
 import enums.Direction;
 
-public class Board extends InputAdapter implements ApplicationListener {
+public class Game extends InputAdapter implements ApplicationListener {
 
     /*
     Creates the map, and the layers with different map pieces.
