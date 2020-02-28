@@ -56,9 +56,10 @@ Bli enige om maks tre forbedringspunkter fra retrospektivet, som skal følges op
 
 For hvert krav dere jobber med, må dere lage 
 1) ordentlige brukerhistorier
-2) akseptansekriterier 
-3)arbeidsoppgaver. 
+2) akseptansekriterier
+3) arbeidsoppgaver 
 Husk at akseptansekriterier ofte skrives mer eller mindre som tester
+
 
     Krav fremover:
         Implimentere ulike GUI’er som representerer meny, spill, og andre ting
