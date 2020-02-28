@@ -59,7 +59,6 @@ For hvert krav dere jobber med, må dere lage
 3)arbeidsoppgaver. 
 Husk at akseptansekriterier ofte skrives mer eller mindre som tester
 
-
     Krav fremover:
         Implimentere ulike GUI’er som representerer meny, spill, og andre ting
     Brukerhistorier:
@@ -81,8 +80,6 @@ Husk at akseptansekriterier ofte skrives mer eller mindre som tester
     Arbeidsoppgaver
         Implementere en abstrakt klasse som kan initialiseres som et hvilket som helst kort fra det ekte spille
         Lage turn handler som kan flytte brikkene basert på kortenes effekt
-
-
 
 Forklar kort hvordan dere har prioritert oppgavene fremover
     
@@ -109,7 +106,6 @@ Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det 
 
     Vi hadde en liten bug med keyup funksjonen, som vi beholder for å teste flytting av brikker. Den er fikset.
     Det har også vært noen små tweaks med testene slik at de kjørte riktig på alle devices
-
 
 Dere må dokumentere hvordan prosjektet bygger, testes og kjøres, slik at det er lett for gruppelederne å bygge, teste og kjøre koden deres. Under vurdering kommer koden også til å brukertestes.
 
