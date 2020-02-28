@@ -67,7 +67,6 @@ public class Game extends InputAdapter implements ApplicationListener {
 
         TMRenderer = new OrthogonalTiledMapRenderer(map.getMap(), (float) 0.00333);
         TMRenderer.setView(camera);
-        TMRenderer.setView(camera);
     }
 
     private void createState(){
