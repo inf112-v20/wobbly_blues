@@ -9,7 +9,7 @@ import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
 import enums.Direction;
 
-public class Board extends InputAdapter implements ApplicationListener {
+public class Game extends InputAdapter implements ApplicationListener {
 
     /*
     Creates the map, and the layers with different map pieces.
@@ -92,7 +92,6 @@ public class Board extends InputAdapter implements ApplicationListener {
         else if(map.isFlag(robot.getPosX(),robot.getPosY())) robot.setState(won);
         else robot.setState(normal);
 
-        map.moveRobot(robot);
         TMRenderer.render();
     }
 

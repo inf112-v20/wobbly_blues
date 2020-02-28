@@ -12,8 +12,8 @@ public class Robot implements IRobot {
     private int x, y;
 
     public Robot(TiledMapTileLayer.Cell start){
-        x = 0;
-        y = 0;
+        x = 1;
+        y = 1;
         state = start;
     }
 
