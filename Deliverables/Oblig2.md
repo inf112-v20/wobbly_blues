@@ -31,7 +31,8 @@ Hvordan fungerer kommunikasjonen for dere?
 
 Gjør et kort retrospektiv hvor dere vurderer hva dere har klart til nå, og hva som kan forbedres. Dette skal handle om prosjektstruktur, ikke kode. Dere kan selvsagt diskutere kode, men dette handler ikke om feilretting, men om hvordan man jobber og kommuniserer.
 
-    Til nå har vi klart å legge et godt grunnlag for resten av prosjektet. Noen ganger har det vært usikkerhet om veien videre. Vi fikk heller ikke utnyttet alle gruppemedlemmet til sitt fulle potensiale, da det ble mye venting på å finne ut hvordan grunnlaget skulle legges, før vi kunne starte å dele opp arbeidet. Trello har ikke blitt brukt mye og har rett og slett blitt kronglete pga de ulike ideene vi 
+    Til nå har vi klart å legge et godt grunnlag for resten av prosjektet. Noen ganger har det vært usikkerhet om veien videre. Vi fikk heller ikke utnyttet alle gruppemedlemmet til sitt fulle potensiale, da det ble mye venting på å finne ut hvordan grunnlaget skulle legges, før vi kunne starte å dele opp arbeidet. Trello har ikke blitt brukt mye og har rett og slett blitt kronglete pga de ulike ideene vi har
+    drøftet 
 
 
 Under vurdering vil det vektlegges at alle bidrar til kode basen. Hvis det er stor forskjell i hvem som committer, må dere legge ved en kort forklaring for hvorfor det er sånn. Husk å committe alt. (Også design filer)
@@ -128,4 +129,4 @@ Lever klassediagram. (Hvis det er veldig mange klasser, lager dere for de viktig
 
 Hvis dere tester manuelt: lever beskrivelser av hvordan testen foregår, slik at gruppeleder kan utføre testen selv.
 
-    
+

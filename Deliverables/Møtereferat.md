@@ -19,3 +19,6 @@ Vi diskuterte videre arbeid, Torstein kom på en smart måte å representere kor
  Vi vurderer å matche id til hver brikke 
 
 ### Fredag 28.Feb
+Møtende medlemmer: Alle
+
+Vi fullførte og svarte på oppgavene
