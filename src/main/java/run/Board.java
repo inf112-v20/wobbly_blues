@@ -11,16 +11,10 @@ import enums.Direction;
 
 public class Board extends InputAdapter implements ApplicationListener {
 
-    private Card_Left cardLeft;
     /*
     Creates the map, and the layers with different map pieces.
      */
     Map map;
-//    private TiledMap tiledMap;
-//    private TiledMapTileLayer board;
-//    private TiledMapTileLayer flagLayer;
-//    private TiledMapTileLayer holeLayer;
-//    private TiledMapTileLayer playerLayer;
 
     /*
     The camra and the viewpoint
@@ -56,23 +50,11 @@ public class Board extends InputAdapter implements ApplicationListener {
         /*Input controller*/
         Gdx.input.setInputProcessor(this);
 
-        /*
-        Loads the map and the layers
-         */
-
-//        tiledMap = new TmxMapLoader().load("fullboard.tmx");
-//        board = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
-//        flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
-//        holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
-//        playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
-
         camera = new OrthographicCamera();
-
 
         robot = new Robot(normal);
         state = robot.getState();
         map = new Map();
-        cardLeft = new Card_Left(robot);
 
         camera.setToOrtho(false,WIDTH,HEIGHT);
 
@@ -105,11 +87,7 @@ public class Board extends InputAdapter implements ApplicationListener {
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-        /*
-        Checks if the robot has hit a hole or a flag
-         */
-//        if(holeLayer.getCell((int)robot.getPosX(),(int)robot.getPosY()) != null) robot.setState(dead);
-//        else if(flagLayer.getCell((int)robot.getPosX(), (int)robot.getPosY()) != null) robot.setState(won);
+
         if(map.isHole(robot.getPosX(),robot.getPosY())) robot.setState(dead);
         else if(map.isFlag(robot.getPosX(),robot.getPosY())) robot.setState(won);
         else robot.setState(normal);
