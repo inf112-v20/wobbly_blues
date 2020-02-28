@@ -89,11 +89,6 @@ public class Map {
                 return false;
         }
     }
-    public void moveRobot(Robot robot){
-        playerLayer.setCell(robot.getPosX(),robot.getPosY(),robot.getState());
-    }
-
-
 
     public TiledMap getMap(){
         return map;

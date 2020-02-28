@@ -92,7 +92,6 @@ public class Game extends InputAdapter implements ApplicationListener {
         else if(map.isFlag(robot.getPosX(),robot.getPosY())) robot.setState(won);
         else robot.setState(normal);
 
-        map.moveRobot(robot);
         TMRenderer.render();
     }
 
