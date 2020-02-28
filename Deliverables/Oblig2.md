@@ -58,7 +58,8 @@ For hvert krav dere jobber med, må dere lage
 2) akseptansekriterier 
 3)arbeidsoppgaver. 
 Husk at akseptansekriterier ofte skrives mer eller mindre som tester
-
+    
+    
     Krav fremover:
         Implimentere ulike GUI’er som representerer meny, spill, og andre ting
     Brukerhistorier:
