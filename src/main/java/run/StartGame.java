@@ -28,15 +28,17 @@ public class StartGame extends Game {
 
     @Override
     public void create() {
+
         createState();
         map = new Map();
         robot = new Robot(normal);
-        this.setScreen(new BoardScreen(this));
+        this.setScreen(new StartScreen(this));
         state = robot.getState();
 
 
         /*Input controller*/
         Gdx.input.setInputProcessor(new InputAdapter(){
+
             @Override
             public boolean keyUp(int keycode) {
                 /*input controller*/
