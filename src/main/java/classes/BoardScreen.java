@@ -3,6 +3,7 @@ package classes;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.maps.tiled.renderers.*;
+import enums.*;
 import run.*;
 
 public class BoardScreen implements Screen {
@@ -41,6 +42,38 @@ public class BoardScreen implements Screen {
 
         TMRenderer = new OrthogonalTiledMapRenderer(map.getMap(), (float) 0.00333);
         TMRenderer.setView(camera);
+
+        /*Input controller*/
+        Gdx.input.setInputProcessor(new InputAdapter(){
+
+            @Override
+            public boolean keyUp(int keycode) {
+                /*input controller*/
+                if(robot.getState() == game.dead){
+                    System.out.println("You are dead!");
+                    Gdx.app.exit();}
+                else if(robot.getState() == game.won){ System.out.println("You won!"); System.exit(-1);}
+                else{
+                    switch (keycode){
+                        case Input.Keys.LEFT:
+                            map.moveRobot(robot, Direction.LEFT);
+                            break;
+                        case Input.Keys.RIGHT:
+                            map.moveRobot(robot, Direction.RIGHT);
+                            break;
+                        case Input.Keys.UP:
+                            map.moveRobot(robot, Direction.UP);
+                            break;
+                        case Input.Keys.DOWN:
+                            map.moveRobot(robot, Direction.DOWN);
+                            break;
+                        case Input.Keys.L:
+
+                    }
+                }
+                return false;
+            }
+        } );
     }
 
     @Override

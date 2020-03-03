@@ -44,12 +44,12 @@ public class StartScreen implements Screen {
         stage.addActor(gameButton);
         stage.addActor(exitButton);
 
-        Gdx.input.setInputProcessor(stage);
-
     }
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
+        render(0);
     }
 
     @Override
@@ -63,7 +63,8 @@ public class StartScreen implements Screen {
         stage.draw();
 
         if(gameButton.isPressed()){
-            System.out.println("den er trykket på");
+           game.setScreen(new BoardScreen(game));
+           dispose();
         }
 
         if(exitButton.isPressed()) {
@@ -95,6 +96,5 @@ public class StartScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-
     }
 }
