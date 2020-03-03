@@ -63,7 +63,7 @@ public class Game extends InputAdapter implements ApplicationListener {
 
         float h = camera.viewportHeight;
         float w = camera.viewportWidth;
-        camera.position.set(h/2,w/2,0);
+        camera.position.set(w/2,h/2,0);
         camera.update();
 
         TMRenderer = new OrthogonalTiledMapRenderer(map.getMap(), (float) 0.00333);
@@ -132,6 +132,8 @@ public class Game extends InputAdapter implements ApplicationListener {
                 case Input.Keys.DOWN:
                     map.moveRobot(robot, Direction.DOWN);
                     break;
+                case Input.Keys.L:
+
             }
         }
         return false;

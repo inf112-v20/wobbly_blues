@@ -13,6 +13,7 @@ public class Map {
     private TiledMapTileLayer flagLayer;
     private TiledMapTileLayer holeLayer;
     private TiledMapTileLayer playerLayer;
+    private TiledMapTileLayer wallLayer;
     int width, height;
 
     public Map(){
@@ -22,6 +23,7 @@ public class Map {
         flagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
         holeLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
         playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
+        wallLayer = (TiledMapTileLayer) map.getLayers().get("Walls");
 
         MapProperties prop = map.getProperties();
         width = prop.get("width",Integer.class);
@@ -112,5 +114,9 @@ public class Map {
 
     public TiledMap getMap(){
         return map;
+    }
+
+    public boolean canGo(Robot robot){
+        return false;
     }
 }
