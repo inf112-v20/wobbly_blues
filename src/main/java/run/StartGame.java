@@ -5,7 +5,6 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.tiled.*;
-import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
 import enums.Direction;
 
@@ -17,11 +16,6 @@ public class StartGame extends Game {
     //Where we can paint different things
     public SpriteBatch paint;
 
-    /*
-    The camra and the viewpoint
-     */
-    private OrthogonalTiledMapRenderer TMRenderer;
-    private OrthographicCamera camera;
 
     //The different states the robot can have it will fill the cell with the related texture
     public TiledMapTileLayer.Cell normal;
@@ -29,12 +23,7 @@ public class StartGame extends Game {
     public TiledMapTileLayer.Cell won;
     public TiledMapTileLayer.Cell state;
 
-    private final int WIDTH = 12;
-    private final int HEIGHT = 12;
-
-    /*
-    Creates a robot that reacts to input
-     */
+    //Creates a robot that reacts to input
     private Robot robot;
 
     @Override
@@ -42,11 +31,8 @@ public class StartGame extends Game {
         createState();
         map = new Map();
         robot = new Robot(normal);
+        this.setScreen(new BoardScreen(this));
         state = robot.getState();
-
-
-
-
 
 
         /*Input controller*/
@@ -79,21 +65,6 @@ public class StartGame extends Game {
                 return false;
             }
         } );
-
-        camera = new OrthographicCamera();
-
-
-        camera.setToOrtho(false,WIDTH,HEIGHT);
-
-        map.setPlayer(robot);
-
-        float h = camera.viewportHeight;
-        float w = camera.viewportWidth;
-        camera.position.set(w/2,h/2,0);
-        camera.update();
-
-        TMRenderer = new OrthogonalTiledMapRenderer(map.getMap(), (float) 0.00333);
-        TMRenderer.setView(camera);
     }
 
     private void createState(){
@@ -105,23 +76,11 @@ public class StartGame extends Game {
 
     @Override
     public void dispose(){
-        TMRenderer.dispose();
     }
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-
-        if(map.isHole(robot.getPosX(),robot.getPosY(),robot)) robot.setState(dead);
-        else if(map.isFlag(robot.getPosX(),robot.getPosY(),robot)) robot.setState(won);
-        else if(map.isOut(robot.getPosX(),robot.getPosY(),robot)){
-            System.out.println("You are dead!");
-            Gdx.app.exit();
-        }
-        else robot.setState(normal);
-
-        TMRenderer.render();
+        super.render();
     }
 
     @Override
@@ -134,5 +93,9 @@ public class StartGame extends Game {
 
     @Override
     public void resume() {
+    }
+
+    public Robot getRobot(){
+        return robot;
     }
 }
