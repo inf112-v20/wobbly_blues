@@ -1,6 +1,6 @@
 package interfaces;
 
-public interface ICard {
+public interface ICard extends Comparable<ICard>{
 
     /**
      * Set what robot the card should interact with
@@ -12,4 +12,6 @@ public interface ICard {
      * do the action specified by the card
      */
     void doAction();
+
+    int getPriority();
 }

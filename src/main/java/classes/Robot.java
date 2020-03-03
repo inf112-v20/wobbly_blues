@@ -46,6 +46,12 @@ public class Robot implements IRobot {
     }
 
     @Override
+    public boolean isReady() {
+        //TODO: implement this!
+        return false;
+    }
+
+    @Override
     public Direction getDirection() {return null;}
 
     @Override

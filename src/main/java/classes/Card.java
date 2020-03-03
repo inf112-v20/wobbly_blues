@@ -6,6 +6,13 @@ import interfaces.IRobot;
 import java.util.Random;
 
 public class Card implements ICard {
+
+    @Override
+    public int compareTo(ICard o) {
+        if (getPriority() > o.getPriority()) return 1;
+        else return -1;
+    }
+
     public enum CardType{
         MOVEONE     (1, 0),
         MOVETWO     (2, 0),
@@ -32,14 +39,17 @@ public class Card implements ICard {
     }
 
     private CardType cardType;
+    private int priority;
 
     public Card(){
         Random r = new Random();
         this.cardType = CardType.values()[r.nextInt(CardType.values().length)];
+        priority = r.nextInt(100);
     }
 
     public Card(CardType type){
         this.cardType = type;
+        priority = 10;
     }
 
     @Override
@@ -50,6 +60,11 @@ public class Card implements ICard {
     @Override
     public void doAction() {
 
+    }
+
+    @Override
+    public int getPriority() {
+        return priority;
     }
 
     public CardType getCardType() {

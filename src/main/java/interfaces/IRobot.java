@@ -29,6 +29,8 @@ public interface IRobot {
      */
     void createHand();
 
+    boolean isReady();
+
     /**
      *
      * @return the direction the robot is facing
