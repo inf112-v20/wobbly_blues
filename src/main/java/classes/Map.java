@@ -1,11 +1,9 @@
 package classes;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import enums.Direction;
 
 public class Map {
@@ -18,6 +16,7 @@ public class Map {
     int width, height;
 
     public Map(){
+
         map = new TmxMapLoader().load("fullboard.tmx");
         board = (TiledMapTileLayer) map.getLayers().get("Board");
         flagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
@@ -30,12 +29,42 @@ public class Map {
 
     }
 
-    public boolean isHole(int x, int y){
+    public boolean isHole(int x, int y, Robot robot){
+        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
         return holeLayer.getCell(x,y) != null;
     }
 
-    public boolean isFlag(int x, int y){
+    public boolean isFlag(int x, int y,Robot robot){
+        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
         return flagLayer.getCell(x,y) != null;
+    }
+
+    public boolean isOut(int x, int y, Robot robot){
+        if(x>width){
+            playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+            robot.setState(null);
+            playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+            return true;
+        }
+        else if(x<0){
+            playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+            robot.setState(null);
+            playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+            return true;
+        }
+        else if(y>height){
+            playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+            robot.setState(null);
+            playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+            return true;
+        }
+        else if(y<0){
+            playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+            robot.setState(null);
+            playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+            return true;
+        }
+        else return false;
     }
 
     public void setPlayer(Robot robot){
@@ -45,7 +74,7 @@ public class Map {
     public boolean moveRobot(Robot robot, Direction dir){
         switch (dir){
             case LEFT:
-                if (robot.getPosX() > 0){
+                if (robot.getPosX() >= 0){
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
                     robot.setPos(robot.getPosX() - 1, robot.getPosY());
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
@@ -53,7 +82,7 @@ public class Map {
                 }
                 return false;
             case RIGHT:
-                if (robot.getPosX() < width - 1){
+                if (robot.getPosX() < width){
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
                     robot.setPos(robot.getPosX() + 1, robot.getPosY());
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
@@ -61,7 +90,7 @@ public class Map {
                 }
                 return false;
             case UP:
-                if (robot.getPosY() < height - 1){
+                if (robot.getPosY() < height){
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
                     robot.setPos(robot.getPosX(), robot.getPosY()+1);
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
@@ -69,7 +98,7 @@ public class Map {
                 }
                 return false;
             case DOWN:
-                if (robot.getPosY() > 0){
+                if (robot.getPosY() >=0){
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
                     robot.setPos(robot.getPosX(), robot.getPosY()-1);
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());

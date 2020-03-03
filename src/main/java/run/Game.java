@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
+import com.badlogic.gdx.scenes.scene2d.*;
 import enums.Direction;
 
 public class Game extends InputAdapter implements ApplicationListener {
@@ -87,8 +88,12 @@ public class Game extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        if(map.isHole(robot.getPosX(),robot.getPosY())) robot.setState(dead);
-        else if(map.isFlag(robot.getPosX(),robot.getPosY())) robot.setState(won);
+        if(map.isHole(robot.getPosX(),robot.getPosY(),robot)) robot.setState(dead);
+        else if(map.isFlag(robot.getPosX(),robot.getPosY(),robot)) robot.setState(won);
+        else if(map.isOut(robot.getPosX(),robot.getPosY(),robot)){
+            System.out.println("You are dead!");
+            Gdx.app.exit();
+        }
         else robot.setState(normal);
 
         TMRenderer.render();
