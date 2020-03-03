@@ -34,6 +34,7 @@ public class StartGame extends Game {
         robot = new Robot(normal);
         this.setScreen(new StartScreen(this));
         state = robot.getState();
+        paint = new SpriteBatch();
 
     }
 
@@ -46,7 +47,6 @@ public class StartGame extends Game {
 
     @Override
     public void dispose(){
-        paint.dispose();
     }
 
     @Override

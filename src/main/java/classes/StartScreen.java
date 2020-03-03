@@ -15,15 +15,8 @@ public class StartScreen implements Screen {
 
     private Stage stage;
 
-    private SpriteBatch paint;
-    private SpriteBatch batch;
-
-    private final Button gameButton;
-    private final Button exitButton;
-
-    private Texture startbtn = new Texture(Gdx.files.internal("startbtn.png"));
-
-    private Texture endbtn = new Texture(Gdx.files.internal("endbtn.png"));
+    private final Button startBtn;
+    private final Button exitBtn;
 
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
@@ -31,25 +24,21 @@ public class StartScreen implements Screen {
     public StartScreen(StartGame game) {
 
         this.game = game;
-        this.paint = game.paint;
         stage = new Stage();
-        batch = new SpriteBatch();
 
-        gameButton = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("startbtn.png"))));
-        gameButton.setPosition(width/2f - gameButton.getWidth()/2, height/2f);
+        startBtn = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("startbtn.png"))));
+        startBtn.setPosition(width/2f - startBtn.getWidth()/2, height/2f);
 
-        exitButton = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("endbtn.png"))));
-        exitButton.setPosition(width/2f - exitButton.getWidth()/2, height/2f - exitButton.getWidth()/2);
+        exitBtn = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("endbtn.png"))));
+        exitBtn.setPosition(width/2f - exitBtn.getWidth()/2, height/2f - exitBtn.getWidth()/2);
 
-        stage.addActor(gameButton);
-        stage.addActor(exitButton);
-
+        stage.addActor(startBtn);
+        stage.addActor(exitBtn);
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
-        render(0);
     }
 
     @Override
@@ -58,16 +47,15 @@ public class StartScreen implements Screen {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
         stage.act(v);
         stage.draw();
 
-        if(gameButton.isPressed()){
+
+        if(startBtn.isPressed()){
            game.setScreen(new BoardScreen(game));
            dispose();
         }
-
-        if(exitButton.isPressed()) {
+        if(exitBtn.isPressed()) {
             Gdx.app.exit();
         }
 
