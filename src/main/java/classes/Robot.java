@@ -18,6 +18,7 @@ public class Robot implements IRobot {
     private int bp_x, bp_y;
     private ArrayList<Integer> flags;
     private int hp;
+    private Direction direction;
 
     public Robot(TiledMapTileLayer.Cell start){
         hp = 3;
@@ -27,6 +28,7 @@ public class Robot implements IRobot {
         bp_y = y;
         state = start;
         flags = new ArrayList<>();
+        direction = Direction.UP;
     }
 
     @Override
@@ -65,10 +67,31 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public Direction getDirection() {return null;}
+    public Direction getDirection() {return direction;}
 
     @Override
-    public TiledMapTileLayer.Cell getState(){return state;}
+    public void setDirection(Direction direction) {
+        switch (direction){
+            case LEFT:
+                state.setRotation(1);
+                break;
+            case RIGHT:
+                state.setRotation(3);
+                break;
+            case UP:
+                state.setRotation(0);
+                break;
+            case DOWN:
+                state.setRotation(2);
+                break;
+        }
+        this.direction = direction;
+    }
+
+    @Override
+    public TiledMapTileLayer.Cell getState(){
+        return state;
+    }
 
     @Override
     public void setState(TiledMapTileLayer.Cell state){this.state = state;}

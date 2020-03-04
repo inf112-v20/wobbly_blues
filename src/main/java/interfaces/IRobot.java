@@ -40,6 +40,12 @@ public interface IRobot {
      */
     Direction getDirection();
 
+    /**
+     * sets the robots direction
+     * @param direction
+     */
+    void setDirection(Direction direction);
+
     /*Returns the current state of the robot*/
     TiledMapTileLayer.Cell getState();
 
