@@ -32,7 +32,6 @@ public class Map {
         MapProperties prop = map.getProperties();
         width = prop.get("width", Integer.class);
         height = prop.get("height", Integer.class);
-
     }
 
     public boolean isHole(int x, int y, Robot robot) {
@@ -70,29 +69,24 @@ public class Map {
         else{
             return false;
         }
-
     }
 
     public boolean isOut(int x, int y, Robot robot) {
         if (x > width) {
-            playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-            robot.setState(null);
-            playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+            System.out.println("You are dead!");
+            Gdx.app.exit();
             return true;
         } else if (x < 0) {
-            playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-            robot.setState(null);
-            playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+            System.out.println("You are dead!");
+            Gdx.app.exit();
             return true;
         } else if (y > height) {
-            playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-            robot.setState(null);
-            playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+            System.out.println("You are dead!");
+            Gdx.app.exit();
             return true;
         } else if (y < 0) {
-            playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-            robot.setState(null);
-            playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+            System.out.println("You are dead!");
+            Gdx.app.exit();
             return true;
         } else return false;
     }
@@ -151,4 +145,9 @@ public class Map {
     public boolean canGo(Robot robot) {
         return false;
     }
+
+    public void check(int x, int y, Robot robot){
+
+    }
+
 }

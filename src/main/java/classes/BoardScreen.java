@@ -72,8 +72,7 @@ public class BoardScreen implements Screen {
 
         if(map.isHole(robot.getPosX(),robot.getPosY(),robot)) robot.setState(dead);
         else if(map.isFlag(robot.getPosX(),robot.getPosY(),robot)) robot.setState(won);
-        else if(map.isOut(robot.getPosX(),robot.getPosY(),robot)){
-            System.out.println("You are dead!");
+        else if(map.isOut(robot.getPosX(),robot.getPosY(), robot)){
             Gdx.app.exit();
         }
         else robot.setState(normal);

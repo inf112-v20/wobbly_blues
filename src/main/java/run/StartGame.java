@@ -2,11 +2,6 @@ package run;
 
 import classes.*;
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.maps.tiled.*;
-import com.badlogic.gdx.maps.tiled.tiles.*;
-import enums.Direction;
 
 public class StartGame extends Game {
 
