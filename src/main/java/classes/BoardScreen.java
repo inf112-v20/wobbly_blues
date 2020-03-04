@@ -62,9 +62,9 @@ public class BoardScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        if(map.isHole(robot.getPosX(),robot.getPosY(),robot)) robot.setState(states.getDead());
-        else if(map.isFlag(robot.getPosX(),robot.getPosY(),robot)) robot.setState(states.getWon());
-        else if(map.isOut(robot.getPosX(),robot.getPosY(), robot)){
+        map.isHole(robot.getPosX(),robot.getPosY(),robot);
+        map.isFlag(robot.getPosX(),robot.getPosY(),robot);
+        if(map.isOut(robot.getPosX(),robot.getPosY(), robot)){
             Gdx.app.exit();
         }
         else robot.setState(states.getNormal());
@@ -105,13 +105,6 @@ public class BoardScreen implements Screen {
             @Override
             public boolean keyUp(int keycode) {
                 /*input controller*/
-                if(robot.getState() == states.getDead()){
-                    System.out.println("You are dead!");
-                    Gdx.app.exit();}
-                else if(robot.getState() == states.getWon()){
-                    System.out.println("You won!"); Gdx.app.exit();
-                }
-                else{
                     switch (keycode){
                         case Input.Keys.LEFT:
                             map.moveRobot(robot, Direction.LEFT);
@@ -125,12 +118,10 @@ public class BoardScreen implements Screen {
                         case Input.Keys.DOWN:
                             map.moveRobot(robot, Direction.DOWN);
                             break;
-                    }
                 }
                 return false;
             }
         }
         );
-
     }
 }

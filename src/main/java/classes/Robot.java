@@ -13,35 +13,33 @@ public class Robot implements IRobot {
     private int x, y;
     private int bp_x, bp_y;
     private ArrayList<Integer> flags;
+    private int hp;
 
     public Robot(TiledMapTileLayer.Cell start){
+        hp = 3;
         x = 1;
         y = 1;
         bp_x = x;
         bp_y = y;
         state = start;
         flags = new ArrayList<>();
-
     }
 
     @Override
     public void takeDamage() {
-
+        hp--;
     }
 
     @Override
     public void die() {
-
     }
 
     @Override
     public void shootLaser() {
-
     }
 
     @Override
     public void input() {
-
     }
 
     @Override
@@ -49,7 +47,6 @@ public class Robot implements IRobot {
 
     @Override
     public void createHand() {
-
     }
 
     @Override
@@ -91,9 +88,21 @@ public class Robot implements IRobot {
     public boolean hasFlag(int id){
         return flags.contains(id);
     }
+
     public int numbFlags(){
         return flags.size();
     }
 
+    public int getBp_x() {
+        return bp_x;
+    }
+
+    public int getBp_y() {
+        return bp_y;
+    }
+
+    public int getHp(){
+        return hp;
+    }
 }
 
