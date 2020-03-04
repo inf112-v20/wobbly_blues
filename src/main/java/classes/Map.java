@@ -9,6 +9,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.tiles.*;
 import enums.*;
+import enums.Direction;
+import interfaces.IRobot;
 
 public class Map {
 
@@ -101,8 +103,8 @@ public class Map {
         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
     }
 
-    public boolean moveRobot(Robot robot, Direction dir) {
-        switch (dir) {
+    public boolean moveRobot(IRobot robot, Direction dir){
+        switch (dir){
             case LEFT:
                 if (robot.getPosX() >= 0) {
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);

@@ -6,11 +6,15 @@ import com.badlogic.gdx.maps.tiled.*;
 
 import java.util.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Robot implements IRobot {
 
     private TiledMapTileLayer.Cell state;
 
     private int x, y;
+    private ArrayList<Card> hand;
     private int bp_x, bp_y;
     private ArrayList<Integer> flags;
 
@@ -49,7 +53,11 @@ public class Robot implements IRobot {
 
     @Override
     public void createHand() {
-
+        hand = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            hand.add(new Card());
+            hand.get(i).setRobot(this);
+        }
     }
 
     @Override
@@ -93,6 +101,15 @@ public class Robot implements IRobot {
     }
     public int numbFlags(){
         return flags.size();
+    }
+
+    @Override
+    public List<Card> getHand() {
+        if (hand == null)
+            createHand();
+        else if (hand.isEmpty())
+            createHand();
+        return hand;
     }
 
 }

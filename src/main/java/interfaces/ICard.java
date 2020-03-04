@@ -1,5 +1,7 @@
 package interfaces;
 
+import classes.Map;
+
 public interface ICard extends Comparable<ICard>{
 
     /**
@@ -11,7 +13,7 @@ public interface ICard extends Comparable<ICard>{
     /**
      * do the action specified by the card
      */
-    void doAction();
+    void doAction(Map map);
 
     int getPriority();
 }

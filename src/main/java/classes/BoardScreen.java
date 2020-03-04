@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
+import com.badlogic.gdx.utils.Align;
 import enums.*;
 import run.*;
 
@@ -30,7 +31,10 @@ public class BoardScreen implements Screen {
     public TiledMapTileLayer.Cell state;
 
     private final int WIDTH = 12;
-    private final int HEIGHT = 12;
+    private final int HEIGHT = 15;
+    SpriteBatch batch;
+    Texture card;
+    BitmapFont font;
 
     public BoardScreen(StartGame game){
 
@@ -52,12 +56,16 @@ public class BoardScreen implements Screen {
         float h = camera.viewportHeight;
         float w = camera.viewportWidth;
 
-        camera.position.set(w/2,h/2,0);
+        camera.position.set(w/2,(h-6)/2,0);
         camera.update();
 
         TMRenderer = new OrthogonalTiledMapRenderer(map.getMap(), (float) 0.00333);
         TMRenderer.setView(camera);
 
+        batch = new SpriteBatch();
+        card = new Texture("assets/card/card.png");
+        font = new BitmapFont();
+        font.setColor(Color.BLACK);
     }
 
     @Override
@@ -80,6 +88,11 @@ public class BoardScreen implements Screen {
 
         TMRenderer.render();
 
+        batch.begin();
+        for (int i = 0; i < robot.getHand().size(); i++) {
+            robot.getHand().get(i).render(batch,font,5+i*88,0,86,120);
+        }
+        batch.end();
     }
 
     @Override
@@ -105,6 +118,7 @@ public class BoardScreen implements Screen {
     @Override
     public void dispose() {
        TMRenderer.dispose();
+       batch.dispose();
     }
 
     private void createState(){
@@ -145,7 +159,24 @@ public class BoardScreen implements Screen {
                 }
                 return false;
             }
-        }
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                for (int i = 0; i < robot.getHand().size(); i++) {
+                    int minX = (5+i*88);
+                    int maxX = minX+86;
+                    int minY = 1000;
+                    int maxY = minY-120;
+                    if (screenX>=minX && screenX<=maxX){
+                        if (screenY<=minY && screenY>=maxY){
+                            robot.getHand().get(i).doAction(map);
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            }
         );
 
     }

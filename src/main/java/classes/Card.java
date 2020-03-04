@@ -1,5 +1,9 @@
 package classes;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 import enums.Direction;
 import interfaces.ICard;
 import interfaces.IRobot;
@@ -39,11 +43,11 @@ public class Card implements ICard {
 
     private CardType cardType;
     private int priority;
-    private Map map;
-    private Robot robot;
-    public Card(Map map, Robot robot){
-        this.map = map;
-        this.robot = robot;
+    private IRobot robot;
+    static Texture cardTexture = new Texture("assets/card/card.png");
+    private Texture cardSymbol;
+
+    public Card(){
         Random r = new Random();
         this.cardType = CardType.values()[r.nextInt(CardType.values().length)];
         priority = r.nextInt(100);
@@ -56,21 +60,56 @@ public class Card implements ICard {
 
     @Override
     public void setRobot(IRobot robot) {
-
+        this.robot = robot;
     }
-
-
-    private Direction direction; //Temporary
 
     @Override
-    public void doAction() {
-        int directionAsInt = (cardType.clockwiseRotation + direction.getDirectionAsInt()) % 4;
-        direction = Direction.getDirectionFromInt(directionAsInt);
-
-        int xMovement = direction.getXMovement() * cardType.cellsToMove;
-        int yMovement = direction.getYMovement() * cardType.cellsToMove;
-
+    public void doAction(Map map) {
+        for (int i = 0; i < getCellsToMove(); i++) {
+            map.moveRobot(robot, Direction.UP);
+        }
     }
+
+    public String getName(){
+        switch (cardType){
+            case UTURN:
+                return "U Turn";
+            case MOVEONE:
+                return "Move One";
+            case MOVETWO:
+                return "Move Two";
+            case TURNLEFT:
+                return "Turn Left";
+            case MOVETHREE:
+                return "Move Three";
+            case TURNRIGHT:
+                return "Turn Right";
+        }
+        return "ERROR";
+    }
+
+    public void getCardTexture(){
+        cardSymbol = new Texture("assets/card/"+cardType.name()+".png");
+    }
+
+    public void render(SpriteBatch batch, BitmapFont font, int x, int y,
+                       int w, int h){
+        int padding = 5;
+        batch.draw(cardTexture,x,y,w,h);
+        font.draw(
+            batch,
+            getName(),
+            x,
+            y+h-padding,
+            w,
+            Align.center,
+            true
+        );
+        if (cardSymbol == null) getCardTexture();
+        batch.draw(cardSymbol,x,y+padding,w,w);
+    }
+
+
 
     @Override
     public int getPriority() {

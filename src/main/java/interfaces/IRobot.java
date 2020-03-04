@@ -1,7 +1,10 @@
 package interfaces;
 
+import classes.Card;
 import enums.Direction;
 import com.badlogic.gdx.maps.tiled.*;
+
+import java.util.List;
 
 public interface IRobot {
 
@@ -51,4 +54,6 @@ public interface IRobot {
 
     /*returns the X of the robot*/
     int getPosY();
+
+    List<Card> getHand();
 }

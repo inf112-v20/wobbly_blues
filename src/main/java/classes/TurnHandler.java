@@ -41,14 +41,14 @@ public class TurnHandler{
         return cards;
     }
 
-    public static void doTurn(int register) {
+    public static void doTurn(int register, Map map) {
         if (!isReady()){
             throw new IllegalArgumentException("cannot start turn, not all " +
                     "robots are ready!");
         }
         sortByPriority(registerList);
         for (Card card: registerList.get(register)) {
-            card.doAction();
+            card.doAction(map);
         }
     }
 }
