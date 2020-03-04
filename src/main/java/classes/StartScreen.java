@@ -15,8 +15,10 @@ public class StartScreen implements Screen {
     //the stage where we put the buttons
     private Stage stage;
     //the buttons in the menu
-    private final Button startBtn;
-    private final Button exitBtn;
+    private final Button startBtn, exitBtn;
+    private Button logo;
+    private int cooldown, cooldownTimer;
+    private float r=.66f,g=.66f,b=1f;
 
     public StartScreen(StartGame game) {
         this.game = game;
@@ -27,14 +29,20 @@ public class StartScreen implements Screen {
 
         //creating buttons, and setting positons
         startBtn = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("startbtn.png"))));
-        startBtn.setPosition(width /2f - startBtn.getWidth()/2, height /2f);
         exitBtn = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("endbtn.png"))));
-        exitBtn.setPosition(width /2f - exitBtn.getWidth()/2, height /2f - exitBtn.getWidth()/2);
+        logo = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("logo.png"))));
+
+        startBtn.setPosition(width /2f - startBtn.getWidth()/2, height*2 /6f);
+        exitBtn.setPosition(width /2f - exitBtn.getWidth()/2, height/6f);
+        logo.setPosition(width /2f - logo.getWidth()/2, height*4 /6f);
 
         stage.addActor(startBtn);
         stage.addActor(exitBtn);
+        stage.addActor(logo);
 
         Gdx.input.setInputProcessor(stage);
+        cooldown = 10;
+        cooldownTimer = 0;
     }
 
     @Override
@@ -43,7 +51,7 @@ public class StartScreen implements Screen {
 
     @Override
     public void render(float v) {
-        Gdx.gl.glClearColor(.3f, .3f, .3f, 1);
+        Gdx.gl.glClearColor(r, g, b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(v);
@@ -58,6 +66,18 @@ public class StartScreen implements Screen {
             //if pressed close the app
             Gdx.app.exit();
         }
+        if (cooldownTimer==0) {
+            if (logo.isPressed()) {
+
+                float temp = r;
+                r = g;
+                g = b;
+                b = temp;
+                cooldownTimer = cooldown;
+            }
+        }
+        else
+            cooldownTimer--;
     }
 
     @Override

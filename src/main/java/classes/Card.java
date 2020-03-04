@@ -66,7 +66,10 @@ public class Card implements ICard {
     @Override
     public void doAction(Map map) {
         for (int i = 0; i < getCellsToMove(); i++) {
-            map.moveRobot(robot, Direction.UP);
+            map.moveRobot(robot, robot.getDirection());
+        }
+        for (int i = 0; i < getClockwiseRotation(); i++) {
+            robot.setDirection(robot.getDirection().turnRight());
         }
     }
 
