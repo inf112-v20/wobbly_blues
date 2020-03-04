@@ -43,22 +43,22 @@ public class Map {
     public boolean isFlag(int x, int y, Robot robot) {
         if (flagLayer.getCell(x,y) != null){
             if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG1.getId()){
-                if (!robot.hasFlag(tileID.FLAG1.getId())){
+                if (!robot.hasFlag(tileID.FLAG1.getId()) && !robot.hasFlag(tileID.FLAG2.getId()) && !robot.hasFlag(tileID.FLAG3.getId()) && !robot.hasFlag(tileID.FLAG4.getId())){
                     robot.addFlag(tileID.FLAG1.getId());
                 }
             }
             else if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG2.getId()){
-                if (!robot.hasFlag(tileID.FLAG2.getId())){
+                if (robot.hasFlag(tileID.FLAG1.getId()) && !robot.hasFlag(tileID.FLAG2.getId()) && !robot.hasFlag(tileID.FLAG3.getId()) && !robot.hasFlag(tileID.FLAG4.getId())){
                     robot.addFlag(tileID.FLAG2.getId());
                 }
             }
             else if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG3.getId()){
-                if (!robot.hasFlag(tileID.FLAG3.getId())){
+                if (robot.hasFlag(tileID.FLAG1.getId()) && robot.hasFlag(tileID.FLAG2.getId()) && !robot.hasFlag(tileID.FLAG3.getId()) && !robot.hasFlag(tileID.FLAG4.getId())){
                     robot.addFlag(tileID.FLAG3.getId());
                 }
             }
             else if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG4.getId()) {
-                if (!robot.hasFlag(tileID.FLAG4.getId())) {
+                if (robot.hasFlag(tileID.FLAG1.getId()) && robot.hasFlag(tileID.FLAG2.getId()) && robot.hasFlag(tileID.FLAG3.getId()) && !robot.hasFlag(tileID.FLAG4.getId())) {
                     robot.addFlag(tileID.FLAG4.getId());
                 }
             }
