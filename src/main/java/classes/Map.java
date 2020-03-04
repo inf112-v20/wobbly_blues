@@ -5,7 +5,6 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import enums.*;
 import enums.Direction;
 import interfaces.IRobot;
 
@@ -37,7 +36,7 @@ public class Map {
         height = prop.get("height", Integer.class);
     }
 
-    public void isHole(int x, int y, Robot robot) {
+    public boolean isHole(int x, int y, IRobot robot) {
         if (holeLayer.getCell(x, y) != null) {
             if (robot.getHp() > 0) {
                 playerLayer.setCell(x, y, null);
@@ -49,41 +48,30 @@ public class Map {
                 System.out.println("You are dead!");
                 Gdx.app.exit();
             }
+           return true;
         }
+        else
+            return false;
     }
 
-    public boolean isFlag(int x, int y, Robot robot) {
+    public boolean isFlag(int x, int y, IRobot robot) {
         if (flagLayer.getCell(x,y) != null){
-            if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG1.getId() && !robot.hasFlag(tileID.FLAG1.getId()) && !robot.hasFlag(tileID.FLAG2.getId()) && !robot.hasFlag(tileID.FLAG3.getId()) && !robot.hasFlag(tileID.FLAG4.getId())){
-                robot.addFlag(tileID.FLAG1.getId());
-                robot.setBackup(x,y);
+           robot.addFlag(flagLayer.getCell(x,y).getTile().getId(), flagLayer);
+            if(robot.numbFlags() == 4){
+                robot.setState(states.getWon());
+                playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+                System.out.println("You won!");
+                Gdx.app.exit();
             }
-            else if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG2.getId() && robot.hasFlag(tileID.FLAG1.getId()) && !robot.hasFlag(tileID.FLAG2.getId()) && !robot.hasFlag(tileID.FLAG3.getId()) && !robot.hasFlag(tileID.FLAG4.getId())){
-                robot.addFlag(tileID.FLAG2.getId());
-                robot.setBackup(x,y);
-            }
-            else if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG3.getId() && robot.hasFlag(tileID.FLAG1.getId()) && robot.hasFlag(tileID.FLAG2.getId()) && !robot.hasFlag(tileID.FLAG3.getId()) && !robot.hasFlag(tileID.FLAG4.getId())){
-                robot.addFlag(tileID.FLAG3.getId());
-                robot.setBackup(x,y);
-            }
-            else if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG4.getId() && robot.hasFlag(tileID.FLAG1.getId()) && robot.hasFlag(tileID.FLAG2.getId()) && robot.hasFlag(tileID.FLAG3.getId()) && !robot.hasFlag(tileID.FLAG4.getId())) {
-                robot.addFlag(tileID.FLAG4.getId());
-                robot.setBackup(x,y);
-            }
+           return true;
         }
-        if(robot.numbFlags() == 4){
-            robot.setState(states.getWon());
-            playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
-            System.out.println("You won!");
-            Gdx.app.exit();
-            return true;
-        }
-        else{
+        else if (flagLayer.getCell(x,y) == null){
             return false;
         }
+        return false;
     }
 
-    public boolean isOut(int x, int y, Robot robot) {
+    public boolean isOut(int x, int y, IRobot robot) {
         if (x > width-1) {
             System.out.println("You are dead!");
             Gdx.app.exit();
@@ -100,10 +88,11 @@ public class Map {
             System.out.println("You are dead!");
             Gdx.app.exit();
             return true;
-        } else return false;
+        } else
+            return false;
     }
 
-    public void setPlayer(Robot robot) {
+    public void setPlayer(IRobot robot) {
         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
     }
 
@@ -115,6 +104,8 @@ public class Map {
                     robot.setPos(robot.getPosX() - 1, robot.getPosY());
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
+                    check(robot.getPosX(),robot.getPosY(),robot);
+
                     return true;
                 }
                 return false;
@@ -123,6 +114,8 @@ public class Map {
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
                     robot.setPos(robot.getPosX() + 1, robot.getPosY());
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+
+                    check(robot.getPosX(),robot.getPosY(),robot);
 
                     return true;
                 }
@@ -133,6 +126,8 @@ public class Map {
                     robot.setPos(robot.getPosX(), robot.getPosY() + 1);
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
+                    check(robot.getPosX(),robot.getPosY(),robot);
+
                     return true;
                 }
                 return false;
@@ -141,6 +136,8 @@ public class Map {
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
                     robot.setPos(robot.getPosX(), robot.getPosY() - 1);
                     playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+
+                    check(robot.getPosX(),robot.getPosY(),robot);
 
                     return true;
                 }
@@ -154,12 +151,14 @@ public class Map {
         return map;
     }
 
-    public boolean canGo(Robot robot) {
+    public boolean canGo(IRobot robot) {
         return false;
     }
 
-    public void check(int x, int y, Robot robot){
-
+    public void check(int x, int y, IRobot robot){
+        isFlag(x, y, robot);
+        isOut(x, y, robot);
+        isHole(x, y, robot);
     }
 
 }

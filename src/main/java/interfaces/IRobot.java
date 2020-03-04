@@ -60,19 +60,27 @@ public interface IRobot {
     /*returns the X of the robot*/
     int getPosY();
 
+    //Sets the backup positions
     void setBackup(int x, int y);
 
-    void addFlag(int id);
+    //adds a flag that the robot has touched
+    boolean addFlag(int id, TiledMapTileLayer flagLayer);
 
+    //checks if the robot has already been at that flag
     boolean hasFlag(int id);
 
+    //the number of flags the robot has visited
     int numbFlags();
 
+    //get x of the backup position
     int getBp_x();
 
+    //gets the y of the backup position
     int getBp_y();
 
+    //gets the current hp of the robot
     int getHp();
 
+    //gets the card of the robot
     List<Card> getHand();
 }

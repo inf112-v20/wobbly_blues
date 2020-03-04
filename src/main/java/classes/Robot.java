@@ -1,10 +1,8 @@
 package classes;
 
-import enums.Direction;
+import enums.*;
 import interfaces.*;
 import com.badlogic.gdx.maps.tiled.*;
-
-import java.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +92,9 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public void setState(TiledMapTileLayer.Cell state){this.state = state;}
+    public void setState(TiledMapTileLayer.Cell state){
+        this.state = state;
+    }
 
     @Override
     public void setPos(int x, int y){
@@ -115,8 +115,28 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public void addFlag(int id){
-        flags.add(id);
+    public boolean addFlag(int id, TiledMapTileLayer flagLayer){
+        if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG1.getId() && !hasFlag(tileID.FLAG1.getId()) && !hasFlag(tileID.FLAG2.getId()) && !hasFlag(tileID.FLAG3.getId()) && !hasFlag(tileID.FLAG4.getId())){
+            flags.add(id);
+            setBackup(x,y);
+            return true;
+        }
+        else if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG2.getId() && hasFlag(tileID.FLAG1.getId()) && !hasFlag(tileID.FLAG2.getId()) && !hasFlag(tileID.FLAG3.getId()) && !hasFlag(tileID.FLAG4.getId())){
+            flags.add(id);
+            setBackup(x,y);
+            return true;
+        }
+        else if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG3.getId() && hasFlag(tileID.FLAG1.getId()) && hasFlag(tileID.FLAG2.getId()) && !hasFlag(tileID.FLAG3.getId()) && !hasFlag(tileID.FLAG4.getId())){
+            flags.add(id);
+            setBackup(x,y);
+            return true;
+        }
+        else if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG4.getId() && hasFlag(tileID.FLAG1.getId()) && hasFlag(tileID.FLAG2.getId()) && hasFlag(tileID.FLAG3.getId()) && !hasFlag(tileID.FLAG4.getId())) {
+            flags.add(id);
+            setBackup(x,y);
+            return true;
+        }
+        else return false;
     }
 
     @Override

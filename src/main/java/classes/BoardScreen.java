@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.*;
-import com.badlogic.gdx.maps.tiled.tiles.*;
-import com.badlogic.gdx.utils.Align;
+
 import enums.*;
+import interfaces.*;
 import run.*;
 
 public class BoardScreen implements Screen {
@@ -16,7 +16,7 @@ public class BoardScreen implements Screen {
     public Map map;
 
     //Creates a robot that reacts to input
-    private Robot robot;
+    private IRobot robot;
 
     private States states;
 
@@ -28,9 +28,9 @@ public class BoardScreen implements Screen {
 
     private final int WIDTH = 12;
     private final int HEIGHT = 15;
-    SpriteBatch batch;
-    Texture card;
-    BitmapFont font;
+    private SpriteBatch batch;
+    private Texture card;
+    private BitmapFont font;
 
     public BoardScreen(StartGame game){
 
@@ -72,13 +72,6 @@ public class BoardScreen implements Screen {
     public void render(float v) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-
-        map.isHole(robot.getPosX(),robot.getPosY(),robot);
-        map.isFlag(robot.getPosX(),robot.getPosY(),robot);
-        if(map.isOut(robot.getPosX(),robot.getPosY(), robot)){
-            Gdx.app.exit();
-        }
-        else robot.setState(states.getNormal());
 
         TMRenderer.render();
 
