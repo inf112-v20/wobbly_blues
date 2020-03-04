@@ -41,8 +41,7 @@ public interface IRobot {
     Direction getDirection();
 
     /**
-     * sets the robots direction
-     * @param direction
+     * sets the robotsdirection
      */
     void setDirection(Direction direction);
 
@@ -60,6 +59,20 @@ public interface IRobot {
 
     /*returns the X of the robot*/
     int getPosY();
+
+    void setBackup(int x, int y);
+
+    void addFlag(int id);
+
+    boolean hasFlag(int id);
+
+    int numbFlags();
+
+    int getBp_x();
+
+    int getBp_y();
+
+    int getHp();
 
     List<Card> getHand();
 }

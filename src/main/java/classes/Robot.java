@@ -108,31 +108,38 @@ public class Robot implements IRobot {
     @Override
     public int getPosY(){return y;}
 
+    @Override
     public void setBackup(int x, int y){
         bp_y = y;
         bp_x = x;
     }
 
+    @Override
     public void addFlag(int id){
         flags.add(id);
     }
 
+    @Override
     public boolean hasFlag(int id){
         return flags.contains(id);
     }
 
+    @Override
     public int numbFlags(){
         return flags.size();
     }
 
+    @Override
     public int getBp_x() {
         return bp_x;
     }
 
+    @Override
     public int getBp_y() {
         return bp_y;
     }
 
+    @Override
     public int getHp(){
         return hp;
     }
