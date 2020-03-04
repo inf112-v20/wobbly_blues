@@ -2,8 +2,6 @@ package classes;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.maps.tiled.tiles.*;
 import com.badlogic.gdx.utils.Align;
@@ -18,17 +16,13 @@ public class BoardScreen implements Screen {
     //Creates a robot that reacts to input
     private Robot robot;
 
+    private States states;
+
     private final StartGame game;
 
     //The camera and the viewpoint
     private OrthogonalTiledMapRenderer TMRenderer;
     private OrthographicCamera camera;
-
-    //The different states the robot can have it will fill the cell with the related texture
-    public TiledMapTileLayer.Cell normal;
-    public TiledMapTileLayer.Cell dead;
-    public TiledMapTileLayer.Cell won;
-    public TiledMapTileLayer.Cell state;
 
     private final int WIDTH = 12;
     private final int HEIGHT = 15;
@@ -40,10 +34,9 @@ public class BoardScreen implements Screen {
 
         this.game = game;
 
+        states = new States();
         map = new Map();
-        robot = new Robot(normal);
-        createState();
-        state = robot.getState();
+        robot = new Robot(states.getNormal());
 
         //creates an input controller
         createController();
@@ -78,13 +71,12 @@ public class BoardScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        if(map.isHole(robot.getPosX(),robot.getPosY(),robot)) robot.setState(dead);
-        else if(map.isFlag(robot.getPosX(),robot.getPosY(),robot)) robot.setState(won);
-        else if(map.isOut(robot.getPosX(),robot.getPosY(),robot)){
-            System.out.println("You are dead!");
+        map.isHole(robot.getPosX(),robot.getPosY(),robot);
+        map.isFlag(robot.getPosX(),robot.getPosY(),robot);
+        if(map.isOut(robot.getPosX(),robot.getPosY(), robot)){
             Gdx.app.exit();
         }
-        else robot.setState(normal);
+        else robot.setState(states.getNormal());
 
         TMRenderer.render();
 
@@ -121,13 +113,6 @@ public class BoardScreen implements Screen {
        batch.dispose();
     }
 
-    private void createState(){
-        /*loads the different textures and states to the robot */
-        normal = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(new Texture(Gdx.files.internal("player.png")),900,300).split(300,300)[0][0]));
-        dead = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(new Texture(Gdx.files.internal("player.png")),900,300).split(300,300)[0][1]));
-        won = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(new Texture(Gdx.files.internal("player.png")),900,300).split(300,300)[0][2]));
-    }
-
     private void createController(){
         /*Input controller*/
         Gdx.input.setInputProcessor(new InputAdapter(){
@@ -135,13 +120,6 @@ public class BoardScreen implements Screen {
             @Override
             public boolean keyUp(int keycode) {
                 /*input controller*/
-                if(robot.getState() == dead){
-                    System.out.println("You are dead!");
-                    Gdx.app.exit();}
-                else if(robot.getState() == won){
-                    System.out.println("You won!"); Gdx.app.exit();
-                }
-                else{
                     switch (keycode){
                         case Input.Keys.LEFT:
                             map.moveRobot(robot, Direction.LEFT);
@@ -155,7 +133,6 @@ public class BoardScreen implements Screen {
                         case Input.Keys.DOWN:
                             map.moveRobot(robot, Direction.DOWN);
                             break;
-                    }
                 }
                 return false;
             }
@@ -178,6 +155,5 @@ public class BoardScreen implements Screen {
             }
             }
         );
-
     }
 }

@@ -1,4 +1,4 @@
-# Roborally
+# Roborally   [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3a812c6b77f84733afdb06d7e86e79b8)](https://www.codacy.com/manual/SindrKristensen/wobbly_blues?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SindrKristensen/wobbly_blues&amp;utm_campaign=Badge_Grade)
 
 ## How to play
 When a win- or lose condition is met, the program closes and a will print if you've won or lost.

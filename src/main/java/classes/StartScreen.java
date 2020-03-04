@@ -18,18 +18,18 @@ public class StartScreen implements Screen {
     private final Button startBtn;
     private final Button exitBtn;
 
-    private int height = Gdx.graphics.getHeight();
-    private int width = Gdx.graphics.getWidth();
-
     public StartScreen(StartGame game) {
         this.game = game;
         stage = new Stage();
 
+        int height = Gdx.graphics.getHeight();
+        int width = Gdx.graphics.getWidth();
+
         //creating buttons, and setting positons
         startBtn = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("startbtn.png"))));
-        startBtn.setPosition(width/2f - startBtn.getWidth()/2, height/2f);
+        startBtn.setPosition(width /2f - startBtn.getWidth()/2, height /2f);
         exitBtn = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("endbtn.png"))));
-        exitBtn.setPosition(width/2f - exitBtn.getWidth()/2, height/2f - exitBtn.getWidth()/2);
+        exitBtn.setPosition(width /2f - exitBtn.getWidth()/2, height /2f - exitBtn.getWidth()/2);
 
         stage.addActor(startBtn);
         stage.addActor(exitBtn);
@@ -62,17 +62,14 @@ public class StartScreen implements Screen {
 
     @Override
     public void resize(int i, int i1) {
-
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
