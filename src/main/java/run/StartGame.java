@@ -13,10 +13,6 @@ public class StartGame extends Game {
     //Creates the map, and the layers with different map pieces
     public Map map;
 
-    //Where we can paint different things
-    public SpriteBatch paint;
-
-
     //The different states the robot can have it will fill the cell with the related texture
     public TiledMapTileLayer.Cell normal;
     public TiledMapTileLayer.Cell dead;
@@ -32,9 +28,9 @@ public class StartGame extends Game {
         createState();
         map = new Map();
         robot = new Robot(normal);
-        this.setScreen(new StartScreen(this));
         state = robot.getState();
-        paint = new SpriteBatch();
+        //setting the screen
+        this.setScreen(new StartScreen(this));
 
     }
 
