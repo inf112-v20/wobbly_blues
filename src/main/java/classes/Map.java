@@ -84,7 +84,7 @@ public class Map {
     }
 
     public boolean isOut(int x, int y, Robot robot) {
-        if (x > width) {
+        if (x > width-1) {
             System.out.println("You are dead!");
             Gdx.app.exit();
             return true;
@@ -92,7 +92,7 @@ public class Map {
             System.out.println("You are dead!");
             Gdx.app.exit();
             return true;
-        } else if (y > height) {
+        } else if (y > height-1) {
             System.out.println("You are dead!");
             Gdx.app.exit();
             return true;
