@@ -1,6 +1,7 @@
 package run;
 
-import classes.Map;
+import classes.*;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;

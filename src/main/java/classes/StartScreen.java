@@ -1,6 +1,5 @@
 package classes;
 
-
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.*;
 import run.*;
 
 public class StartScreen implements Screen {
+
     //the main game
     private final StartGame game;
     //the stage where we put the buttons
@@ -22,13 +22,12 @@ public class StartScreen implements Screen {
     private int width = Gdx.graphics.getWidth();
 
     public StartScreen(StartGame game) {
-
         this.game = game;
         stage = new Stage();
+
         //creating buttons, and setting positons
         startBtn = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("startbtn.png"))));
         startBtn.setPosition(width/2f - startBtn.getWidth()/2, height/2f);
-
         exitBtn = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("endbtn.png"))));
         exitBtn.setPosition(width/2f - exitBtn.getWidth()/2, height/2f - exitBtn.getWidth()/2);
 
@@ -45,7 +44,6 @@ public class StartScreen implements Screen {
     @Override
     public void render(float v) {
         Gdx.gl.glClearColor(.3f, .3f, .3f, 1);
-
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(v);
@@ -60,8 +58,6 @@ public class StartScreen implements Screen {
             //if pressed close the app
             Gdx.app.exit();
         }
-
-
     }
 
     @Override

@@ -3,18 +3,25 @@ package classes;
 import enums.Direction;
 import interfaces.*;
 import com.badlogic.gdx.maps.tiled.*;
-import com.badlogic.gdx.math.*;
+
+import java.util.*;
 
 public class Robot implements IRobot {
 
     private TiledMapTileLayer.Cell state;
 
     private int x, y;
+    private int bp_x, bp_y;
+    private ArrayList<Integer> flags;
 
     public Robot(TiledMapTileLayer.Cell start){
         x = 1;
         y = 1;
+        bp_x = x;
+        bp_y = y;
         state = start;
+        flags = new ArrayList<>();
+
     }
 
     @Override
@@ -71,6 +78,22 @@ public class Robot implements IRobot {
 
     @Override
     public int getPosY(){return y;}
+
+    public void setBackup(int x, int y){
+        bp_y = y;
+        bp_x = x;
+    }
+
+    public void addFlag(int id){
+        flags.add(id);
+    }
+
+    public boolean hasFlag(int id){
+        return flags.contains(id);
+    }
+    public int numbFlags(){
+        return flags.size();
+    }
 
 }
 
