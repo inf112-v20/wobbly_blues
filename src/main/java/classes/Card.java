@@ -12,6 +12,12 @@ import java.util.Random;
 
 public class Card implements ICard {
 
+    private CardType cardType;
+    private int priority;
+    private IRobot robot;
+    static Texture cardTexture = new Texture("assets/card/card.png");
+    private Texture cardSymbol;
+
     @Override
     public int compareTo(ICard o) {
         if (getPriority() > o.getPriority()) return 1;
@@ -40,12 +46,6 @@ public class Card implements ICard {
             return clockwiseRotation;
         }
     }
-
-    private CardType cardType;
-    private int priority;
-    private IRobot robot;
-    static Texture cardTexture = new Texture("assets/card/card.png");
-    private Texture cardSymbol;
 
     public Card(){
         Random r = new Random();
