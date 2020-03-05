@@ -34,13 +34,11 @@ Gjør et kort retrospektiv hvor dere vurderer hva dere har klart til nå, og hva
     Til nå har vi klart å legge et godt grunnlag for resten av prosjektet. Noen ganger har det vært usikkerhet om veien videre. Vi fikk heller ikke utnyttet alle gruppemedlemmet til sitt fulle potensiale, da det ble mye venting på å finne ut hvordan grunnlaget skulle legges, før vi kunne starte å dele opp arbeidet. Trello har ikke blitt brukt mye og har rett og slett blitt kronglete pga de ulike ideene vi har
     drøftet 
 
-
 Under vurdering vil det vektlegges at alle bidrar til kode basen. Hvis det er stor forskjell i hvem som committer, må dere legge ved en kort forklaring for hvorfor det er sånn. Husk å committe alt. (Også design filer)
 
     Gruppen har jobbet mye under gruppetimene og det er ofte at alle gruppemedlemmer har vært med på å committee fra én pc.
     Ellers har Sindre bidratt masse til første innlevering, siden han hadde en del fritid, men til andre innlevering var det litt mindre siden han var ute og reiste.  Torstein har mindre erfaring i koding og latt resten gjøre en del av kodingen, men han har bidratt med mye god innsikt. Han er også hodet bak den nåværende card klassen.
     Hans og Tines har jobbet stødig gjennom begge innleveringer, Hans har jobbet med å ordne tester, mens Tines har lagd en Map klasse.
-
 
 Referat fra møter siden forrige leveranse skal legges ved. √
    
@@ -53,14 +51,13 @@ Bli enige om maks tre forbedringspunkter fra retrospektivet, som skal følges op
     Bli bedre til å arrangere møter
 
 ###Deloppgave 2: krav
-
 For hvert krav dere jobber med, må dere lage 
 1) ordentlige brukerhistorier
 2) akseptansekriterier
 3) arbeidsoppgaver 
-Husk at akseptansekriterier ofte skrives mer eller mindre som tester
+Husk at akseptansekriterier ofte skrives mer eller mindre som tester.
 
-
+ 
     Krav fremover:
         Implimentere ulike GUI’er som representerer meny, spill, og andre ting
     Brukerhistorier:
@@ -71,7 +68,6 @@ Husk at akseptansekriterier ofte skrives mer eller mindre som tester
     Arbeidsoppgaver:
         Lage primitive scener
         Lage turn handler
-
     Implementere en form for kort
     Brukerhistorier:
         Som spiller trenger jeg kort slik at jeg kan styre roboten min
