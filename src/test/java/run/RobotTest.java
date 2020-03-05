@@ -1,7 +1,7 @@
 package run;
 
 import org.junit.Test;
-import classes.*;
+import classes.Robot;
 
 import static org.junit.Assert.assertEquals;
 

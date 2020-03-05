@@ -13,19 +13,17 @@ public class Map {
     private final States states;
 
     private TiledMap map;
-    private TiledMapTileLayer board;
     private TiledMapTileLayer flagLayer;
     private TiledMapTileLayer holeLayer;
     private TiledMapTileLayer playerLayer;
     private TiledMapTileLayer wallLayer;
-    int width, height;
+    private int width, height;
 
     public Map() {
 
         states = new States();
 
         map = new TmxMapLoader().load("fullboard.tmx");
-        board = (TiledMapTileLayer) map.getLayers().get("Board");
         flagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
         holeLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
         playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");

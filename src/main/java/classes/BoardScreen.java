@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 
 import enums.*;
-import interfaces.*;
-import run.*;
+import interfaces.IRobot;
+import run.StartGame;
 
 public class BoardScreen implements Screen {
 
@@ -65,7 +65,6 @@ public class BoardScreen implements Screen {
 
     @Override
     public void show() {
-
     }
 
     @Override
@@ -84,22 +83,18 @@ public class BoardScreen implements Screen {
 
     @Override
     public void resize(int i, int i1) {
-
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override
@@ -110,45 +105,44 @@ public class BoardScreen implements Screen {
 
     private void createController(){
         /*Input controller*/
-        Gdx.input.setInputProcessor(new InputAdapter(){
+        Gdx.input.setInputProcessor(new InputAdapter() {
 
-            @Override
-            public boolean keyUp(int keycode) {
-                /*input controller*/
-                    switch (keycode){
-                        case Input.Keys.LEFT:
-                            map.moveRobot(robot, Direction.LEFT);
-                            break;
-                        case Input.Keys.RIGHT:
-                            map.moveRobot(robot, Direction.RIGHT);
-                            break;
-                        case Input.Keys.UP:
-                            map.moveRobot(robot, Direction.UP);
-                            break;
-                        case Input.Keys.DOWN:
-                            map.moveRobot(robot, Direction.DOWN);
-                            break;
-                }
-                return false;
-            }
+                                        @Override
+                                        public boolean keyUp(int keycode) {
+                                            /*input controller*/
+                                            switch (keycode) {
+                                                case Input.Keys.LEFT:
+                                                    map.moveRobot(robot, Direction.LEFT);
+                                                    break;
+                                                case Input.Keys.RIGHT:
+                                                    map.moveRobot(robot, Direction.RIGHT);
+                                                    break;
+                                                case Input.Keys.UP:
+                                                    map.moveRobot(robot, Direction.UP);
+                                                    break;
+                                                case Input.Keys.DOWN:
+                                                    map.moveRobot(robot, Direction.DOWN);
+                                                    break;
+                                            }
+                                            return false;
+                                        }
 
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                for (int i = 0; i < robot.getHand().size(); i++) {
-                    int minX = (5+i*88);
-                    int maxX = minX+86;
-                    int minY = 1000;
-                    int maxY = minY-120;
-                    if (screenX>=minX && screenX<=maxX){
-                        if (screenY<=minY && screenY>=maxY){
-                            robot.getHand().get(i).doAction(map);
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-            }
+                                        @Override
+                                        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                                            for (int i = 0; i < robot.getHand().size(); i++) {
+                                                int minX = (5 + i * 88);
+                                                int maxX = minX + 86;
+                                                int minY = 1000;
+                                                int maxY = minY - 120;
+                                                if (screenX >= minX && screenX <= maxX && screenY <= minY && screenY >= maxY) {
+                                                    robot.getHand().get(i).doAction(map);
+                                                    return true;
+                                                }
+                                            }
+                                            return false;
+                                        }
+                                    }
         );
+
     }
 }

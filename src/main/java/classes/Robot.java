@@ -1,9 +1,8 @@
 package classes;
 
 import enums.*;
-import interfaces.*;
+import interfaces.IRobot;
 import com.badlogic.gdx.maps.tiled.*;
-
 import java.util.ArrayList;
 import java.util.List;
 

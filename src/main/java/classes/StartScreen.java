@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import run.*;
+import run.StartGame;
 
 public class StartScreen implements Screen {
 
@@ -17,10 +17,9 @@ public class StartScreen implements Screen {
     //the stage where we put the buttons
     private Stage stage;
     //the buttons in the menu
-    private final Button startBtn, exitBtn;
-    private Button logo;
+    private final Button startBtn, exitBtn, logo;
     private int cooldown, cooldownTimer;
-    private float r=.66f,g=.66f,b=1f;
+    private float r=.66f, g=.66f, b=1f;
 
     public StartScreen(StartGame game) {
         this.game = game;
