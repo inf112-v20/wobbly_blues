@@ -83,4 +83,7 @@ public interface IRobot {
 
     //gets the card of the robot
     List<Card> getHand();
+
+    void setDied(boolean b);
+    boolean getDied();
 }

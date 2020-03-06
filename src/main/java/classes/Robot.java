@@ -1,5 +1,6 @@
 package classes;
 
+import com.badlogic.gdx.math.*;
 import enums.*;
 import interfaces.IRobot;
 import com.badlogic.gdx.maps.tiled.*;
@@ -16,6 +17,7 @@ public class Robot implements IRobot {
     private ArrayList<Integer> flags;
     private int hp;
     private Direction direction;
+    private boolean died;
 
     public Robot(TiledMapTileLayer.Cell start){
         hp = 3;
@@ -170,6 +172,13 @@ public class Robot implements IRobot {
             createHand();
         return hand;
     }
-
+    @Override
+    public void setDied(boolean b){
+        died = b;
+    }
+    @Override
+    public boolean getDied(){
+        return died;
+    }
 }
 

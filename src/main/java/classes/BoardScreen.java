@@ -28,6 +28,7 @@ public class BoardScreen implements Screen {
 
     private final int WIDTH = 12;
     private final int HEIGHT = 15;
+
     private SpriteBatch batch;
     private Texture card;
     private BitmapFont font;
