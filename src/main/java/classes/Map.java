@@ -99,57 +99,54 @@ public class Map {
     }
 
     public boolean moveRobot(IRobot robot, Direction dir) {
-        if (canGo(robot,dir)) {
-            switch (dir) {
-                case LEFT:
-                    if (robot.getPosX() >= 0) {
-                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-                        robot.setPos(robot.getPosX() - 1, robot.getPosY());
-                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+        switch (dir) {
+            case LEFT:
+                if (robot.getPosX() >= 0) {
+                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+                    robot.setPos(robot.getPosX() - 1, robot.getPosY());
+                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                        check(robot.getPosX(), robot.getPosY(), robot);
+                    check(robot.getPosX(), robot.getPosY(), robot);
 
-                        return true;
-                    }
-                    return false;
-                case RIGHT:
-                    if (robot.getPosX() < width) {
-                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-                        robot.setPos(robot.getPosX() + 1, robot.getPosY());
-                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+                    return true;
+                }
+                return false;
+            case RIGHT:
+                if (robot.getPosX() < width) {
+                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+                    robot.setPos(robot.getPosX() + 1, robot.getPosY());
+                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                        check(robot.getPosX(), robot.getPosY(), robot);
+                    check(robot.getPosX(), robot.getPosY(), robot);
 
-                        return true;
-                    }
-                    return false;
-                case UP:
-                    if (robot.getPosY() < height) {
-                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-                        robot.setPos(robot.getPosX(), robot.getPosY() + 1);
-                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+                    return true;
+                }
+                return false;
+            case UP:
+                if (robot.getPosY() < height) {
+                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+                    robot.setPos(robot.getPosX(), robot.getPosY() + 1);
+                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                        check(robot.getPosX(), robot.getPosY(), robot);
+                    check(robot.getPosX(), robot.getPosY(), robot);
 
-                        return true;
-                    }
-                    return false;
-                case DOWN:
-                    if (robot.getPosY() >= 0) {
-                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-                        robot.setPos(robot.getPosX(), robot.getPosY() - 1);
-                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+                    return true;
+                }
+                return false;
+            case DOWN:
+                if (robot.getPosY() >= 0) {
+                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+                    robot.setPos(robot.getPosX(), robot.getPosY() - 1);
+                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                        check(robot.getPosX(), robot.getPosY(), robot);
+                    check(robot.getPosX(), robot.getPosY(), robot);
 
-                        return true;
-                    }
-                    return false;
-                default:
-                    return false;
-            }
+                    return true;
+                }
+                return false;
+            default:
+                return false;
         }
-        else return false;
     }
 
     public TiledMap getMap() {
