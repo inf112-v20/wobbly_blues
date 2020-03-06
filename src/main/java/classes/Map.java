@@ -2,10 +2,9 @@ package classes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import enums.Direction;
+import com.badlogic.gdx.maps.tiled.*;
+import com.badlogic.gdx.maps.tiled.renderers.*;
+import enums.*;
 import interfaces.IRobot;
 
 public class Map {
@@ -57,11 +56,6 @@ public class Map {
             return false;
     }
 
-    public boolean inHole(int x, int y){
-        return holeLayer.getCell(x, y) != null;
-    }
-
-
     public boolean isFlag(int x, int y, IRobot robot) {
         if (flagLayer.getCell(x,y) != null){
            robot.addFlag(flagLayer.getCell(x,y).getTile().getId(), flagLayer);
@@ -105,63 +99,165 @@ public class Map {
     }
 
     public boolean moveRobot(IRobot robot, Direction dir) {
-        robot.setDied(false);
-        switch (dir) {
-            case LEFT:
-                if (robot.getPosX() >= 0) {
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-                    robot.setPos(robot.getPosX() - 1, robot.getPosY());
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+        if (canGo(robot,dir)) {
+            switch (dir) {
+                case LEFT:
+                    if (robot.getPosX() >= 0) {
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+                        robot.setPos(robot.getPosX() - 1, robot.getPosY());
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                    check(robot.getPosX(), robot.getPosY(), robot);
+                        check(robot.getPosX(), robot.getPosY(), robot);
 
-                    return true;
-                }
-                return false;
-            case RIGHT:
-                if (robot.getPosX() < width) {
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-                    robot.setPos(robot.getPosX() + 1, robot.getPosY());
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+                        return true;
+                    }
+                    return false;
+                case RIGHT:
+                    if (robot.getPosX() < width) {
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+                        robot.setPos(robot.getPosX() + 1, robot.getPosY());
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                    check(robot.getPosX(), robot.getPosY(), robot);
+                        check(robot.getPosX(), robot.getPosY(), robot);
 
-                    return true;
-                }
-                return false;
-            case UP:
-                if (robot.getPosY() < height) {
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-                    robot.setPos(robot.getPosX(), robot.getPosY() + 1);
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+                        return true;
+                    }
+                    return false;
+                case UP:
+                    if (robot.getPosY() < height) {
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+                        robot.setPos(robot.getPosX(), robot.getPosY() + 1);
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                    check(robot.getPosX(), robot.getPosY(), robot);
+                        check(robot.getPosX(), robot.getPosY(), robot);
 
-                    return true;
-                }
-                return false;
-            case DOWN:
-                if (robot.getPosY() >= 0) {
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-                    robot.setPos(robot.getPosX(), robot.getPosY() - 1);
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+                        return true;
+                    }
+                    return false;
+                case DOWN:
+                    if (robot.getPosY() >= 0) {
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+                        robot.setPos(robot.getPosX(), robot.getPosY() - 1);
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                    check(robot.getPosX(), robot.getPosY(), robot);
+                        check(robot.getPosX(), robot.getPosY(), robot);
 
-                    return true;
-                }
-                return false;
-            default:
-                return false;
+                        return true;
+                    }
+                    return false;
+                default:
+                    return false;
+            }
         }
+        else return false;
     }
 
     public TiledMap getMap() {
         return map;
     }
 
-    public boolean canGo(IRobot robot) {
-        return false;
+    public boolean canGo(IRobot robot, Direction dir) {
+        switch (dir) {
+            case UP:
+                if (wallLayer.getCell(robot.getPosX(), robot.getPosY()) != null) {
+                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.NORTH_WALL.getId()) {
+                        return false;
+                    }
+                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.NORTH_WEST_WALL.getId()) {
+                        return false;
+                    }
+                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.NORTH_EAST_WALL.getId()) {
+                        return false;
+                    }
+                }
+                else if (wallLayer.getCell(robot.getPosX(), robot.getPosY() + 1) != null) {
+                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY() + 1).getTile().getId() == tileID.SOUTH_WALL.getId()) {
+                        return false;
+                    }
+                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY() + 1).getTile().getId() == tileID.SOUTH_WEST_WALL.getId()) {
+                        return false;
+                    }
+                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY() + 1).getTile().getId() == tileID.SOUTH_EAST_WALL.getId()) {
+                        return false;
+                    }
+
+                }
+            case DOWN:
+                if (wallLayer.getCell(robot.getPosX(), robot.getPosY()) != null) {
+                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.SOUTH_WALL.getId()) {
+                        return false;
+                    }
+                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.SOUTH_WEST_WALL.getId()) {
+                        return false;
+                    }
+                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.SOUTH_EAST_WALL.getId()) {
+                        return false;
+                    }
+                }
+                else if (wallLayer.getCell(robot.getPosX(), robot.getPosY() - 1) != null) {
+                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY() - 1).getTile().getId() == tileID.NORTH_WALL.getId()) {
+                        return false;
+                    }
+                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY() - 1).getTile().getId() == tileID.NORTH_WEST_WALL.getId()) {
+                        return false;
+                    }
+                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY() - 1).getTile().getId() == tileID.NORTH_EAST_WALL.getId()) {
+                        return false;
+                    }
+
+                }
+            case LEFT:
+                if (wallLayer.getCell(robot.getPosX(), robot.getPosY()) != null) {
+                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.WEST_WALL.getId()) {
+                        return false;
+                    }
+                    else  if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.NORTH_WEST_WALL.getId()) {
+                        return false;
+                    }
+                    else  if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.SOUTH_WEST_WALL.getId()) {
+                        return false;
+                    }
+                }
+                else if (wallLayer.getCell(robot.getPosX() - 1, robot.getPosY()) != null) {
+                    if (wallLayer.getCell(robot.getPosX() -1, robot.getPosY()).getTile().getId() == tileID.EAST_WALL.getId()) {
+                        return false;
+                    }
+                    else if (wallLayer.getCell(robot.getPosX() -1, robot.getPosY()).getTile().getId() == tileID.NORTH_EAST_WALL.getId()) {
+                        return false;
+                    }
+                    else if (wallLayer.getCell(robot.getPosX() -1, robot.getPosY()).getTile().getId() == tileID.SOUTH_EAST_WALL.getId()) {
+                        return false;
+                    }
+
+                }
+            case RIGHT:
+                if (wallLayer.getCell(robot.getPosX(), robot.getPosY()) != null) {
+                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.EAST_WALL.getId()) {
+                        return false;
+                    }
+                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.NORTH_EAST_WALL.getId()) {
+                        return false;
+                    }
+                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.SOUTH_EAST_WALL.getId()) {
+                        return false;
+                    }
+                }
+                else if (wallLayer.getCell(robot.getPosX() + 1, robot.getPosY()) != null) {
+                    if (wallLayer.getCell(robot.getPosX() + 1, robot.getPosY()).getTile().getId() == tileID.WEST_WALL.getId()) {
+                        return false;
+                    }
+                    else if (wallLayer.getCell(robot.getPosX() + 1, robot.getPosY()).getTile().getId() == tileID.NORTH_WEST_WALL.getId()) {
+                        return false;
+                    }
+                    else if (wallLayer.getCell(robot.getPosX() + 1, robot.getPosY()).getTile().getId() == tileID.SOUTH_WEST_WALL.getId()) {
+                        return false;
+                    }
+
+                }
+            default:
+                return true;
+
+        }
     }
 
     public void check(int x, int y, IRobot robot){

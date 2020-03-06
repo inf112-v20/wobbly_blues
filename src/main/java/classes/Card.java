@@ -66,7 +66,6 @@ public class Card implements ICard {
     public void doAction(Map map) {
         for (int i = 0; i < getCellsToMove(); i++) {
             if (robot.getDied()){
-                robot.setDied(false);
                 break;
             }
             else map.moveRobot(robot, robot.getDirection());
