@@ -31,7 +31,6 @@ public class Map {
         wallLayer = (TiledMapTileLayer) map.getLayers().get("Walls");
         startPos =  (TiledMapTileLayer) map.getLayers().get("startPos");
 
-
         MapProperties prop = map.getProperties();
         width = prop.get("width", Integer.class);
         height = prop.get("height", Integer.class);
@@ -99,54 +98,56 @@ public class Map {
     }
 
     public boolean moveRobot(IRobot robot, Direction dir) {
-        switch (dir) {
-            case LEFT:
-                if (robot.getPosX() >= 0) {
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-                    robot.setPos(robot.getPosX() - 1, robot.getPosY());
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+        if(canGo(robot,dir)) {
+            switch (dir) {
+                case LEFT:
+                    if (robot.getPosX() >= 0) {
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+                        robot.setPos(robot.getPosX() - 1, robot.getPosY());
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                    check(robot.getPosX(), robot.getPosY(), robot);
+                        check(robot.getPosX(), robot.getPosY(), robot);
 
-                    return true;
-                }
-                return false;
-            case RIGHT:
-                if (robot.getPosX() < width) {
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-                    robot.setPos(robot.getPosX() + 1, robot.getPosY());
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+                        return true;
+                    }
+                    return false;
+                case RIGHT:
+                    if (robot.getPosX() < width) {
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+                        robot.setPos(robot.getPosX() + 1, robot.getPosY());
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                    check(robot.getPosX(), robot.getPosY(), robot);
+                        check(robot.getPosX(), robot.getPosY(), robot);
 
-                    return true;
-                }
-                return false;
-            case UP:
-                if (robot.getPosY() < height) {
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-                    robot.setPos(robot.getPosX(), robot.getPosY() + 1);
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+                        return true;
+                    }
+                    return false;
+                case UP:
+                    if (robot.getPosY() < height) {
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+                        robot.setPos(robot.getPosX(), robot.getPosY() + 1);
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                    check(robot.getPosX(), robot.getPosY(), robot);
+                        check(robot.getPosX(), robot.getPosY(), robot);
 
-                    return true;
-                }
-                return false;
-            case DOWN:
-                if (robot.getPosY() >= 0) {
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
-                    robot.setPos(robot.getPosX(), robot.getPosY() - 1);
-                    playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
+                        return true;
+                    }
+                    return false;
+                case DOWN:
+                    if (robot.getPosY() >= 0) {
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), null);
+                        robot.setPos(robot.getPosX(), robot.getPosY() - 1);
+                        playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                    check(robot.getPosX(), robot.getPosY(), robot);
+                        check(robot.getPosX(), robot.getPosY(), robot);
 
-                    return true;
-                }
-                return false;
-            default:
-                return false;
-        }
+                        return true;
+                    }
+                    return false;
+                default:
+                    return false;
+            }
+        }else return false;
     }
 
     public TiledMap getMap() {
@@ -154,107 +155,77 @@ public class Map {
     }
 
     public boolean canGo(IRobot robot, Direction dir) {
+        TiledMapTileLayer.Cell cell = wallLayer.getCell(robot.getPosX(), robot.getPosY());
+        TiledMapTileLayer.Cell northCell = wallLayer.getCell(robot.getPosX(), robot.getPosY() + 1);
+        TiledMapTileLayer.Cell southCell = wallLayer.getCell(robot.getPosX(), robot.getPosY() - 1);
+        TiledMapTileLayer.Cell eastCell = wallLayer.getCell(robot.getPosX() + 1, robot.getPosY());
+        TiledMapTileLayer.Cell westCell = wallLayer.getCell(robot.getPosX() - 1, robot.getPosY());
+
         switch (dir) {
             case UP:
-                if (wallLayer.getCell(robot.getPosX(), robot.getPosY()) != null) {
-                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.NORTH_WALL.getId()) {
-                        return false;
-                    }
-                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.NORTH_WEST_WALL.getId()) {
-                        return false;
-                    }
-                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.NORTH_EAST_WALL.getId()) {
-                        return false;
-                    }
+                if (NorthWall(cell) || SouthWall(northCell)) {
+                    return false;
                 }
-                else if (wallLayer.getCell(robot.getPosX(), robot.getPosY() + 1) != null) {
-                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY() + 1).getTile().getId() == tileID.SOUTH_WALL.getId()) {
-                        return false;
-                    }
-                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY() + 1).getTile().getId() == tileID.SOUTH_WEST_WALL.getId()) {
-                        return false;
-                    }
-                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY() + 1).getTile().getId() == tileID.SOUTH_EAST_WALL.getId()) {
-                        return false;
-                    }
-
-                }
+                break;
             case DOWN:
-                if (wallLayer.getCell(robot.getPosX(), robot.getPosY()) != null) {
-                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.SOUTH_WALL.getId()) {
-                        return false;
-                    }
-                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.SOUTH_WEST_WALL.getId()) {
-                        return false;
-                    }
-                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.SOUTH_EAST_WALL.getId()) {
-                        return false;
-                    }
+                if (SouthWall(cell) || NorthWall(southCell)) {
+                    return false;
                 }
-                else if (wallLayer.getCell(robot.getPosX(), robot.getPosY() - 1) != null) {
-                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY() - 1).getTile().getId() == tileID.NORTH_WALL.getId()) {
-                        return false;
-                    }
-                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY() - 1).getTile().getId() == tileID.NORTH_WEST_WALL.getId()) {
-                        return false;
-                    }
-                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY() - 1).getTile().getId() == tileID.NORTH_EAST_WALL.getId()) {
-                        return false;
-                    }
-
-                }
+                break;
             case LEFT:
-                if (wallLayer.getCell(robot.getPosX(), robot.getPosY()) != null) {
-                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.WEST_WALL.getId()) {
-                        return false;
-                    }
-                    else  if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.NORTH_WEST_WALL.getId()) {
-                        return false;
-                    }
-                    else  if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.SOUTH_WEST_WALL.getId()) {
-                        return false;
-                    }
+                if (WestWall(cell) || EastWall(westCell)) {
+                    return false;
                 }
-                else if (wallLayer.getCell(robot.getPosX() - 1, robot.getPosY()) != null) {
-                    if (wallLayer.getCell(robot.getPosX() -1, robot.getPosY()).getTile().getId() == tileID.EAST_WALL.getId()) {
-                        return false;
-                    }
-                    else if (wallLayer.getCell(robot.getPosX() -1, robot.getPosY()).getTile().getId() == tileID.NORTH_EAST_WALL.getId()) {
-                        return false;
-                    }
-                    else if (wallLayer.getCell(robot.getPosX() -1, robot.getPosY()).getTile().getId() == tileID.SOUTH_EAST_WALL.getId()) {
-                        return false;
-                    }
-
-                }
+                break;
             case RIGHT:
-                if (wallLayer.getCell(robot.getPosX(), robot.getPosY()) != null) {
-                    if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.EAST_WALL.getId()) {
-                        return false;
-                    }
-                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.NORTH_EAST_WALL.getId()) {
-                        return false;
-                    }
-                    else if (wallLayer.getCell(robot.getPosX(), robot.getPosY()).getTile().getId() == tileID.SOUTH_EAST_WALL.getId()) {
-                        return false;
-                    }
+                if (EastWall(cell) || WestWall(eastCell)) {
+                    return false;
                 }
-                else if (wallLayer.getCell(robot.getPosX() + 1, robot.getPosY()) != null) {
-                    if (wallLayer.getCell(robot.getPosX() + 1, robot.getPosY()).getTile().getId() == tileID.WEST_WALL.getId()) {
-                        return false;
-                    }
-                    else if (wallLayer.getCell(robot.getPosX() + 1, robot.getPosY()).getTile().getId() == tileID.NORTH_WEST_WALL.getId()) {
-                        return false;
-                    }
-                    else if (wallLayer.getCell(robot.getPosX() + 1, robot.getPosY()).getTile().getId() == tileID.SOUTH_WEST_WALL.getId()) {
-                        return false;
-                    }
-
-                }
+                break;
             default:
-                return true;
-
+                break;
         }
+        return true;
+    }
+
+    //returns true if cell has a wall on west side
+    private boolean WestWall(TiledMapTileLayer.Cell cell) {
+        if (cell != null) {
+            return cell.getTile().getId() == tileID.WEST_WALL.getId() ||
+                    cell.getTile().getId() == tileID.NORTH_WEST_WALL.getId() ||
+                    cell.getTile().getId() == tileID.SOUTH_WEST_WALL.getId();
+        }
+        return false;
+    }
+
+    //return true if cell has a wall on east side
+    private boolean EastWall(TiledMapTileLayer.Cell cell) {
+        if (cell != null) {
+            return cell.getTile().getId() == tileID.EAST_WALL.getId() ||
+                    cell.getTile().getId() == tileID.NORTH_EAST_WALL.getId() ||
+                    cell.getTile().getId() == tileID.SOUTH_EAST_WALL.getId();
+        }
+        return false;
+    }
+
+    //return true if cell has a wall on south side
+    private boolean SouthWall(TiledMapTileLayer.Cell cell) {
+        if (cell != null) {
+            return cell.getTile().getId() == tileID.SOUTH_WALL.getId() ||
+                    cell.getTile().getId() == tileID.SOUTH_WEST_WALL.getId() ||
+                    cell.getTile().getId() == tileID.SOUTH_EAST_WALL.getId();
+        }
+        return false;
+    }
+
+     //return true if cell has a wall on north side
+    private boolean NorthWall(TiledMapTileLayer.Cell cell) {
+        if (cell != null) {
+            return cell.getTile().getId() == tileID.NORTH_WALL.getId() ||
+                    cell.getTile().getId() == tileID.NORTH_WEST_WALL.getId() ||
+                    cell.getTile().getId() == tileID.NORTH_EAST_WALL.getId();
+        }
+        return false;
     }
 
     public void check(int x, int y, IRobot robot){
@@ -262,5 +233,4 @@ public class Map {
         isOut(x, y, robot);
         isHole(x, y, robot);
     }
-
 }
