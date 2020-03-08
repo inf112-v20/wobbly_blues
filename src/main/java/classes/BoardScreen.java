@@ -50,10 +50,9 @@ public class BoardScreen implements Screen {
 
         startPos = map.getStartPositions();
 
-        robot = new Robot(states.getNormal(),startPos.get(rand.nextInt(startPos.size())));
-        map.setPlayer(robot);
-
         map.placePlayers(2);
+
+        robot = map.getPlayerList().get(0);
 
         //creates an input controller
         createController();

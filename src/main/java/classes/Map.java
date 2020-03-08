@@ -20,6 +20,7 @@ public class Map {
     private TiledMapTileLayer startPos;
 
     private List<Vector2> startPositions;
+    private  List<IRobot> playerList;
 
     private int width, height;
 
@@ -259,15 +260,24 @@ public class Map {
     }
 
     public List<IRobot>  placePlayers(int numbPLayers) {
-        List<IRobot> list = new ArrayList<>();
+        playerList = new ArrayList<>();
         for (int i = 0; i < numbPLayers; i++) {
             Random rand = new Random();
             Vector2 pos = startPositions.get(rand.nextInt(startPositions.size()));
+            if (playerLayer.getCell((int) pos.x, (int) pos.y) != null){
+                pos = startPositions.get(rand.nextInt(startPositions.size()));
+            }
             if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
                 IRobot r = new Robot(states.getNormal(), pos);
                 setPlayer(r);
+                playerList.add(r);
+                startPositions.remove(pos);
             }
         }
-        return list;
+        return playerList;
+    }
+
+    public List<IRobot> getPlayerList(){
+        return playerList;
     }
 }
