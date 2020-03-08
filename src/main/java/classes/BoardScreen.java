@@ -6,9 +6,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 
+import com.badlogic.gdx.math.*;
 import enums.*;
 import interfaces.IRobot;
 import run.StartGame;
+
+import java.util.*;
 
 public class BoardScreen implements Screen {
 
@@ -29,17 +32,24 @@ public class BoardScreen implements Screen {
     private final int WIDTH = 12;
     private final int HEIGHT = 15;
 
+    private final List<Vector2> startPos;
+
     private SpriteBatch batch;
     private Texture card;
     private BitmapFont font;
 
     public BoardScreen(StartGame game){
 
+        Random rand = new Random();
+
         this.game = game;
 
         states = new States();
         map = new Map();
-        robot = new Robot(states.getNormal());
+
+        startPos = map.getStartPositions();
+
+        robot = new Robot(states.getNormal(),startPos.get(rand.nextInt(startPos.size())));
 
         //creates an input controller
         createController();

@@ -19,10 +19,10 @@ public class Robot implements IRobot {
     private Direction direction;
     private boolean died;
 
-    public Robot(TiledMapTileLayer.Cell start){
+    public Robot(TiledMapTileLayer.Cell start, Vector2 pos){
         hp = 3;
-        x = 1;
-        y = 1;
+        this.x = (int)pos.x;
+        this.y = (int)pos.y;
         bp_x = x;
         bp_y = y;
         state = start;

@@ -3,9 +3,10 @@ package classes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.*;
-import com.badlogic.gdx.maps.tiled.renderers.*;
+import com.badlogic.gdx.math.*;
 import enums.*;
 import interfaces.IRobot;
+import java.util.*;
 
 public class Map {
 
@@ -17,6 +18,8 @@ public class Map {
     private TiledMapTileLayer playerLayer;
     private TiledMapTileLayer wallLayer;
     private TiledMapTileLayer startPos;
+
+    private List<Vector2> startPositions;
 
     private int width, height;
 
@@ -32,6 +35,10 @@ public class Map {
         startPos =  (TiledMapTileLayer) map.getLayers().get("startPos");
 
         MapProperties prop = map.getProperties();
+
+        startPositions = findStart();
+        System.out.println(startPositions);
+
         width = prop.get("width", Integer.class);
         height = prop.get("height", Integer.class);
     }
@@ -163,22 +170,22 @@ public class Map {
 
         switch (dir) {
             case UP:
-                if (NorthWall(cell) || SouthWall(northCell)) {
+                if (northWall(cell) || southWall(northCell)) {
                     return false;
                 }
                 break;
             case DOWN:
-                if (SouthWall(cell) || NorthWall(southCell)) {
+                if (southWall(cell) || northWall(southCell)) {
                     return false;
                 }
                 break;
             case LEFT:
-                if (WestWall(cell) || EastWall(westCell)) {
+                if (westWall(cell) || eastWall(westCell)) {
                     return false;
                 }
                 break;
             case RIGHT:
-                if (EastWall(cell) || WestWall(eastCell)) {
+                if (eastWall(cell) || westWall(eastCell)) {
                     return false;
                 }
                 break;
@@ -188,8 +195,28 @@ public class Map {
         return true;
     }
 
+    //return true if cell has a wall on north side
+    private boolean northWall(TiledMapTileLayer.Cell cell) {
+        if (cell != null) {
+            return cell.getTile().getId() == tileID.NORTH_WALL.getId() ||
+                    cell.getTile().getId() == tileID.NORTH_WEST_WALL.getId() ||
+                    cell.getTile().getId() == tileID.NORTH_EAST_WALL.getId();
+        }
+        return false;
+    }
+
+    //return true if cell has a wall on south side
+    private boolean southWall(TiledMapTileLayer.Cell cell) {
+        if (cell != null) {
+            return cell.getTile().getId() == tileID.SOUTH_WALL.getId() ||
+                    cell.getTile().getId() == tileID.SOUTH_WEST_WALL.getId() ||
+                    cell.getTile().getId() == tileID.SOUTH_EAST_WALL.getId();
+        }
+        return false;
+    }
+
     //returns true if cell has a wall on west side
-    private boolean WestWall(TiledMapTileLayer.Cell cell) {
+    private boolean westWall(TiledMapTileLayer.Cell cell) {
         if (cell != null) {
             return cell.getTile().getId() == tileID.WEST_WALL.getId() ||
                     cell.getTile().getId() == tileID.NORTH_WEST_WALL.getId() ||
@@ -199,7 +226,7 @@ public class Map {
     }
 
     //return true if cell has a wall on east side
-    private boolean EastWall(TiledMapTileLayer.Cell cell) {
+    private boolean eastWall(TiledMapTileLayer.Cell cell) {
         if (cell != null) {
             return cell.getTile().getId() == tileID.EAST_WALL.getId() ||
                     cell.getTile().getId() == tileID.NORTH_EAST_WALL.getId() ||
@@ -208,29 +235,26 @@ public class Map {
         return false;
     }
 
-    //return true if cell has a wall on south side
-    private boolean SouthWall(TiledMapTileLayer.Cell cell) {
-        if (cell != null) {
-            return cell.getTile().getId() == tileID.SOUTH_WALL.getId() ||
-                    cell.getTile().getId() == tileID.SOUTH_WEST_WALL.getId() ||
-                    cell.getTile().getId() == tileID.SOUTH_EAST_WALL.getId();
-        }
-        return false;
-    }
-
-     //return true if cell has a wall on north side
-    private boolean NorthWall(TiledMapTileLayer.Cell cell) {
-        if (cell != null) {
-            return cell.getTile().getId() == tileID.NORTH_WALL.getId() ||
-                    cell.getTile().getId() == tileID.NORTH_WEST_WALL.getId() ||
-                    cell.getTile().getId() == tileID.NORTH_EAST_WALL.getId();
-        }
-        return false;
-    }
-
     public void check(int x, int y, IRobot robot){
         isFlag(x, y, robot);
         isOut(x, y, robot);
         isHole(x, y, robot);
+    }
+
+    private List<Vector2> findStart(){
+        List<Vector2> list = new ArrayList<>();
+        for(int i= 0; i<startPos.getWidth(); i++){
+            for(int j = 0; j<startPos.getHeight();j++){
+                if(startPos.getCell(i,j) != null)
+                {
+                    list.add(new Vector2(i,j));
+                }
+            }
+        }
+        return list;
+    }
+
+    public List<Vector2> getStartPositions(){
+        return startPositions;
     }
 }
