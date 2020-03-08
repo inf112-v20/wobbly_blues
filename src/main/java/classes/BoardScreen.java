@@ -32,6 +32,7 @@ public class BoardScreen implements Screen {
     private final int WIDTH = 12;
     private final int HEIGHT = 15;
 
+    //List of starting positions
     private final List<Vector2> startPos;
 
     private SpriteBatch batch;
@@ -51,6 +52,7 @@ public class BoardScreen implements Screen {
 
         robot = new Robot(states.getNormal(),startPos.get(rand.nextInt(startPos.size())));
 
+        map.placePlayers();
         //creates an input controller
         createController();
 
@@ -114,10 +116,9 @@ public class BoardScreen implements Screen {
        batch.dispose();
     }
 
-    private void createController(){
+    private void createController() {
         /*Input controller*/
         Gdx.input.setInputProcessor(new InputAdapter() {
-
                                         @Override
                                         public boolean keyUp(int keycode) {
                                             /*input controller*/
@@ -154,6 +155,5 @@ public class BoardScreen implements Screen {
                                         }
                                     }
         );
-
     }
 }

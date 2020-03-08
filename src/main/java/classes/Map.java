@@ -37,7 +37,6 @@ public class Map {
         MapProperties prop = map.getProperties();
 
         startPositions = findStart();
-        System.out.println(startPositions);
 
         width = prop.get("width", Integer.class);
         height = prop.get("height", Integer.class);
@@ -241,6 +240,7 @@ public class Map {
         isHole(x, y, robot);
     }
 
+    //finds all the starting positions on the map
     private List<Vector2> findStart(){
         List<Vector2> list = new ArrayList<>();
         for(int i= 0; i<startPos.getWidth(); i++){
@@ -256,5 +256,16 @@ public class Map {
 
     public List<Vector2> getStartPositions(){
         return startPositions;
+    }
+
+    public List<IRobot>  placePlayers() {
+        List<IRobot> list= new ArrayList<>();
+        for (Vector2 pos : startPositions) {
+            if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
+                IRobot r = new Robot(states.getNormal(),pos);
+                playerLayer.setCell((int) pos.x, (int) pos.y, r.getState());
+            }
+        }
+        return list;
     }
 }
