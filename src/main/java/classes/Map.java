@@ -258,12 +258,14 @@ public class Map {
         return startPositions;
     }
 
-    public List<IRobot>  placePlayers() {
-        List<IRobot> list= new ArrayList<>();
-        for (Vector2 pos : startPositions) {
+    public List<IRobot>  placePlayers(int numbPLayers) {
+        List<IRobot> list = new ArrayList<>();
+        for (int i = 0; i < numbPLayers; i++) {
+            Random rand = new Random();
+            Vector2 pos = startPositions.get(rand.nextInt(startPositions.size()));
             if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
-                IRobot r = new Robot(states.getNormal(),pos);
-                playerLayer.setCell((int) pos.x, (int) pos.y, r.getState());
+                IRobot r = new Robot(states.getNormal(), pos);
+                setPlayer(r);
             }
         }
         return list;

@@ -51,15 +51,16 @@ public class BoardScreen implements Screen {
         startPos = map.getStartPositions();
 
         robot = new Robot(states.getNormal(),startPos.get(rand.nextInt(startPos.size())));
+        map.setPlayer(robot);
 
-        map.placePlayers();
+        map.placePlayers(2);
+
         //creates an input controller
         createController();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false,WIDTH,HEIGHT);
 
-        map.setPlayer(robot);
 
         float h = camera.viewportHeight;
         float w = camera.viewportWidth;
