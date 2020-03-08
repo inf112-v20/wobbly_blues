@@ -20,8 +20,6 @@ public class BoardScreen implements Screen {
     //Creates a robot that reacts to input
     private IRobot robot;
 
-    private States states;
-
     private final StartGame game;
 
     //The camera and the viewpoint
@@ -31,23 +29,13 @@ public class BoardScreen implements Screen {
     private final int WIDTH = 12;
     private final int HEIGHT = 15;
 
-    //List of starting positions
-    private final List<Vector2> startPos;
-
     private SpriteBatch batch;
-    private Texture card;
     private BitmapFont font;
 
     public BoardScreen(StartGame game){
-
-        Random rand = new Random();
-
         this.game = game;
 
-        states = new States();
         map = new Map();
-
-        startPos = map.getStartPositions();
 
         map.placePlayers(3);
 
@@ -70,7 +58,6 @@ public class BoardScreen implements Screen {
         TMRenderer.setView(camera);
 
         batch = new SpriteBatch();
-        card = new Texture("assets/card/card.png");
         font = new BitmapFont();
         font.setColor(Color.BLACK);
     }
@@ -136,7 +123,7 @@ public class BoardScreen implements Screen {
                                                     break;
                                                 case Input.Keys.S:
                                                     setPlayer();
-
+                                                    break;
                                             }
                                             return false;
                                         }
