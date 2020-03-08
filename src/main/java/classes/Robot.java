@@ -68,6 +68,8 @@ public class Robot implements IRobot {
     @Override
     public Direction getDirection() {return direction;}
 
+
+    //Needs tweeking, rotates all the players.
     @Override
     public void setDirection(Direction direction) {
         switch (direction){

@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.*;
-
 import com.badlogic.gdx.math.*;
 import enums.*;
 import interfaces.IRobot;
@@ -50,9 +49,9 @@ public class BoardScreen implements Screen {
 
         startPos = map.getStartPositions();
 
-        map.placePlayers(2);
+        map.placePlayers(3);
 
-        robot = map.getPlayerList().get(0);
+        setPlayer();
 
         //creates an input controller
         createController();
@@ -135,6 +134,9 @@ public class BoardScreen implements Screen {
                                                 case Input.Keys.DOWN:
                                                     map.moveRobot(robot, Direction.DOWN);
                                                     break;
+                                                case Input.Keys.S:
+                                                    setPlayer();
+
                                             }
                                             return false;
                                         }
@@ -155,5 +157,14 @@ public class BoardScreen implements Screen {
                                         }
                                     }
         );
+    }
+
+    public void setPlayer(){
+        if(robot == null) {
+            robot = map.getPlayerList().get(map.switchPlayer(null));
+        }
+        else {
+            robot = map.getPlayerList().get(map.switchPlayer(robot));
+        }
     }
 }

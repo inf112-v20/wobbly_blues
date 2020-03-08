@@ -260,13 +260,20 @@ public class Map {
     }
 
     public List<IRobot>  placePlayers(int numbPLayers) {
+        if(numbPLayers >= 8) numbPLayers = 8;
+
+        if(numbPLayers > startPositions.size()) numbPLayers=startPositions.size();
+
+
         playerList = new ArrayList<>();
         for (int i = 0; i < numbPLayers; i++) {
             Random rand = new Random();
             Vector2 pos = startPositions.get(rand.nextInt(startPositions.size()));
+
             if (playerLayer.getCell((int) pos.x, (int) pos.y) != null){
                 pos = startPositions.get(rand.nextInt(startPositions.size()));
             }
+
             if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
                 IRobot r = new Robot(states.getNormal(), pos);
                 setPlayer(r);
@@ -279,5 +286,18 @@ public class Map {
 
     public List<IRobot> getPlayerList(){
         return playerList;
+    }
+
+    public int switchPlayer(IRobot r) {
+        if (r == null) {
+            return 0;
+        } else {
+            int i = playerList.indexOf(r);
+            i++;
+            if (i >= playerList.size()) {
+                i = 0;
+            }
+            return i;
+        }
     }
 }
