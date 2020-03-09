@@ -10,8 +10,6 @@ import java.util.*;
 
 public class Map {
 
-    private final States states;
-
     private TiledMap map;
     private TiledMapTileLayer flagLayer;
     private TiledMapTileLayer holeLayer;
@@ -25,8 +23,6 @@ public class Map {
     private int width, height;
 
     public Map() {
-
-        states = new States();
 
         map = new TmxMapLoader().load("fullboard.tmx");
         flagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
