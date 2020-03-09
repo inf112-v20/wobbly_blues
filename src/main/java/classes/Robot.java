@@ -19,15 +19,18 @@ public class Robot implements IRobot {
     private Direction direction;
     private boolean died;
 
-    public Robot(TiledMapTileLayer.Cell start, Vector2 pos){
+    private States states;
+
+    public Robot(Vector2 pos){
         hp = 3;
         this.x = (int)pos.x;
         this.y = (int)pos.y;
         bp_x = x;
         bp_y = y;
-        state = start;
         flags = new ArrayList<>();
         direction = Direction.UP;
+        states = new States();
+        setNormalState();
     }
 
     @Override
@@ -181,6 +184,18 @@ public class Robot implements IRobot {
     @Override
     public boolean getDied(){
         return died;
+    }
+
+    public void setNormalState(){
+        state = states.getNormal();
+    }
+
+    public void setDeadState(){
+        state = states.getDead();
+    }
+
+    public void setWonState(){
+        state = states.getWon();
     }
 }
 

@@ -66,7 +66,6 @@ public class Map {
         if (flagLayer.getCell(x,y) != null){
            robot.addFlag(flagLayer.getCell(x,y).getTile().getId(), flagLayer);
             if(robot.numbFlags() == 4){
-                robot.setState(states.getWon());
                 playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
                 System.out.println("You won!");
                 Gdx.app.exit();
@@ -275,7 +274,7 @@ public class Map {
             }
 
             if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
-                IRobot r = new Robot(states.getNormal(), pos);
+                IRobot r = new Robot(pos);
                 setPlayer(r);
                 playerList.add(r);
                 startPositions.remove(pos);
