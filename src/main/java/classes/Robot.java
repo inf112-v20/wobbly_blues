@@ -97,10 +97,6 @@ public class Robot implements IRobot {
         return state;
     }
 
-    @Override
-    public void setState(TiledMapTileLayer.Cell state){
-        this.state = state;
-    }
 
     @Override
     public void setPos(int x, int y){

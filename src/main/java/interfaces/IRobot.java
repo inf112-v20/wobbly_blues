@@ -48,9 +48,6 @@ public interface IRobot {
     /*Returns the current state of the robot*/
     TiledMapTileLayer.Cell getState();
 
-    /*sets the state of the robot*/
-    void setState(TiledMapTileLayer.Cell state);
-
     /*sets the current Pos of the robot in a Vector2(2dvector)*/
     void setPos(int x, int y);
 
@@ -84,6 +81,14 @@ public interface IRobot {
     //gets the card of the robot
     List<Card> getHand();
 
+    //sets if the robot just died
     void setDied(boolean b);
+
     boolean getDied();
+
+    void setNormalState();
+
+    void setDeadState();
+
+    void setWonState();
 }
