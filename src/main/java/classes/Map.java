@@ -43,7 +43,7 @@ public class Map {
         if (holeLayer.getCell(x, y) != null) {
             if (robot.getHp() > 0) {
                 playerLayer.setCell(x, y, null);
-                robot.takeDamage();
+                robot.looseLife();
                 robot.setPos(robot.getBp_x(), robot.getBp_y());
                 playerLayer.setCell(robot.getBp_x(), robot.getBp_y(), robot.getState());
                 robot.setDied(true);
@@ -127,8 +127,7 @@ public class Map {
 
         if(canGo(robot,dir)) {
             if (getRobot(robot.getPosX(),robot.getPosY(),dir) != null){
-                if (moveRobot(getRobot(robot.getPosX(),robot.getPosY(),dir),dir));
-                else return false;
+                if (!moveRobot(getRobot(robot.getPosX(),robot.getPosY(),dir),dir)) return false;
             }
             switch (dir) {
                 case LEFT:
