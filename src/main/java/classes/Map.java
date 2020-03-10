@@ -22,6 +22,22 @@ public class Map {
 
     private int width, height;
 
+    public Map(String boardName){
+        map = new TmxMapLoader().load(boardName);
+        flagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
+        holeLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
+        playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
+        wallLayer = (TiledMapTileLayer) map.getLayers().get("Walls");
+        startPos =  (TiledMapTileLayer) map.getLayers().get("startPos");
+
+        MapProperties prop = map.getProperties();
+
+        startPositions = findStart();
+
+        width = prop.get("width", Integer.class);
+        height = prop.get("height", Integer.class);
+    }
+
     public Map() {
 
         map = new TmxMapLoader().load("fullboard.tmx");
