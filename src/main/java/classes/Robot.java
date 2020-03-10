@@ -16,6 +16,7 @@ public class Robot implements IRobot {
     private int bp_x, bp_y;
     private ArrayList<Integer> flags;
     private int hp;
+    private int damageToken;
     private Direction direction;
     private boolean died;
 
@@ -23,6 +24,7 @@ public class Robot implements IRobot {
 
     public Robot(Vector2 pos){
         hp = 3;
+        damageToken = 0;
         this.x = (int)pos.x;
         this.y = (int)pos.y;
         bp_x = x;
@@ -34,8 +36,17 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public void takeDamage() {
+    public void looseLife() {
         hp--;
+    }
+
+    @Override
+    public void takeDamage(){
+        damageToken++;
+        if (damageToken == 10){
+            looseLife();
+            damageToken = 0;
+        }
     }
 
     @Override
@@ -165,6 +176,9 @@ public class Robot implements IRobot {
     public int getHp(){
         return hp;
     }
+
+    public int getDamageToken(){return damageToken;}
+
     @Override
     public List<Card> getHand() {
         if (hand == null)
