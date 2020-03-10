@@ -99,8 +99,37 @@ public class Map {
         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
     }
 
+    public IRobot getRobot(int x, int y){
+        for (IRobot robot: playerList) {
+            if (robot.getPosX() == x && robot.getPosY() == y){
+                return robot;
+            }
+        }
+        return null;
+    }
+
+    public IRobot getRobot(int x, int y, Direction dir){
+        switch (dir){
+            case DOWN:
+                return getRobot(x,y-1);
+            case UP:
+                return getRobot(x,y+1);
+            case RIGHT:
+                return getRobot(x+1,y);
+            case LEFT:
+                return getRobot(x-1,y);
+        }
+        return null;
+    }
+
+    //TODO: make so robot pusher other robots when "respawning"
     public boolean moveRobot(IRobot robot, Direction dir) {
+
         if(canGo(robot,dir)) {
+            if (getRobot(robot.getPosX(),robot.getPosY(),dir) != null){
+                if (moveRobot(getRobot(robot.getPosX(),robot.getPosY(),dir),dir));
+                else return false;
+            }
             switch (dir) {
                 case LEFT:
                     if (robot.getPosX() >= 0) {
