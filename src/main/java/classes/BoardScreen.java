@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.*;
-import com.badlogic.gdx.math.*;
 import enums.*;
 import interfaces.IRobot;
 import run.StartGame;
@@ -60,6 +59,7 @@ public class BoardScreen implements Screen {
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.BLACK);
+
     }
 
     @Override
