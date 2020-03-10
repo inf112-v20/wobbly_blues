@@ -36,7 +36,7 @@ public class BoardScreen implements Screen {
 
         map = new Map();
 
-        map.placePlayers(3);
+        map.placePlayers(1);
 
         setPlayer();
 
