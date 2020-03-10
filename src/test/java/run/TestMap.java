@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import testrunner.GdxTestRunner;
 
 @RunWith(GdxTestRunner.class)
-public class TestMapInit {
+public class TestMap {
 
     @Test
     public void testMapInit(){
@@ -21,8 +21,6 @@ public class TestMapInit {
     public void testMapObject(){
         Map map = new Map();
         TiledMap mapt = map.getMap();
-        MapLayer lsr = mapt.getLayers().get("Laser");
-        TiledMapTileLayer lyr = (TiledMapTileLayer) mapt.getLayers().get("Belt");
-        System.out.println(lyr.getCell(5,5).getRotation());
+
     }
 }
