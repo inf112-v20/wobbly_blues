@@ -57,21 +57,25 @@ public class Map {
 
     public boolean isHole(int x, int y, IRobot robot) {
         if (holeLayer.getCell(x, y) != null) {
-            if (robot.getHp() > 0) {
-                playerLayer.setCell(x, y, null);
-                robot.looseLife();
-                robot.setPos(robot.getBp_x(), robot.getBp_y());
-                playerLayer.setCell(robot.getBp_x(), robot.getBp_y(), robot.getState());
-                robot.setDied(true);
-            }
-           else if (robot.getHp() == 0){
-                System.out.println("You are dead!");
-                Gdx.app.exit();
-            }
-           return true;
+            looseLife(x, y, robot);
+            return true;
         }
         else
             return false;
+    }
+
+    private void looseLife(int x, int y, IRobot robot) {
+        if (robot.getHp() > 0) {
+            playerLayer.setCell(x, y, null);
+            robot.looseLife();
+            robot.setPos(robot.getBp_x(), robot.getBp_y());
+            playerLayer.setCell(robot.getBp_x(), robot.getBp_y(), robot.getState());
+            robot.setDied(true);
+        }
+       else if (robot.getHp() == 0){
+            System.out.println("You are dead!");
+            Gdx.app.exit();
+        }
     }
 
     public boolean isFlag(int x, int y, IRobot robot) {
@@ -92,20 +96,16 @@ public class Map {
 
     public boolean isOut(int x, int y, IRobot robot) {
         if (x > width-1) {
-            System.out.println("You are dead!");
-            Gdx.app.exit();
+            looseLife(x,y,robot);
             return true;
         } else if (x < 0) {
-            System.out.println("You are dead!");
-            Gdx.app.exit();
+            looseLife(x,y,robot);
             return true;
         } else if (y > height-1) {
-            System.out.println("You are dead!");
-            Gdx.app.exit();
+            looseLife(x,y,robot);
             return true;
         } else if (y < 0) {
-            System.out.println("You are dead!");
-            Gdx.app.exit();
+            looseLife(x,y,robot);
             return true;
         } else
             return false;

@@ -14,7 +14,7 @@ public class RobotTest {
         int posX = robot.getPosX();
         int posY = robot.getPosY();
         robot.setPos(posX+1,posY+1);
-        assertEquals(robot.getPosX(), posX+1, 0);
-        assertEquals(robot.getPosY(), posY+1, 0);
+        assertEquals(posX+1, robot.getPosX(), 0);
+        assertEquals(posY+1, robot.getPosY(), 0);
     }
 }
