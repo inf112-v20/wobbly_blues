@@ -294,9 +294,6 @@ public class Map {
         return list;
     }
 
-    public List<Vector2> getStartPositions(){
-        return startPositions;
-    }
 
     public List<IRobot>  placePlayers(int numbPLayers) {
         if(numbPLayers >= 8) numbPLayers = 8;

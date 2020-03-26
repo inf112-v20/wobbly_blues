@@ -22,3 +22,43 @@ Vi diskuterte videre arbeid, Torstein kom på en smart måte å representere kor
 Møtende medlemmer: Alle
 
 Vi fullførte og svarte på oppgavene
+
+### Tirsdag 3.Mars
+Møtende medlemmer: Alle
+
+Vi begynte å se mer på hva vi kunne forbedre med spillet, og hvor vi skulle ha fokus.
+
+### Fredag 6.Mars
+Møtende medlemmer: Alle
+
+Vi fortsatte med å se på forbedrings potensialer. samt at vi begynte å planlegge presentasjonen litt.
+Halve møtet så drev vi med par programering for å få fikset litt små ting.
+
+### Tirsdag 10.Mars
+Møtende medlemmer: Alle
+
+Vi satt oss ned for å samenligne forksjellen på de andre gruppene og oss. Deretter så satte vi oss noen mål på hva vi ville fokusere med tanke på hvor de andre gruppene ligger. Her endte vi opp med å ha fokus på kort og turnhandler.
+
+### Fredag 13.Mars
+
+Her ble det ikke noe møte på grunn av UiB som stengte at de stengte ned for covid-19
+
+### Tirsdag 17.Mars
+Møtende medlemmer: Alle
+
+Her satt vi oss på discord for å fikse en plan fremover for jobbing med selve oppgaven selv hjemme.
+
+### Fredag 20.Mars
+Møtende medlemmer: Alle
+
+Her jobbet vi selv alene med de oppgavene vi hadde, men siden to av medlemmene hadde en annen stor innlevering denne dagen også, så ble det ikke gjort så mye.
+
+### Tirsdag 24.Mars
+Møtende Medlemmer: Alle
+
+Jobbet selvstendig med kodeopprydding
+
+### Fredag 27.Mars
+Møtende medlemmer: Alle
+
+Gjøre klar for å levere oppgaven.
