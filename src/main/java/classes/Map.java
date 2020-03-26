@@ -72,7 +72,7 @@ public class Map {
             playerLayer.setCell(robot.getBp_x(), robot.getBp_y(), robot.getState());
             robot.setDied(true);
         }
-       else if (robot.getHp() == 0){
+       if (robot.getHp() == 0){
             System.out.println("You are dead!");
             Gdx.app.exit();
         }
