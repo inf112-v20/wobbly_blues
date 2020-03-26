@@ -50,33 +50,12 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public void die() {
-    }
-
-    @Override
-    public void shootLaser() {
-    }
-
-    @Override
-    public void input() {
-    }
-
-    @Override
-    public boolean powerDown(boolean input) {return input;}
-
-    @Override
     public void createHand() {
         hand = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             hand.add(new Card());
             hand.get(i).setRobot(this);
         }
-    }
-
-    @Override
-    public boolean isReady() {
-        //TODO: implement this!
-        return false;
     }
 
     @Override
