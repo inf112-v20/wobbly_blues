@@ -22,6 +22,8 @@ public class Map {
 
     private int width, height;
 
+    private int playerIdx;
+
     public Map() {
 
         map = new TmxMapLoader().load("fullboard.tmx");
@@ -37,6 +39,7 @@ public class Map {
 
         width = prop.get("width", Integer.class);
         height = prop.get("height", Integer.class);
+        playerIdx=0;
     }
 
     public boolean isHole(int x, int y, IRobot robot) {
@@ -48,11 +51,10 @@ public class Map {
                 playerLayer.setCell(robot.getBp_x(), robot.getBp_y(), robot.getState());
                 robot.setDied(true);
             }
-           else if (robot.getHp() == 0){
-                System.out.println("You are dead!");
-                Gdx.app.exit();
-            }
-           return true;
+            else if (robot.getHp() == 0){
+                System.out.println("Robot "+playerList.indexOf(robot)+" Died!");
+             }
+            return true;
         }
         else
             return false;
@@ -63,8 +65,7 @@ public class Map {
            robot.addFlag(flagLayer.getCell(x,y).getTile().getId(), flagLayer);
             if(robot.numbFlags() == 4){
                 playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
-                System.out.println("You won!");
-                Gdx.app.exit();
+                System.out.println("Robot "+playerList.indexOf(robot)+" has Won!");
             }
            return true;
         }
@@ -76,20 +77,16 @@ public class Map {
 
     public boolean isOut(int x, int y, IRobot robot) {
         if (x > width-1) {
-            System.out.println("You are dead!");
-            Gdx.app.exit();
+            System.out.println("Robot "+playerList.indexOf(robot)+" Died!");
             return true;
         } else if (x < 0) {
-            System.out.println("You are dead!");
-            Gdx.app.exit();
+            System.out.println("Robot "+playerList.indexOf(robot)+" Died!");
             return true;
         } else if (y > height-1) {
-            System.out.println("You are dead!");
-            Gdx.app.exit();
+            System.out.println("Robot "+playerList.indexOf(robot)+" Died!");
             return true;
         } else if (y < 0) {
-            System.out.println("You are dead!");
-            Gdx.app.exit();
+            System.out.println("Robot "+playerList.indexOf(robot)+" Died!");
             return true;
         } else
             return false;
@@ -262,6 +259,16 @@ public class Map {
         isFlag(x, y, robot);
         isOut(x, y, robot);
         isHole(x, y, robot);
+        if (isPlayer(robot)){
+            if (robot.getHp() == 0){
+                System.out.println("You Lose!");
+                Gdx.app.exit();
+            }
+        }
+    }
+
+    public boolean isPlayer(IRobot robot){
+        return playerList.indexOf(robot) == playerIdx;
     }
 
     //finds all the starting positions on the map
@@ -317,6 +324,7 @@ public class Map {
             if (i >= playerList.size()) {
                 i = 0;
             }
+            playerIdx=i;
             return i;
         }
     }
