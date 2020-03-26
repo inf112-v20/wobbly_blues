@@ -34,6 +34,11 @@
 
     Her vil vi prioritere å få til turnhandler, for når den er ferdig så vil resten av bitene komme litt etter hvert.
     Vi vil også se litt mere på testing og få skrevet en del nye tester til neste gang. 
+    Vi har vært flinkere til å bruke trelle på denne innleveringen, men igjen så har vi latt den bli litt tom. dette er fordi at vi er flinke til å si ifra hva vi jobber med enten over direkte medlinge eller på slack. 
+    Noen ganger så planlegger vi når en eller to skal gjøre store endringer på spillet, sånn at de andre ikke er inne på de klassene og gjør endringer som kan gjøre at vi får en merge feil. 
+    Dette fører til at Trello blir litt ignorert til tider, men vi bruker det så godt som mulig.
+    
+    Gruppelederen vår har tilgang til Trelloen vår.
     
 - Hvordan fungerer gruppedynamikken og kommunikasjonen?
 
@@ -55,9 +60,33 @@
 
 ##Deloppgave 3: Produktleveranse og kodekvalitet
 - Dere må dokumentere hvordan prosjektet bygger, testes og kjøres, slik at det er lett for gruppelderne å bygge, teste og kjøre koden deres. Under vurdering kommer koden også til å brukertestes.
+
+
+    For å kjøre spillet så kan du bruke intellij, men så lenge du har lastet ned helle repoet, så skal dette gå fint. når du kjører så må du kjøre main klassen. du trenger ikke noe mer en dette. selve bygge koden blir gjort gjennom codacy og travis. disse tester også.
+    Vi har tester som vi har lagd selv, her må du inn på test mappen og kjøre en av de med grønn og rød pil i hjørnet av C symbolet.
+    
+    Se README.md
+    
+    
 - Prosjektet skal kunne bygge, testes og kjøres på Linux, Windows og OSX.
+
+    
+    Dette tester vi gjennom at vi har både linux, osx og window i gruppen.
+    
 - Lever klassediagram. (Hvis det er veldig mange klasser, lager dere for de viktigste.)
+
+![](oblig3UML.png)
+
 - Kodekvalitet og testdekning vektlegges. Merk at testene dere skriver skal brukes i produktet. Det kan være smart å skrive manuelle tester for å teste det som er grafisk.
+
+
+    Se mappe test, også run, her ligger alle testen som vi har laget så langt.
+
 - Utførte oppgaver skal være ferdige.
+
 - Hvis dere tester manuelt: lever beskrivelser av hvordan testen foregår, slik at gruppeleder kan utføre testen selv.
+
 - Under vurdering vil det vektlegges at alle bidrar til kodebasen. Hvis det er stor forskjell i hvem som committer, må dere legge ved en kort forklaring for hvorfor det er sånn. Husk å committe alt. (Også designfiler)
+
+
+    Denne rundet så har vi prøvd å gjøre det sånn at alle leverer likt, men vi ser at det er noen av oss som har gjort litt mere enn andre. Dette er fordi at disse personene har som oppgave å kode, og de har hatt litt ekstra tid til å gjøre dette. 
