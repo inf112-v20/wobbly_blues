@@ -38,7 +38,9 @@ public class Robot {
         hp--;
     }
 
-
+    /**
+     * Fills a hand with random cards
+     */
     public void createHand() {
         hand = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
@@ -56,8 +58,8 @@ public class Robot {
     public Direction getDirection() {return direction;}
 
 
-    //TODO: Needs tweaking, rotates all the players.
     public void setDirection(Direction direction) {
+        //TODO: Needs tweaking, rotates all the players.
         switch (direction){
             case LEFT:
                 state.setRotation(1);

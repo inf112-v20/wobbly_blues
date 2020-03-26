@@ -42,6 +42,13 @@ public class Map {
         this("fullboard.tmx");
     }
 
+    /**
+     * Check if robot is on a hole and do appropriate action
+     * @param x xPos of robot
+     * @param y yPos of robot
+     * @param robot robot in question
+     * @return True if robot was on hole
+     */
     public boolean isHole(int x, int y, Robot robot) {
         if (holeLayer.getCell(x, y) != null) {
             decreaseLife(x, y, robot);
@@ -51,6 +58,12 @@ public class Map {
             return false;
     }
 
+    /**
+     * Reduce the hp of robot, respawn the robot at current base position
+     * @param x xPos robot was destroyed
+     * @param y yPos robot was destroyed
+     * @param robot robot in question
+     */
     private void decreaseLife(int x, int y, Robot robot) {
         if (robot.getHp() > 0) {
             playerLayer.setCell(x, y, null);
@@ -65,6 +78,13 @@ public class Map {
         }
     }
 
+    /**
+     * Check if robot is on a flag and do appropriate action
+     * @param x robots xPos
+     * @param y robots yPos
+     * @param robot robot in question
+     * @return True if robot was on flag
+     */
     public boolean isFlag(int x, int y, Robot robot) {
         if (flagLayer.getCell(x,y) != null){
            robot.addFlag(flagLayer.getCell(x,y).getTile().getId(), flagLayer);
@@ -81,6 +101,13 @@ public class Map {
         return false;
     }
 
+    /**
+     * Check if robot is out of bounds and do appropriate action
+     * @param x robots xPos
+     * @param y robots yPos
+     * @param robot robot in question
+     * @return True if robot was out of bounds
+     */
     public boolean isOut(int x, int y, Robot robot) {
         if (x > width-1) {
             decreaseLife(x,y,robot);
@@ -98,6 +125,10 @@ public class Map {
             return false;
     }
 
+    /**
+     * Add/set a robot to the player layer
+     * @param robot robot in question
+     */
     public void setPlayer(Robot robot) {
         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
     }
@@ -111,6 +142,13 @@ public class Map {
         return null;
     }
 
+    /**
+     * Get the robot that lies 1 step in the given direction from (x,y) (if any)
+     * @param x posX
+     * @param y posY
+     * @param dir direction
+     * @return robot that lies 1 step in the given direction from (x,y)
+     */
     public Robot getRobot(int x, int y, Direction dir){
         switch (dir){
             case DOWN:
@@ -125,8 +163,14 @@ public class Map {
         return null;
     }
 
-    //TODO: make so robot pusher other robots when "respawning"
+    /**
+     * Move a robot
+     * @param robot robot to move
+     * @param dir direction to move robot
+     * @return True if robot was moved
+     */
     public boolean moveRobot(Robot robot, Direction dir) {
+        //TODO: make so robot pushes other robots when "respawning"
 
         if(canGo(robot,dir)) {
             if (getRobot(robot.getPosX(),robot.getPosY(),dir) != null){
@@ -187,6 +231,12 @@ public class Map {
         return map;
     }
 
+    /**
+     * Check if robot can move in given direction
+     * @param robot robot in question
+     * @param dir direction to move robot
+     * @return if robot can move 1 in the given direction (ie no walls)
+     */
     public boolean canGo(Robot robot, Direction dir) {
         TiledMapTileLayer.Cell cell = wallLayer.getCell(robot.getPosX(), robot.getPosY());
         TiledMapTileLayer.Cell northCell = wallLayer.getCell(robot.getPosX(), robot.getPosY() + 1);
@@ -261,13 +311,22 @@ public class Map {
         return false;
     }
 
+    /**
+     * Check if robot is on a flag, hole or out of bounds, and do appropriate actions
+     * @param x posX of robot
+     * @param y posY of robot
+     * @param robot robot in question
+     */
     public void check(int x, int y, Robot robot){
         isFlag(x, y, robot);
         isOut(x, y, robot);
         isHole(x, y, robot);
     }
 
-    //finds all the starting positions on the map
+    /**
+     * Finds all the starting positions on the map
+     * @return list of starting positions
+     */
     private List<Vector2> findStart(){
         List<Vector2> list = new ArrayList<>();
         for(int i= 0; i<startPos.getWidth(); i++){
@@ -281,7 +340,11 @@ public class Map {
         return list;
     }
 
-
+    /**
+     * Place up to 8 players (robots) on the map, max amount is dependant on amount of starting positions
+     * @param numbPLayers desired number of players
+     * @return the list of robots that was added
+     */
     public List<Robot> placePlayers(int numbPLayers) {
         if(numbPLayers >= 8) numbPLayers = 8;
 
@@ -307,19 +370,22 @@ public class Map {
         return playerList;
     }
 
+
     public List<Robot> getPlayerList(){
         return playerList;
     }
 
+    /**
+     * return the index of the next robot to switch to
+     * @param r current robot
+     * @return index of next robot
+     */
     public int switchPlayer(Robot r) {
         if (r == null) {
             return 0;
         } else {
             int i = playerList.indexOf(r);
-            i++;
-            if (i >= playerList.size()) {
-                i = 0;
-            }
+            i = (i + 1) % playerList.size();
             return i;
         }
     }

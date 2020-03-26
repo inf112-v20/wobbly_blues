@@ -15,6 +15,11 @@ public class Card implements Comparable<Card> {
     static Texture cardTexture = new Texture("assets/card/card.png");
     private Texture cardSymbol;
 
+    /**
+     * Compare priority of current card with other
+     * @param o other card to compare
+     * @return 1 if current card priority is higher than other card, -1 otherwise
+     */
     @Override
     public int compareTo(Card o) {
         if (getPriority() > o.getPriority()) return 1;
@@ -45,6 +50,9 @@ public class Card implements Comparable<Card> {
         }
     }
 
+    /**
+     * Initialize card with a random CardType
+     */
     public Card(){
         Random r = new Random();
         this.cardType = CardType.values()[r.nextInt(CardType.values().length)];
@@ -56,10 +64,18 @@ public class Card implements Comparable<Card> {
         priority = 10;
     }
 
+    /**
+     * Set the robot the card will do an action on
+     * @param robot robot to set
+     */
     public void setRobot(Robot robot) {
         this.robot = robot;
     }
 
+    /**
+     * Do action to preset robot on given map
+     * @param map map to do action on
+     */
     public void doAction(Map map) {
         for (int i = 0; i < getCellsToMove(); i++) {
             if (robot.getDied()){
