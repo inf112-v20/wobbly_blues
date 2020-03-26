@@ -1,15 +1,16 @@
-# Roborally   [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1d6990f9294f4eb5a56e59736575c6da)](https://www.codacy.com/gh/inf112-v20/wobbly_blues?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=inf112-v20/wobbly_blues&amp;utm_campaign=Badge_Grade)   [![Build Status](https://travis-ci.com/inf112-v20/wobbly_blues.svg?branch=master)](https://travis-ci.com/inf112-v20/wobbly_blues)
+# Roborally   [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1d6990f9294f4eb5a56e59736575c6da)](https://www.codacy.com/gh/inf112-v20/wobbly_blues?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=inf112-v20/wobbly_blues&amp;utm_campaign=Badge_Grade)  [![Build Status](https://travis-ci.com/inf112-v20/wobbly_blues.svg?branch=dev)](https://travis-ci.com/inf112-v20/wobbly_blues)
 
 ## How to play
 When a win- or lose condition is met, the program closes and a will print if you've won or lost.
 
-##### Key binds:
+### Key binds:
 * Arrow keys => Move UiB-Owl.
+* S to switch between robots
 
-##### Win condition:
-* UiB-Owl steps on a flag.
+### Win condition:
+* UiB-Owl steps on the flags in the right order.
 
-##### Lose conditions:
+### Lose conditions:
 * UiB-Owl steps in a hole.
 * UiB-Owl steps outside the board.
 

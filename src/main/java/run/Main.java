@@ -8,9 +8,9 @@ public class Main {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 
         cfg.title = "Robo-Rally";
-        cfg.width = 500;
-        cfg.height = 500;
+        cfg.width = 800;
+        cfg.height = 1000;
 
-        new LwjglApplication(new Game(), cfg);
+        new LwjglApplication(new StartGame(), cfg);
     }
 }
