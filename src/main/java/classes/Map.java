@@ -18,7 +18,7 @@ public class Map {
     private TiledMapTileLayer startPos;
 
     private List<Vector2> startPositions;
-    private  List<IRobot> playerList;
+    private List<IRobot> playerList;
 
     private int width, height;
 
@@ -39,20 +39,7 @@ public class Map {
     }
 
     public Map() {
-
-        map = new TmxMapLoader().load("fullboard.tmx");
-        flagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
-        holeLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
-        playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
-        wallLayer = (TiledMapTileLayer) map.getLayers().get("Walls");
-        startPos =  (TiledMapTileLayer) map.getLayers().get("startPos");
-
-        MapProperties prop = map.getProperties();
-
-        startPositions = findStart();
-
-        width = prop.get("width", Integer.class);
-        height = prop.get("height", Integer.class);
+        this("fullboard.tmx");
     }
 
     public boolean isHole(int x, int y, IRobot robot) {
@@ -237,9 +224,9 @@ public class Map {
     //return true if cell has a wall on north side
     private boolean northWall(TiledMapTileLayer.Cell cell) {
         if (cell != null) {
-            return cell.getTile().getId() == tileID.NORTH_WALL.getId() ||
-                    cell.getTile().getId() == tileID.NORTH_WEST_WALL.getId() ||
-                    cell.getTile().getId() == tileID.NORTH_EAST_WALL.getId();
+            return cell.getTile().getId() == TileID.NORTH_WALL.getId() ||
+                    cell.getTile().getId() == TileID.NORTH_WEST_WALL.getId() ||
+                    cell.getTile().getId() == TileID.NORTH_EAST_WALL.getId();
         }
         return false;
     }
@@ -247,9 +234,9 @@ public class Map {
     //return true if cell has a wall on south side
     private boolean southWall(TiledMapTileLayer.Cell cell) {
         if (cell != null) {
-            return cell.getTile().getId() == tileID.SOUTH_WALL.getId() ||
-                    cell.getTile().getId() == tileID.SOUTH_WEST_WALL.getId() ||
-                    cell.getTile().getId() == tileID.SOUTH_EAST_WALL.getId();
+            return cell.getTile().getId() == TileID.SOUTH_WALL.getId() ||
+                    cell.getTile().getId() == TileID.SOUTH_WEST_WALL.getId() ||
+                    cell.getTile().getId() == TileID.SOUTH_EAST_WALL.getId();
         }
         return false;
     }
@@ -257,9 +244,9 @@ public class Map {
     //returns true if cell has a wall on west side
     private boolean westWall(TiledMapTileLayer.Cell cell) {
         if (cell != null) {
-            return cell.getTile().getId() == tileID.WEST_WALL.getId() ||
-                    cell.getTile().getId() == tileID.NORTH_WEST_WALL.getId() ||
-                    cell.getTile().getId() == tileID.SOUTH_WEST_WALL.getId();
+            return cell.getTile().getId() == TileID.WEST_WALL.getId() ||
+                    cell.getTile().getId() == TileID.NORTH_WEST_WALL.getId() ||
+                    cell.getTile().getId() == TileID.SOUTH_WEST_WALL.getId();
         }
         return false;
     }
@@ -267,9 +254,9 @@ public class Map {
     //return true if cell has a wall on east side
     private boolean eastWall(TiledMapTileLayer.Cell cell) {
         if (cell != null) {
-            return cell.getTile().getId() == tileID.EAST_WALL.getId() ||
-                    cell.getTile().getId() == tileID.NORTH_EAST_WALL.getId() ||
-                    cell.getTile().getId() == tileID.SOUTH_EAST_WALL.getId();
+            return cell.getTile().getId() == TileID.EAST_WALL.getId() ||
+                    cell.getTile().getId() == TileID.NORTH_EAST_WALL.getId() ||
+                    cell.getTile().getId() == TileID.SOUTH_EAST_WALL.getId();
         }
         return false;
     }

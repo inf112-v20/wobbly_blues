@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(GdxTestRunner.class)
-public class TestCard {
+public class CardTest {
 
     static Map map;
     static List<IRobot> players;
@@ -29,8 +29,13 @@ public class TestCard {
         robot = players.get(0);
     }
 
+    @Before
+    public void resetEnv(){
+        robot.setDirection(Direction.UP);
+    }
+
     @Test
-    public void testCardTurnRightEffectOnRobotDirection(){
+    public void cardTurnRightEffectOnRobotDirection(){
         ICard card = new Card(Card.CardType.TURNRIGHT);
         card.setRobot(robot);
 
@@ -47,18 +52,42 @@ public class TestCard {
     }
 
     @Test
-    public void testCardMakesRobotMoveOutOfBounds(){
+    public void cardMakesRobotMoveOutOfBounds(){
         //Base is in the uppermost tile
         ICard card = new Card(Card.CardType.MOVEONE);
         card.setRobot(robot);
 
-        assertEquals(Direction.UP, robot.getDirection());
+
+        int hp = robot.getHp();
         int x = robot.getPosX();
         int y = robot.getPosY();
+
+        assertEquals(3, hp);
 
         //Robot should die and respawn, meaning no change to position
         card.doAction(map);
         assertEquals(x, robot.getPosX());
         assertEquals(y, robot.getPosY());
+        assertEquals(robot.getBp_x(), robot.getPosX());
+        assertEquals(robot.getBp_y(), robot.getPosY());
+        assertEquals(hp - 1, robot.getHp());
+    }
+
+    @Test
+    public void cardUTurnThenMoveTwoForward(){
+        ICard uTurn = new Card(Card.CardType.UTURN);
+        ICard moveTwo = new Card(Card.CardType.MOVETWO);
+        uTurn.setRobot(robot);
+        moveTwo.setRobot(robot);
+
+        int x = robot.getPosX();
+        int y = robot.getPosY();
+
+        uTurn.doAction(map);
+        assertEquals(Direction.DOWN, robot.getDirection());
+
+        moveTwo.doAction(map);
+        assertEquals(x, robot.getPosX());
+        assertEquals(y-2, robot.getPosY());
     }
 }

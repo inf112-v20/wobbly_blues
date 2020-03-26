@@ -129,22 +129,22 @@ public class Robot implements IRobot {
 
     @Override
     public boolean addFlag(int id, TiledMapTileLayer flagLayer){
-        if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG1.getId() && !hasFlag(tileID.FLAG1.getId()) && !hasFlag(tileID.FLAG2.getId()) && !hasFlag(tileID.FLAG3.getId()) && !hasFlag(tileID.FLAG4.getId())){
+        if(flagLayer.getCell(x,y).getTile().getId() == TileID.FLAG1.getId() && !hasFlag(TileID.FLAG1.getId()) && !hasFlag(TileID.FLAG2.getId()) && !hasFlag(TileID.FLAG3.getId()) && !hasFlag(TileID.FLAG4.getId())){
             flags.add(id);
             setBackup(x,y);
             return true;
         }
-        else if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG2.getId() && hasFlag(tileID.FLAG1.getId()) && !hasFlag(tileID.FLAG2.getId()) && !hasFlag(tileID.FLAG3.getId()) && !hasFlag(tileID.FLAG4.getId())){
+        else if(flagLayer.getCell(x,y).getTile().getId() == TileID.FLAG2.getId() && hasFlag(TileID.FLAG1.getId()) && !hasFlag(TileID.FLAG2.getId()) && !hasFlag(TileID.FLAG3.getId()) && !hasFlag(TileID.FLAG4.getId())){
             flags.add(id);
             setBackup(x,y);
             return true;
         }
-        else if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG3.getId() && hasFlag(tileID.FLAG1.getId()) && hasFlag(tileID.FLAG2.getId()) && !hasFlag(tileID.FLAG3.getId()) && !hasFlag(tileID.FLAG4.getId())){
+        else if(flagLayer.getCell(x,y).getTile().getId() == TileID.FLAG3.getId() && hasFlag(TileID.FLAG1.getId()) && hasFlag(TileID.FLAG2.getId()) && !hasFlag(TileID.FLAG3.getId()) && !hasFlag(TileID.FLAG4.getId())){
             flags.add(id);
             setBackup(x,y);
             return true;
         }
-        else if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG4.getId() && hasFlag(tileID.FLAG1.getId()) && hasFlag(tileID.FLAG2.getId()) && hasFlag(tileID.FLAG3.getId()) && !hasFlag(tileID.FLAG4.getId())) {
+        else if(flagLayer.getCell(x,y).getTile().getId() == TileID.FLAG4.getId() && hasFlag(TileID.FLAG1.getId()) && hasFlag(TileID.FLAG2.getId()) && hasFlag(TileID.FLAG3.getId()) && !hasFlag(TileID.FLAG4.getId())) {
             flags.add(id);
             setBackup(x,y);
             return true;

@@ -1,6 +1,6 @@
 package enums;
 
-public enum tileID {
+public enum TileID {
     //Starting positions
     START1(121),
     START2(122),
@@ -64,7 +64,7 @@ public enum tileID {
 
     private final int id;
 
-    tileID(int id) {
+    TileID(int id) {
         this.id = id;
     }
 
