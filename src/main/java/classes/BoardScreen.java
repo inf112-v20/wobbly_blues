@@ -6,10 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 import enums.*;
-import interfaces.IRobot;
 import run.StartGame;
-
-import java.util.*;
 
 public class BoardScreen implements Screen {
 
@@ -17,7 +14,7 @@ public class BoardScreen implements Screen {
     public Map map;
 
     //Creates a robot that reacts to input
-    private IRobot robot;
+    private Robot robot;
 
     private final StartGame game;
 

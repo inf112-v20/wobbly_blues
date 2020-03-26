@@ -4,18 +4,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
-import interfaces.IRobot;
 
 import java.util.Random;
 
-public class Card {
+public class Card implements Comparable<Card> {
 
     private CardType cardType;
     private int priority;
-    private IRobot robot;
+    private Robot robot;
     static Texture cardTexture = new Texture("assets/card/card.png");
     private Texture cardSymbol;
 
+    @Override
     public int compareTo(Card o) {
         if (getPriority() > o.getPriority()) return 1;
         else return -1;
@@ -31,6 +31,7 @@ public class Card {
 
         private final int cellsToMove;
         private final int clockwiseRotation;
+
         CardType(int cellsToMove, int clockwiseRotation) {
             this.cellsToMove = cellsToMove;
             this.clockwiseRotation = clockwiseRotation;
@@ -55,7 +56,7 @@ public class Card {
         priority = 10;
     }
 
-    public void setRobot(IRobot robot) {
+    public void setRobot(Robot robot) {
         this.robot = robot;
     }
 
@@ -67,6 +68,7 @@ public class Card {
             else map.moveRobot(robot, robot.getDirection());
         }
         for (int i = 0; i < getClockwiseRotation(); i++) {
+            assert robot.getDirection().turnRight() != null;
             robot.setDirection(robot.getDirection().turnRight());
         }
         robot.setDied(false);
@@ -115,10 +117,6 @@ public class Card {
 
     public int getPriority() {
         return priority;
-    }
-
-    public CardType getCardType() {
-        return cardType;
     }
 
     public int getCellsToMove(){

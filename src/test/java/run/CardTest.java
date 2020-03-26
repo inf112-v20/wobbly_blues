@@ -2,8 +2,8 @@ package run;
 
 import classes.Card;
 import classes.Map;
+import classes.Robot;
 import enums.Direction;
-import interfaces.IRobot;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,8 +18,8 @@ import static org.junit.Assert.assertEquals;
 public class CardTest {
 
     static Map map;
-    static List<IRobot> players;
-    static IRobot robot;
+    static List<Robot> players;
+    static Robot robot;
 
     @BeforeClass
     public static void init(){

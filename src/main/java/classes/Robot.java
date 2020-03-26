@@ -2,12 +2,11 @@ package classes;
 
 import com.badlogic.gdx.math.*;
 import enums.*;
-import interfaces.IRobot;
 import com.badlogic.gdx.maps.tiled.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Robot implements IRobot {
+public class Robot {
 
     private TiledMapTileLayer.Cell state;
 
@@ -35,36 +34,11 @@ public class Robot implements IRobot {
         setNormalState();
     }
 
-    @Override
     public void looseLife() {
         hp--;
     }
 
-    @Override
-    public void takeDamage(){
-        damageToken++;
-        if (damageToken == 10){
-            looseLife();
-            damageToken = 0;
-        }
-    }
 
-    @Override
-    public void die() {
-    }
-
-    @Override
-    public void shootLaser() {
-    }
-
-    @Override
-    public void input() {
-    }
-
-    @Override
-    public boolean powerDown(boolean input) {return input;}
-
-    @Override
     public void createHand() {
         hand = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
@@ -73,18 +47,16 @@ public class Robot implements IRobot {
         }
     }
 
-    @Override
     public boolean isReady() {
         //TODO: implement this!
         return false;
     }
 
-    @Override
+
     public Direction getDirection() {return direction;}
 
 
-    //Needs tweeking, rotates all the players.
-    @Override
+    //TODO: Needs tweaking, rotates all the players.
     public void setDirection(Direction direction) {
         switch (direction){
             case LEFT:
@@ -103,31 +75,31 @@ public class Robot implements IRobot {
         this.direction = direction;
     }
 
-    @Override
+
     public TiledMapTileLayer.Cell getState(){
         return state;
     }
 
 
-    @Override
+
     public void setPos(int x, int y){
         this.x = x;
         this.y = y;
     }
 
-    @Override
+
     public int getPosX(){ return x;}
 
-    @Override
+
     public int getPosY(){return y;}
 
-    @Override
+
     public void setBackup(int x, int y){
         bp_y = y;
         bp_x = x;
     }
 
-    @Override
+
     public boolean addFlag(int id, TiledMapTileLayer flagLayer){
         if(flagLayer.getCell(x,y).getTile().getId() == TileID.FLAG1.getId() && !hasFlag(TileID.FLAG1.getId()) && !hasFlag(TileID.FLAG2.getId()) && !hasFlag(TileID.FLAG3.getId()) && !hasFlag(TileID.FLAG4.getId())){
             flags.add(id);
@@ -152,34 +124,31 @@ public class Robot implements IRobot {
         else return false;
     }
 
-    @Override
+
     public boolean hasFlag(int id){
         return flags.contains(id);
     }
 
-    @Override
+
     public int numbFlags(){
         return flags.size();
     }
 
-    @Override
+
     public int getBp_x() {
         return bp_x;
     }
 
-    @Override
     public int getBp_y() {
         return bp_y;
     }
 
-    @Override
     public int getHp(){
         return hp;
     }
 
     public int getDamageToken(){return damageToken;}
 
-    @Override
     public List<Card> getHand() {
         if (hand == null)
             createHand();
@@ -187,11 +156,12 @@ public class Robot implements IRobot {
             createHand();
         return hand;
     }
-    @Override
+
+
     public void setDied(boolean b){
         died = b;
     }
-    @Override
+
     public boolean getDied(){
         return died;
     }

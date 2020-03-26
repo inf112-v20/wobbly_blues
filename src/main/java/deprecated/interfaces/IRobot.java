@@ -1,4 +1,4 @@
-package interfaces;
+package deprecated.interfaces;
 
 import classes.Card;
 import enums.Direction;

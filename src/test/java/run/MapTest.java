@@ -1,7 +1,6 @@
 package run;
 
 import classes.*;
-import interfaces.IRobot;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,14 +27,14 @@ public class MapTest {
 
     @Test
     public void testPlayerList(){
-        List<IRobot> players = map.getPlayerList();
+        List<Robot> players = map.getPlayerList();
         assertEquals(8, players.size());
     }
 
     @Test
     public void testTwoPlayerCollisions(){
-        IRobot robotLeft = map.getRobot(7,11);
-        IRobot robotRight = map.getRobot(8,11);
+        Robot robotLeft = map.getRobot(7,11);
+        Robot robotRight = map.getRobot(8,11);
         assertNotNull(robotLeft);
         assertNotNull(robotRight);
         Card cardRight = new Card(Card.CardType.TURNRIGHT);
@@ -52,8 +51,8 @@ public class MapTest {
 
     @Test
     public void testMultiplePlayerCollisions(){
-        IRobot robotLeft = map.getRobot(1,11);
-        IRobot robotRight = map.getRobot(8,11);
+        Robot robotLeft = map.getRobot(1,11);
+        Robot robotRight = map.getRobot(8,11);
         assertNotNull(robotLeft);
         assertNotNull(robotRight);
         Card cardRight = new Card(Card.CardType.TURNRIGHT);

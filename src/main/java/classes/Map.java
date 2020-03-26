@@ -5,7 +5,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.math.*;
 import enums.*;
-import interfaces.IRobot;
+
 import java.util.*;
 
 public class Map {
@@ -18,7 +18,7 @@ public class Map {
     private TiledMapTileLayer startPos;
 
     private List<Vector2> startPositions;
-    private List<IRobot> playerList;
+    private List<Robot> playerList;
 
     private int width, height;
 
@@ -42,7 +42,7 @@ public class Map {
         this("fullboard.tmx");
     }
 
-    public boolean isHole(int x, int y, IRobot robot) {
+    public boolean isHole(int x, int y, Robot robot) {
         if (holeLayer.getCell(x, y) != null) {
             decreaseLife(x, y, robot);
             return true;
@@ -51,7 +51,7 @@ public class Map {
             return false;
     }
 
-    private void decreaseLife(int x, int y, IRobot robot) {
+    private void decreaseLife(int x, int y, Robot robot) {
         if (robot.getHp() > 0) {
             playerLayer.setCell(x, y, null);
             robot.looseLife();
@@ -65,7 +65,7 @@ public class Map {
         }
     }
 
-    public boolean isFlag(int x, int y, IRobot robot) {
+    public boolean isFlag(int x, int y, Robot robot) {
         if (flagLayer.getCell(x,y) != null){
            robot.addFlag(flagLayer.getCell(x,y).getTile().getId(), flagLayer);
             if(robot.numbFlags() == 4){
@@ -81,7 +81,7 @@ public class Map {
         return false;
     }
 
-    public boolean isOut(int x, int y, IRobot robot) {
+    public boolean isOut(int x, int y, Robot robot) {
         if (x > width-1) {
             decreaseLife(x,y,robot);
             return true;
@@ -98,12 +98,12 @@ public class Map {
             return false;
     }
 
-    public void setPlayer(IRobot robot) {
+    public void setPlayer(Robot robot) {
         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
     }
 
-    public IRobot getRobot(int x, int y){
-        for (IRobot robot: playerList) {
+    public Robot getRobot(int x, int y){
+        for (Robot robot: playerList) {
             if (robot.getPosX() == x && robot.getPosY() == y){
                 return robot;
             }
@@ -111,7 +111,7 @@ public class Map {
         return null;
     }
 
-    public IRobot getRobot(int x, int y, Direction dir){
+    public Robot getRobot(int x, int y, Direction dir){
         switch (dir){
             case DOWN:
                 return getRobot(x,y-1);
@@ -126,7 +126,7 @@ public class Map {
     }
 
     //TODO: make so robot pusher other robots when "respawning"
-    public boolean moveRobot(IRobot robot, Direction dir) {
+    public boolean moveRobot(Robot robot, Direction dir) {
 
         if(canGo(robot,dir)) {
             if (getRobot(robot.getPosX(),robot.getPosY(),dir) != null){
@@ -187,7 +187,7 @@ public class Map {
         return map;
     }
 
-    public boolean canGo(IRobot robot, Direction dir) {
+    public boolean canGo(Robot robot, Direction dir) {
         TiledMapTileLayer.Cell cell = wallLayer.getCell(robot.getPosX(), robot.getPosY());
         TiledMapTileLayer.Cell northCell = wallLayer.getCell(robot.getPosX(), robot.getPosY() + 1);
         TiledMapTileLayer.Cell southCell = wallLayer.getCell(robot.getPosX(), robot.getPosY() - 1);
@@ -261,7 +261,7 @@ public class Map {
         return false;
     }
 
-    public void check(int x, int y, IRobot robot){
+    public void check(int x, int y, Robot robot){
         isFlag(x, y, robot);
         isOut(x, y, robot);
         isHole(x, y, robot);
@@ -282,7 +282,7 @@ public class Map {
     }
 
 
-    public List<IRobot> placePlayers(int numbPLayers) {
+    public List<Robot> placePlayers(int numbPLayers) {
         if(numbPLayers >= 8) numbPLayers = 8;
 
         if(numbPLayers > startPositions.size()) numbPLayers=startPositions.size();
@@ -298,7 +298,7 @@ public class Map {
             }
 
             if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
-                IRobot r = new Robot(pos);
+                Robot r = new Robot(pos);
                 setPlayer(r);
                 playerList.add(r);
                 startPositions.remove(pos);
@@ -307,11 +307,11 @@ public class Map {
         return playerList;
     }
 
-    public List<IRobot> getPlayerList(){
+    public List<Robot> getPlayerList(){
         return playerList;
     }
 
-    public int switchPlayer(IRobot r) {
+    public int switchPlayer(Robot r) {
         if (r == null) {
             return 0;
         } else {
