@@ -54,7 +54,21 @@
     
   Husk at akseptansekriterier ofte skrives mer eller mindre som tester
 - Dersom dere har oppgaver som dere skal til å starte med, hvor dere har oversikt over både brukerhistorie, akseptansekriterier og arbeidsoppgaver, kan dere ta med disse i innleveringen også.
-- Forklar kort hvilke hovedkrav dere anser som en del av MVP og hvorfor. Hvis det er gjort endringer i rekkefølge utfra hva som er gitt fra kunde, hvorfor er dette gjort?
+- Forklar kort hvilke hovedkrav dere anser som en del av MVP og hvorfor. Hvis
+ det er gjort endringer i rekkefølge utfra hva som er gitt fra kunde, hvorfor er dette gjort?
+    
+    
+    Spillbrett
+    Vise en og/eller flere roboter
+    Flytte en brikke med kort
+    Vise flagg og hull på brett
+    Kunne dø og vinne
+    Dele ut kort
+    Registrere at en robot har vært innom et flagg
+    Håndtere konflikter i bevegelser
+    
+    Vi har valgt å prioritere dette først for å få en grei start for videre utvikling.
+ 
 - Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det finnes bugs). 
 - Kravlista er lang, men det er ikke nødvendig å levere på alle kravene hvis det ikke er realistisk. Det er viktigere at de oppgavene som er utført holder høy kvalitet. Utførte oppgaver skal være ferdige.
 
