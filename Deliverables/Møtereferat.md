@@ -41,7 +41,8 @@ Vi satt oss ned for å samenligne forksjellen på de andre gruppene og oss. Dere
 
 ### Fredag 13.Mars
 
--------------------------------
+Her ble det ikke noe møte på grunn av UiB som stengte at de stengte ned for covid-19
+
 ### Tirsdag 17.Mars
 Møtende medlemmer: Alle
 
@@ -55,9 +56,9 @@ Her jobbet vi selv alene med de oppgavene vi hadde, men siden to av medlemmene h
 ### Tirsdag 24.Mars
 Møtende Medlemmer: Alle
 
----------------------------
+Jobbet selvstendig med kodeopprydding
 
 ### Fredag 27.Mars
 Møtende medlemmer: Alle
 
----------------------------------------
+Gjøre klar for å levere oppgaven.
