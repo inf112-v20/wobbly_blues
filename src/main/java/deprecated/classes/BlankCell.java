@@ -1,6 +1,6 @@
 package deprecated.classes;
 
-import interfaces.ICell;
+import deprecated.interfaces.ICell;
 
 public class BlankCell implements ICell {
 

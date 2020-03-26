@@ -44,14 +44,14 @@ public class Map {
 
     public boolean isHole(int x, int y, IRobot robot) {
         if (holeLayer.getCell(x, y) != null) {
-            looseLife(x, y, robot);
+            decreaseLife(x, y, robot);
             return true;
         }
         else
             return false;
     }
 
-    private void looseLife(int x, int y, IRobot robot) {
+    private void decreaseLife(int x, int y, IRobot robot) {
         if (robot.getHp() > 0) {
             playerLayer.setCell(x, y, null);
             robot.looseLife();
@@ -83,16 +83,16 @@ public class Map {
 
     public boolean isOut(int x, int y, IRobot robot) {
         if (x > width-1) {
-            looseLife(x,y,robot);
+            decreaseLife(x,y,robot);
             return true;
         } else if (x < 0) {
-            looseLife(x,y,robot);
+            decreaseLife(x,y,robot);
             return true;
         } else if (y > height-1) {
-            looseLife(x,y,robot);
+            decreaseLife(x,y,robot);
             return true;
         } else if (y < 0) {
-            looseLife(x,y,robot);
+            decreaseLife(x,y,robot);
             return true;
         } else
             return false;
@@ -282,7 +282,7 @@ public class Map {
     }
 
 
-    public List<IRobot>  placePlayers(int numbPLayers) {
+    public List<IRobot> placePlayers(int numbPLayers) {
         if(numbPLayers >= 8) numbPLayers = 8;
 
         if(numbPLayers > startPositions.size()) numbPLayers=startPositions.size();

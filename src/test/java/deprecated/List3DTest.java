@@ -2,7 +2,7 @@ package deprecated;
 
 import deprecated.classes.BlankCell;
 import deprecated.classes.List3D;
-import interfaces.ICell;
+import deprecated.interfaces.ICell;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

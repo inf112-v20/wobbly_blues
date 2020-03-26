@@ -1,7 +1,6 @@
 package deprecated.interfaces;
 
 import enums.Direction;
-import interfaces.ICell;
 
 public interface IMap {
     void setCell();

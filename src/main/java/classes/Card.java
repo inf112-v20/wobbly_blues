@@ -4,12 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
-import interfaces.ICard;
 import interfaces.IRobot;
 
 import java.util.Random;
 
-public class Card implements ICard {
+public class Card {
 
     private CardType cardType;
     private int priority;
@@ -17,8 +16,7 @@ public class Card implements ICard {
     static Texture cardTexture = new Texture("assets/card/card.png");
     private Texture cardSymbol;
 
-    @Override
-    public int compareTo(ICard o) {
+    public int compareTo(Card o) {
         if (getPriority() > o.getPriority()) return 1;
         else return -1;
     }
@@ -57,12 +55,10 @@ public class Card implements ICard {
         priority = 10;
     }
 
-    @Override
     public void setRobot(IRobot robot) {
         this.robot = robot;
     }
 
-    @Override
     public void doAction(Map map) {
         for (int i = 0; i < getCellsToMove(); i++) {
             if (robot.getDied()){
@@ -117,7 +113,6 @@ public class Card implements ICard {
 
 
 
-    @Override
     public int getPriority() {
         return priority;
     }

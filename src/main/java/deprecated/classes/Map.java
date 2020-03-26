@@ -2,7 +2,7 @@ package deprecated.classes;
 
 import deprecated.interfaces.IMap;
 import enums.Direction;
-import interfaces.ICell;
+import deprecated.interfaces.ICell;
 
 import java.util.ArrayList;
 

@@ -3,7 +3,6 @@ package run;
 import classes.Card;
 import classes.Map;
 import enums.Direction;
-import interfaces.ICard;
 import interfaces.IRobot;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -36,7 +35,7 @@ public class CardTest {
 
     @Test
     public void cardTurnRightEffectOnRobotDirection(){
-        ICard card = new Card(Card.CardType.TURNRIGHT);
+        Card card = new Card(Card.CardType.TURNRIGHT);
         card.setRobot(robot);
 
         assertEquals(Direction.UP, robot.getDirection());
@@ -54,7 +53,7 @@ public class CardTest {
     @Test
     public void cardMakesRobotMoveOutOfBounds(){
         //Base is in the uppermost tile
-        ICard card = new Card(Card.CardType.MOVEONE);
+        Card card = new Card(Card.CardType.MOVEONE);
         card.setRobot(robot);
 
 
@@ -75,8 +74,8 @@ public class CardTest {
 
     @Test
     public void cardUTurnThenMoveTwoForward(){
-        ICard uTurn = new Card(Card.CardType.UTURN);
-        ICard moveTwo = new Card(Card.CardType.MOVETWO);
+        Card uTurn = new Card(Card.CardType.UTURN);
+        Card moveTwo = new Card(Card.CardType.MOVETWO);
         uTurn.setRobot(robot);
         moveTwo.setRobot(robot);
 

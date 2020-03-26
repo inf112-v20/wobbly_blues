@@ -1,6 +1,7 @@
-package interfaces;
+package deprecated.interfaces;
 
 import classes.Map;
+import interfaces.IRobot;
 
 public interface ICard extends Comparable<ICard>{
 
