@@ -19,7 +19,8 @@ public class Robot implements IRobot {
     private int damageToken;
     private Direction direction;
     private boolean died;
-
+    private Card[] cardsChosen;
+    private ArrayList<Integer> lockedCardNums;
     private States states;
 
     public Robot(Vector2 pos){
@@ -33,6 +34,8 @@ public class Robot implements IRobot {
         direction = Direction.UP;
         states = new States();
         setNormalState();
+        cardsChosen = new Card[5];
+        lockedCardNums = new ArrayList<>();
     }
 
     @Override
@@ -65,9 +68,9 @@ public class Robot implements IRobot {
     public boolean powerDown(boolean input) {return input;}
 
     @Override
-    public void createHand() {
+    public void createHand(int amount) {
         hand = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < amount; i++) {
             hand.add(new Card());
             hand.get(i).setRobot(this);
         }
@@ -75,8 +78,46 @@ public class Robot implements IRobot {
 
     @Override
     public boolean isReady() {
-        //TODO: implement this!
+        for (int i = 0; i < 5; i++) {
+            if (cardsChosen[i]==null) return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Card[] getChosenCards() {
+        return cardsChosen;
+    }
+
+    public boolean setReady(){
+        if (isReady()) {
+            for (int i = 0; i < cardsChosen.length; i++) {
+                TurnHandler.addCard(i, cardsChosen[i]);
+            }
+            return true;
+        }
         return false;
+    }
+
+    public void chooseCard(int cardNum){
+        for (int i = 0; i < cardsChosen.length; i++) {
+            if (lockedCardNums.contains(i)) continue;
+            if (cardsChosen[i]==null) continue;
+            if (cardsChosen[i].equals(hand.get(cardNum))) { //If
+                cardsChosen[i] = null;
+                return;
+            }
+        }
+        if (isReady()){
+            cardsChosen[4] = hand.get(cardNum);
+        }
+        for (int i = 0; i < cardsChosen.length; i++) {
+            if (cardsChosen[i] == null) {
+                cardsChosen[i] = hand.get(cardNum);
+                continue;
+            }
+        }
+
     }
 
     @Override
@@ -108,11 +149,43 @@ public class Robot implements IRobot {
         return state;
     }
 
+    @Override
+    public void setState(TiledMapTileLayer.Cell state){this.state = state;}
 
     @Override
     public void setPos(int x, int y){
         this.x = x;
         this.y = y;
+    }
+
+    private void clearChosen(){
+        for (int i = 0; i < 5; i++) {
+            if (!lockedCardNums.contains(i)){
+                cardsChosen[i] = null;
+            }
+        }
+    }
+
+    @Override
+    public void newHand(){
+        lockedCardNums = new ArrayList<>();
+        if (damageToken>=5){
+            lockedCardNums.add(4);
+        }
+        if (damageToken>=6){
+            lockedCardNums.add(3);
+        }
+        if (damageToken>=7){
+            lockedCardNums.add(2);
+        }
+        if (damageToken>=8){
+            lockedCardNums.add(1);
+        }
+        if (damageToken>=9){
+            lockedCardNums.add(0);
+        }
+        clearChosen();
+        createHand(9-damageToken);
     }
 
     @Override
@@ -182,9 +255,9 @@ public class Robot implements IRobot {
     @Override
     public List<Card> getHand() {
         if (hand == null)
-            createHand();
+            newHand();
         else if (hand.isEmpty())
-            createHand();
+            newHand();
         return hand;
     }
     @Override

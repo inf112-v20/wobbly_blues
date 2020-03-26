@@ -24,7 +24,6 @@ public class StartScreen implements Screen {
     public StartScreen(StartGame game) {
         this.game = game;
         stage = new Stage();
-
         int height = Gdx.graphics.getHeight();
         int width = Gdx.graphics.getWidth();
 

@@ -4,8 +4,14 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.math.*;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import enums.*;
 import interfaces.IRobot;
 import run.StartGame;
@@ -32,9 +38,16 @@ public class BoardScreen implements Screen {
     private SpriteBatch batch;
     private BitmapFont font;
 
+    private Stage stage;
+    private Button goButton;
+
+    private Button[] cards;
+
+    private boolean moving=false;
+
     public BoardScreen(StartGame game){
         this.game = game;
-
+        stage = new Stage();
         map = new Map();
 
         map.placePlayers(3);
@@ -42,14 +55,19 @@ public class BoardScreen implements Screen {
         setPlayer();
 
         //creates an input controller
-        createController();
-
+//        createController();
+        Gdx.input.setInputProcessor(stage);
+        goButton =
+                new Button(new TextureRegionDrawable(new TextureRegion(new Texture("gobutton.png"))));
         camera = new OrthographicCamera();
         camera.setToOrtho(false,WIDTH,HEIGHT);
 
-
         float h = camera.viewportHeight;
         float w = camera.viewportWidth;
+
+        goButton.setPosition(400-goButton.getWidth()/2f,
+                200-goButton.getHeight());
+        stage.addActor(goButton);
 
         camera.position.set(w/2,(h-6)/2,0);
         camera.update();
@@ -60,6 +78,18 @@ public class BoardScreen implements Screen {
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.BLACK);
+        TurnHandler.setPlayers(1);
+        cards = new Button[9];
+        for (int i = 0; i < cards.length; i++) {
+            Image cardBack =
+                    new Image(new TextureRegionDrawable(new TextureRegion(new Texture("card/card.png"))));
+            cardBack.setPosition(5+i*88,0);
+            stage.addActor(cardBack);
+            cards[i] =
+                    new Button(new TextureRegionDrawable(new TextureRegion(new Texture("card/"+robot.getHand().get(i).getCardType().name()+".png"))));
+            cards[i].setPosition(5+i*88,0);
+            stage.addActor(cards[i]);
+        }
     }
 
     @Override
@@ -71,13 +101,47 @@ public class BoardScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
+        stage.act(v);
+        stage.draw();
         TMRenderer.render();
-
-        batch.begin();
-        for (int i = 0; i < robot.getHand().size(); i++) {
-            robot.getHand().get(i).render(batch,font,5+i*88,0,86,120);
+        if (goButton.isPressed()) {
+            System.out.println("yes");
+            go();
         }
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i].isPressed()){
+                if (!cards[i].isChecked()) {
+                    System.out.println("clicked " + robot.getHand().get(i).getName());
+                    robot.chooseCard(i);
+                    cards[i].setChecked(true);
+                }
+            }
+        }
+        moveAll();
+        batch.begin();
+//        for (int i = 0; i < robot.getHand().size(); i++) {
+//            robot.getHand().get(i).render(batch,font,5+i*88,0,86,120);
+//        }
         batch.end();
+    }
+
+    public void moveAll(){
+        if (moving) {
+            System.out.println("moving");
+            for (int i = 0; i < 5; i++) {
+                TurnHandler.movePhase(i, map);
+            }
+            robot.newHand();
+            moving = false;
+        }
+    }
+
+    public boolean go(){
+        if (robot.setReady()) {
+            moving = true;
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -136,7 +200,7 @@ public class BoardScreen implements Screen {
                                                 int minY = 1000;
                                                 int maxY = minY - 120;
                                                 if (screenX >= minX && screenX <= maxX && screenY <= minY && screenY >= maxY) {
-                                                    robot.getHand().get(i).doAction(map);
+                                                    robot.chooseCard(i);
                                                     return true;
                                                 }
                                             }

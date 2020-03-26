@@ -76,6 +76,10 @@ public class Card implements ICard {
         robot.setDied(false);
     }
 
+    public IRobot getRobot() {
+        return robot;
+    }
+
     public String getName(){
         switch (cardType){
             case UTURN:

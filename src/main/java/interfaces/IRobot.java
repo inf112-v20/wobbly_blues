@@ -36,9 +36,17 @@ public interface IRobot {
     /**
     Creates the hand that holds the program cards that relates to that robot
      */
-    void createHand();
+    void createHand(int amount);
 
     boolean isReady();
+
+    Card[] getChosenCards();
+
+    void chooseCard(int cardNum);
+
+    boolean setReady();
+
+
 
     /**
      *
@@ -47,12 +55,16 @@ public interface IRobot {
     Direction getDirection();
 
     /**
-     * sets the robotsdirection
+     * sets the robots direction
+     * @param direction
      */
     void setDirection(Direction direction);
 
     /*Returns the current state of the robot*/
     TiledMapTileLayer.Cell getState();
+
+    /*sets the state of the robot*/
+    void setState(TiledMapTileLayer.Cell state);
 
     /*sets the current Pos of the robot in a Vector2(2dvector)*/
     void setPos(int x, int y);
@@ -63,6 +75,7 @@ public interface IRobot {
     /*returns the X of the robot*/
     int getPosY();
 
+    void newHand();
     //Sets the backup positions
     void setBackup(int x, int y);
 
