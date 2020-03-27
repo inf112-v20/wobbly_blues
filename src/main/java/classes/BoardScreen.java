@@ -102,6 +102,9 @@ public class BoardScreen implements Screen {
        batch.dispose();
     }
 
+    /**
+     * Add keyboard and mouse interactions
+     */
     private void createController() {
         /*Input controller*/
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -153,6 +156,9 @@ public class BoardScreen implements Screen {
         );
     }
 
+    /**
+     * Set player to interact with
+     */
     public void setPlayer(){
         if(robot == null) {
             robot = map.getPlayerList().get(map.switchPlayer(null));
