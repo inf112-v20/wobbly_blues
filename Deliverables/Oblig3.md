@@ -31,14 +31,13 @@
         
 -Forklar kort hvordan dere har prioritert oppgavene fremover. Legg ved skjermdump av project board ved innlevering.
 
-
-    Her vil vi prioritere å få til turnhandler, for når den er ferdig så vil resten av bitene komme litt etter hvert.
-    Vi vil også se litt mere på testing og få skrevet en del nye tester til neste gang. 
-    Vi har vært flinkere til å bruke trelle på denne innleveringen, men igjen så har vi latt den bli litt tom. dette er fordi at vi er flinke til å si ifra hva vi jobber med enten over direkte medlinge eller på slack. 
-    Noen ganger så planlegger vi når en eller to skal gjøre store endringer på spillet, sånn at de andre ikke er inne på de klassene og gjør endringer som kan gjøre at vi får en merge feil. 
-    Dette fører til at Trello blir litt ignorert til tider, men vi bruker det så godt som mulig.
-    
-    Gruppelederen vår har tilgang til Trelloen vår.
+        Her vil vi prioritere å få til turnhandler, for når den er ferdig så vil resten av bitene komme litt etter hvert.
+        Vi vil også se litt mere på testing og få skrevet en del nye tester til neste gang. 
+        Vi har vært flinkere til å bruke trelle på denne innleveringen, men igjen så har vi latt den bli litt tom. dette er fordi at vi er flinke til å si ifra hva vi jobber med enten over direkte medlinge eller på slack. 
+        Noen ganger så planlegger vi når en eller to skal gjøre store endringer på spillet, sånn at de andre ikke er inne på de klassene og gjør endringer som kan gjøre at vi får en merge feil. 
+        Dette fører til at Trello blir litt ignorert til tider, men vi bruker det så godt som mulig.
+        
+        Gruppelederen vår har tilgang til Trelloen vår.
     
 - Hvordan fungerer gruppedynamikken og kommunikasjonen?
 
@@ -57,17 +56,16 @@
 - Forklar kort hvilke hovedkrav dere anser som en del av MVP og hvorfor. Hvis
  det er gjort endringer i rekkefølge utfra hva som er gitt fra kunde, hvorfor er dette gjort?
     
-    
-    Spillbrett
-    Vise en og/eller flere roboter
-    Flytte en brikke med kort
-    Vise flagg og hull på brett
-    Kunne dø og vinne
-    Dele ut kort
-    Registrere at en robot har vært innom et flagg
-    Håndtere konflikter i bevegelser
-    
-    Vi har valgt å prioritere dette først for å få en grei start for videre utvikling.
+        Spillbrett
+        Vise en og/eller flere roboter
+        Flytte en brikke med kort
+        Vise flagg og hull på brett
+        Kunne dø og vinne
+        Dele ut kort
+        Registrere at en robot har vært innom et flagg
+        Håndtere konflikter i bevegelser
+        
+        Vi har valgt å prioritere dette først for å få en grei start for videre utvikling.
  
 - Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det finnes bugs). 
 - Kravlista er lang, men det er ikke nødvendig å levere på alle kravene hvis det ikke er realistisk. Det er viktigere at de oppgavene som er utført holder høy kvalitet. Utførte oppgaver skal være ferdige.
