@@ -26,13 +26,15 @@
         
 - Forklar kort hvordan dere har prioritert oppgavene fremover. Legg ved skjermdump av project board ved innlevering.
 
-       Her vil vi prioritere å få til turnhandler, for når den er ferdig så vil resten av bitene komme litt etter hvert.
-       Vi vil også se litt mere på testing og få skrevet en del nye tester til neste gang. 
-       Vi har vært flinkere til å bruke trelle på denne innleveringen, men igjen så har vi latt den bli litt tom. dette er fordi at vi er flinke til å si ifra hva vi jobber med enten over direkte medlinge eller på slack. 
-       Noen ganger så planlegger vi når en eller to skal gjøre store endringer på spillet, sånn at de andre ikke er inne på de klassene og gjør endringer som kan gjøre at vi får en merge feil. 
-       Dette fører til at Trello blir litt ignorert til tider, men vi bruker det så godt som mulig.
-       
-       Gruppelederen vår har tilgang til Trelloen vår.
+      Til denne innleveringen har vi fokusert på:
+      - få flere roboter på brettet
+      - Damage; sånn at spilleren tar skade, og ikke bare dør
+      - Meny skjerm
+      
+      til neste gang skl vi fokusere på;
+      - Forbedre kort mekaniken
+      - Turnhandler
+      - Belts
     
 - Hvordan fungerer gruppedynamikken og kommunikasjonen?
 
@@ -50,18 +52,40 @@
     3) arbeidsoppgaver.
     
   Husk at akseptansekriterier ofte skrives mer eller mindre som tester
+  
+      
+      - Hull:
+        Brukerhistorie: En spiller må kunne respawne etter å ha tråkket på et hull;
+        Akseptansekriterie: hvis en spiller går på et hull, så må den respawne på backup positionen
+        Arbeodsoppgave: lage en metode som registere hull
+        
+      - Belts:
+        Brukerhistorie: en spiller som står på et bånd på slutten av runden må bli flyttet X antall ganger:
+        Akeptansekriterier: hvis en spiller står på båndet i slutten av turen så må den flytte på seg og den mp flytte på seg rikig antall steg
+        Arbeidsoppgaver: Lag en metode som registerer belter og flytter spilleren på beltet:
+        
+      - Meny skjerm:
+        Brukerhistore: jeg skal kunne velge om jeg skal spille eller avslutte:
+        Akepantsekriteritere: hvis jeg trykker på START, så blir spillet lastet inn.
+        Arbeidsoppgaver: lage en klasse for skjermen.
+        
+      - Turnhandler:
+        Brukerhistorie: Etter som en spiller har avsluttet sin tur, skal det gå til neste spiller, eller gjøre brett oppgavene
+        Akseptansekriterier: at når spillet starter så går det gjennom spillerene og de forksjelige fasene
+        Arbeidsoppgaver: lage en metode som bytter spillere og utfører de forskjelige fasene i spillet
+    
 - Dersom dere har oppgaver som dere skal til å starte med, hvor dere har oversikt over både brukerhistorie, akseptansekriterier og arbeidsoppgaver, kan dere ta med disse i innleveringen også.
 - Forklar kort hvilke hovedkrav dere anser som en del av MVP og hvorfor. Hvis
  det er gjort endringer i rekkefølge utfra hva som er gitt fra kunde, hvorfor er dette gjort?
     
-        Spillbrett
-        Vise en og/eller flere roboter
-        Flytte en brikke med kort
-        Vise flagg og hull på brett
-        Kunne dø og vinne
-        Dele ut kort
-        Registrere at en robot har vært innom et flagg
-        Håndtere konflikter i bevegelser
+       [X] Spillbrett
+       [X] Vise en og/eller flere roboter
+       [] Flytte en brikke med kort
+       [X] Vise flagg og hull på brett
+       [X] Kunne dø og vinne
+       [] Dele ut kort
+       [X] Registrere at en robot har vært innom et flagg
+       [] Håndtere konflikter i bevegelser
         
         Vi har valgt å prioritere dette først for å få en grei start for videre utvikling.
  
