@@ -80,4 +80,6 @@ public interface IRobot {
     void setDeadState();
 
     void setWonState();
+
+    TiledMapTileLayer.Cell getDeadState();
 }

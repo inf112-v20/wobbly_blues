@@ -186,5 +186,9 @@ public class Robot implements IRobot {
     public void setWonState(){
         state = states.getWon();
     }
+
+    public TiledMapTileLayer.Cell getDeadState(){
+       return states.getDead();
+    }
 }
 
