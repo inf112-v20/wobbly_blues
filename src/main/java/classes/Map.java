@@ -24,9 +24,9 @@ public class Map {
 
     private int playerIdx;
 
-    public Map() {
+    public Map(String boardName) {
 
-        map = new TmxMapLoader().load("fullboard.tmx");
+        map = new TmxMapLoader().load(boardName);
         flagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
         holeLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
         playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
@@ -40,6 +40,10 @@ public class Map {
         width = prop.get("width", Integer.class);
         height = prop.get("height", Integer.class);
         playerIdx=0;
+    }
+
+    public Map() {
+        this("fullboard.tmx");
     }
 
     public boolean isHole(int x, int y, IRobot robot) {
