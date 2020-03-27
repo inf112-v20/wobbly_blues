@@ -51,6 +51,46 @@
     2) akseptansekriterier og 
     3) arbeidsoppgaver.
     
+      Forrige krav:
+      Implementere meny og kort
+      Brukerhistorier:
+        Som spiller trenger jeg en meny for å velge 
+      Akseptansekriterer:
+        Klare å skille mellom menyen og spillet
+        Klare å skille mellom de forskjellige menyvalgene 
+      Arbeidsoppgaver:
+        Lage primitive scener
+        Lage turn handler
+      Implementere en form for kort
+      Brukerhistorier:
+        Som spiller trenger jeg kort slik at jeg kan styre roboten min
+        Som robot trenger jeg kort slik at jeg kan bevege meg i henhold til spillereglene
+      Akseptansekriterier:
+        Kort skal ha en innvirkning på en robot
+        Kort skal ha en spesifikk instruksjon
+      Arbeidsoppgaver
+        Implementere en abstrakt klasse som kan initialiseres som et hvilket som helst kort fra det ekte spille
+        Lage turn handler som kan flytte brikkene basert på kortenes effekt
+        
+      Oppdatering: 
+      Kort og meny er ferdig
+      
+      Nye krav:
+      Turnhandler
+      Burkerhistorier:
+        Som spiller trenger jeg en turnhandler for at spillet vil utføre handlingene/kortene jeg legger i registeret
+        Som robot trenger jeg en turnhandler for å bestemme når jeg skal flyttes i forhold til andre spillere
+      Akseptansekriterier:
+        Turnhandleren flytter brikkene i hennhold til reglene i roborally
+      Arbeidsoppgaver:
+        Fullføre implementasjon av Turnhandler klasse, som innbærer å:
+        - ha et register for hver robot i spillet
+        - bruke prioritetene til kortene for å bestemme rekkefølge
+        - implementere funktionalitet til conveyor belt og lasere (og andre brikker)
+        
+        
+        
+    
   Husk at akseptansekriterier ofte skrives mer eller mindre som tester
 - Dersom dere har oppgaver som dere skal til å starte med, hvor dere har oversikt over både brukerhistorie, akseptansekriterier og arbeidsoppgaver, kan dere ta med disse i innleveringen også.
 - Forklar kort hvilke hovedkrav dere anser som en del av MVP og hvorfor. Hvis
@@ -65,9 +105,15 @@
         Registrere at en robot har vært innom et flagg
         Håndtere konflikter i bevegelser
         
-        Vi har valgt å prioritere dette først for å få en grei start for videre utvikling.
+        Vi har valgt å prioritere dette først fordi det danner et godt grunnlag for
+        å implementere de andre kravene i kravlista
  
 - Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det finnes bugs). 
+
+        - setDirection in Robot rotates the textures of all the robots rather than just the current
+        - Map has a bug where if a robot dies and respawns on a base where another robot is standing,
+        they will overlap
+        
 - Kravlista er lang, men det er ikke nødvendig å levere på alle kravene hvis det ikke er realistisk. Det er viktigere at de oppgavene som er utført holder høy kvalitet. Utførte oppgaver skal være ferdige.
 
 ##Deloppgave 3: Produktleveranse og kodekvalitet

@@ -26,7 +26,6 @@ public class Map implements IMap {
     public void setCell(){
     }
 
-    //TODO: add canGo after walls have been implemented
     @Override
     public boolean canGo(int x, int y, Direction dir) {
         switch (dir){
