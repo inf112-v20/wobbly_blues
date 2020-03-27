@@ -96,14 +96,14 @@
 - Forklar kort hvilke hovedkrav dere anser som en del av MVP og hvorfor. Hvis
  det er gjort endringer i rekkefølge utfra hva som er gitt fra kunde, hvorfor er dette gjort?
     
-        Spillbrett
-        Vise en og/eller flere roboter
-        Flytte en brikke med kort
-        Vise flagg og hull på brett
-        Kunne dø og vinne
-        Dele ut kort
-        Registrere at en robot har vært innom et flagg
-        Håndtere konflikter i bevegelser
+        [] Spillbrett
+        [] Vise en og/eller flere roboter
+        [] Flytte en brikke med kort
+        [] Vise flagg og hull på brett
+        [] Kunne dø og vinne
+        [] Dele ut kort
+        [] Registrere at en robot har vært innom et flagg
+        [] Håndtere konflikter i bevegelser
         
         Vi har valgt å prioritere dette først fordi det danner et godt grunnlag for
         å implementere de andre kravene i kravlista
