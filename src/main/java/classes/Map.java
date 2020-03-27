@@ -87,7 +87,7 @@ public class Map {
      */
     public boolean isFlag(int x, int y, Robot robot) {
         if (flagLayer.getCell(x,y) != null){
-           robot.addFlag(flagLayer.getCell(x,y).getTile().getId(), flagLayer);
+           robot.addFlag(flagLayer.getCell(x,y).getTile().getId());
             if(robot.numbFlags() == 4){
                 playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
                 System.out.println("You won!");
@@ -164,7 +164,7 @@ public class Map {
     }
 
     /**
-     * Move a robot
+     * Move a robot 1 step in the given direction
      * @param robot robot to move
      * @param dir direction to move robot
      * @return True if robot was moved

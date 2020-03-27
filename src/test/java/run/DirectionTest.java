@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import enums.Direction;
 import org.junit.Test;
 
-public class EnumTest {
+public class DirectionTest {
 
     @Test
     public void oppositeTest() {

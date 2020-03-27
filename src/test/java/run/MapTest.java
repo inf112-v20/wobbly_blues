@@ -1,6 +1,8 @@
 package run;
 
 import classes.*;
+import com.badlogic.gdx.math.Vector2;
+import enums.Direction;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,8 +10,7 @@ import testrunner.GdxTestRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the map class and how robots interact with it
@@ -50,11 +51,14 @@ public class MapTest {
     }
 
     @Test
-    public void testMultiplePlayerCollisions(){
+    public void testPlayerPushesMultipleRobots(){
         Robot robotLeft = map.getRobot(1,11);
+        Robot robotMid = map.getRobot(4, 11);
         Robot robotRight = map.getRobot(8,11);
         assertNotNull(robotLeft);
+        assertNotNull(robotMid);
         assertNotNull(robotRight);
+
         Card cardRight = new Card(Card.CardType.TURNRIGHT);
         Card cardMove = new Card(Card.CardType.MOVEONE);
         cardRight.setRobot(robotLeft);
@@ -64,12 +68,27 @@ public class MapTest {
         cardMove.doAction(map);
 
         assertEquals(2, robotLeft.getPosX());
+        assertEquals(5, robotMid.getPosX());
         assertEquals(9, robotRight.getPosX());
     }
 
     @Test
-    public void testIsOutHoleFlag(){
+    public void testCanGo(){
+        Robot robot = new Robot(new Vector2(5,7));
+        for (Direction dir : Direction.values()){
+            assertFalse(map.canGo(robot, dir));
+        }
 
+        robot.setPos(9, 5);
+        for (Direction dir : Direction.values()){
+            assertTrue(map.canGo(robot, dir));
+        }
+
+        robot.setPos(7, 7);
+        assertFalse(map.canGo(robot, Direction.RIGHT));
+        assertFalse(map.canGo(robot, Direction.DOWN));
+        assertTrue(map.canGo(robot, Direction.UP));
+        assertTrue(map.canGo(robot, Direction.LEFT));
     }
 
 
