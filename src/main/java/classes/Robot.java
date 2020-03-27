@@ -49,6 +49,9 @@ public class Robot implements IRobot {
         }
     }
 
+    /**
+     * Fills a hand with random cards
+     */
     @Override
     public void createHand() {
         hand = new ArrayList<>();
@@ -106,6 +109,11 @@ public class Robot implements IRobot {
         bp_x = x;
     }
 
+    /**
+     * Add flag to robot if it is the correct flag
+     * @param id tile id of the flag to add
+     * @return true if flag was added
+     */
     @Override
     public boolean addFlag(int id, TiledMapTileLayer flagLayer){
         if(flagLayer.getCell(x,y).getTile().getId() == tileID.FLAG1.getId() && !hasFlag(tileID.FLAG1.getId()) && !hasFlag(tileID.FLAG2.getId()) && !hasFlag(tileID.FLAG3.getId()) && !hasFlag(tileID.FLAG4.getId())){
