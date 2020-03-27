@@ -54,25 +54,42 @@
   Husk at akseptansekriterier ofte skrives mer eller mindre som tester
   
       
-      - Hull:
-        Brukerhistorie: En spiller må kunne respawne etter å ha tråkket på et hull;
-        Akseptansekriterie: hvis en spiller går på et hull, så må den respawne på backup positionen
-        Arbeodsoppgave: lage en metode som registere hull
+      Forrige krav:
+      Implementere meny og kort
+      Brukerhistorier:
+        Som spiller trenger jeg en meny for å velge 
+      Akseptansekriterer:
+        Klare å skille mellom menyen og spillet
+        Klare å skille mellom de forskjellige menyvalgene 
+      Arbeidsoppgaver:
+        Lage primitive scener
+        Lage turn handler
+      Implementere en form for kort
+      Brukerhistorier:
+        Som spiller trenger jeg kort slik at jeg kan styre roboten min
+        Som robot trenger jeg kort slik at jeg kan bevege meg i henhold til spillereglene
+      Akseptansekriterier:
+        Kort skal ha en innvirkning på en robot
+        Kort skal ha en spesifikk instruksjon
+      Arbeidsoppgaver
+        Implementere en abstrakt klasse som kan initialiseres som et hvilket som helst kort fra det ekte spille
+        Lage turn handler som kan flytte brikkene basert på kortenes effekt
         
-      - Belts:
-        Brukerhistorie: en spiller som står på et bånd på slutten av runden må bli flyttet X antall ganger:
-        Akeptansekriterier: hvis en spiller står på båndet i slutten av turen så må den flytte på seg og den mp flytte på seg rikig antall steg
-        Arbeidsoppgaver: Lag en metode som registerer belter og flytter spilleren på beltet:
-        
-      - Meny skjerm:
-        Brukerhistore: jeg skal kunne velge om jeg skal spille eller avslutte:
-        Akepantsekriteritere: hvis jeg trykker på START, så blir spillet lastet inn.
-        Arbeidsoppgaver: lage en klasse for skjermen.
-        
-      - Turnhandler:
-        Brukerhistorie: Etter som en spiller har avsluttet sin tur, skal det gå til neste spiller, eller gjøre brett oppgavene
-        Akseptansekriterier: at når spillet starter så går det gjennom spillerene og de forksjelige fasene
-        Arbeidsoppgaver: lage en metode som bytter spillere og utfører de forskjelige fasene i spillet
+      Oppdatering: 
+      Kort og meny er ferdig
+      
+      Nye krav:
+      Turnhandler
+      Burkerhistorier:
+        Som spiller trenger jeg en turnhandler for at spillet vil utføre handlingene/kortene jeg legger i registeret
+        Som robot trenger jeg en turnhandler for å bestemme når jeg skal flyttes i forhold til andre spillere
+      Akseptansekriterier:
+        Turnhandleren flytter brikkene i hennhold til reglene i roborally
+      Arbeidsoppgaver:
+        Fullføre implementasjon av Turnhandler klasse, som innbærer å:
+        - ha et register for hver robot i spillet
+        - bruke prioritetene til kortene for å bestemme rekkefølge
+        - implementere funktionalitet til conveyor belt og lasere (og andre brikker)
     
 - Dersom dere har oppgaver som dere skal til å starte med, hvor dere har oversikt over både brukerhistorie, akseptansekriterier og arbeidsoppgaver, kan dere ta med disse i innleveringen også.
 - Forklar kort hvilke hovedkrav dere anser som en del av MVP og hvorfor. Hvis
