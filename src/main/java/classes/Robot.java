@@ -21,8 +21,8 @@ public class Robot {
     private States states;
     private robotNames name;
 
-    public Robot(Vector2 pos, robotNames n){
-        name = n;
+    public Robot(Vector2 pos, robotNames name){
+        this.name = name;
         hp = 3;
         damageToken = 0;
         this.x = (int)pos.x;
