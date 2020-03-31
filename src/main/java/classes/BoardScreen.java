@@ -33,7 +33,7 @@ public class BoardScreen implements Screen {
 
         map = new Map();
 
-        map.placePlayers(2);
+        map.placePlayers(8);
 
         setPlayer();
 
@@ -131,6 +131,7 @@ public class BoardScreen implements Screen {
                                             }
                                             if(robot.getState() == robot.getDeadState()){
                                                 setPlayer();
+                                                map.removePlayer(robot);
                                             }
                                             return false;
                                         }

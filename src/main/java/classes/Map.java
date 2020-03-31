@@ -77,8 +77,9 @@ public class Map {
             robot.setDied(true);
         }
        if (robot.getHp() == 0){
-           System.out.println("Robot "+playerList.indexOf(robot)+" Died!");
+           System.out.println("Robot "+robot.getName()+" Died!");
            robot.setDeadState();
+
         }
     }
 
@@ -359,7 +360,6 @@ public class Map {
 
         if(numbPLayers > startPositions.size()) numbPLayers=startPositions.size();
 
-
         playerList = new ArrayList<>();
         for (int i = 0; i < numbPLayers; i++) {
             Random rand = new Random();
@@ -370,7 +370,7 @@ public class Map {
             }
 
             if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
-                Robot r = new Robot(pos);
+                Robot r = new Robot(pos,robotNames.getById(i));
                 setPlayer(r);
                 playerList.add(r);
                 startPositions.remove(pos);
@@ -410,5 +410,14 @@ public class Map {
         }
         if(i==playerList.size()) return true;
         else return false;
+    }
+
+    public void removePlayer(Robot r){
+        Robot prevRobot;
+        if(playerIdx == 0) prevRobot = playerList.get(playerList.size()-1);
+        else  prevRobot = playerList.get(playerIdx - 1);
+        playerLayer.setCell(prevRobot.getBp_x(), prevRobot.getBp_y(), null);
+        playerList.remove(prevRobot);
+
     }
 }

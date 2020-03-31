@@ -18,10 +18,11 @@ public class Robot {
     private int damageToken;
     private Direction direction;
     private boolean died;
-
     private States states;
+    private robotNames name;
 
-    public Robot(Vector2 pos){
+    public Robot(Vector2 pos, robotNames n){
+        name = n;
         hp = 3;
         damageToken = 0;
         this.x = (int)pos.x;
@@ -194,6 +195,10 @@ public class Robot {
 
     public TiledMapTileLayer.Cell getDeadState(){
        return states.getDead();
+    }
+
+    public robotNames getName() {
+        return name;
     }
 }
 

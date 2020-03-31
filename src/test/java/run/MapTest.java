@@ -2,7 +2,7 @@ package run;
 
 import classes.*;
 import com.badlogic.gdx.math.Vector2;
-import enums.Direction;
+import enums.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -74,7 +74,7 @@ public class MapTest {
 
     @Test
     public void testCanGo(){
-        Robot robot = new Robot(new Vector2(5,7));
+        Robot robot = new Robot(new Vector2(5,7), robotNames.getById(0));
         for (Direction dir : Direction.values()){
             assertFalse(map.canGo(robot, dir));
         }
