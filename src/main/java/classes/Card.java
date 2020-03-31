@@ -135,6 +135,10 @@ public class Card implements Comparable<Card> {
         return priority;
     }
 
+    public CardType getCardType() {
+        return cardType;
+    }
+
     public int getCellsToMove(){
         return cardType.cellsToMove;
     }

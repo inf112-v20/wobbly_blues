@@ -38,9 +38,19 @@ public class Robot {
         hp--;
     }
 
+
+    public void takeDamage(){
+        damageToken++;
+        if (damageToken == 10){
+            looseLife();
+            damageToken = 0;
+        }
+    }
+
     /**
      * Fills a hand with random cards
      */
+
     public void createHand() {
         hand = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
@@ -55,11 +65,11 @@ public class Robot {
     }
 
 
+    @Override
     public Direction getDirection() {return direction;}
 
 
     public void setDirection(Direction direction) {
-        //TODO: Needs tweaking, rotates all the players.
         switch (direction){
             case LEFT:
                 state.setRotation(1);
@@ -164,7 +174,6 @@ public class Robot {
         return hand;
     }
 
-
     public void setDied(boolean b){
         died = b;
     }
@@ -183,6 +192,10 @@ public class Robot {
 
     public void setWonState(){
         state = states.getWon();
+    }
+
+    public TiledMapTileLayer.Cell getDeadState(){
+       return states.getDead();
     }
 }
 

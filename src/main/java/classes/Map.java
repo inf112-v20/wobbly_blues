@@ -22,8 +22,11 @@ public class Map {
 
     private int width, height;
 
+    private int playerIdx;
+
     public Map(String boardName){
         map = new TmxMapLoader().load(boardName);
+
         flagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
         holeLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
         playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
@@ -36,6 +39,7 @@ public class Map {
 
         width = prop.get("width", Integer.class);
         height = prop.get("height", Integer.class);
+        playerIdx=0;
     }
 
     public Map() {
@@ -73,8 +77,8 @@ public class Map {
             robot.setDied(true);
         }
        if (robot.getHp() == 0){
-            System.out.println("You are dead!");
-            Gdx.app.exit();
+           System.out.println("Robot "+playerList.indexOf(robot)+" Died!");
+           robot.setDeadState();
         }
     }
 
@@ -90,7 +94,7 @@ public class Map {
            robot.addFlag(flagLayer.getCell(x,y).getTile().getId());
             if(robot.numbFlags() == 4){
                 playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
-                System.out.println("You won!");
+                System.out.println("Robot "+playerList.indexOf(robot)+" has Won!");
                 Gdx.app.exit();
             }
            return true;
@@ -321,6 +325,16 @@ public class Map {
         isFlag(x, y, robot);
         isOut(x, y, robot);
         isHole(x, y, robot);
+        if (isPlayer(robot)){
+            if (robot.getHp() == 0){
+                System.out.println("You Lose!");
+                Gdx.app.exit();
+            }
+        }
+    }
+
+    public boolean isPlayer(Robot robot){
+        return playerList.indexOf(robot) == playerIdx;
     }
 
     /**
@@ -385,8 +399,21 @@ public class Map {
             return 0;
         } else {
             int i = playerList.indexOf(r);
-            i = (i + 1) % playerList.size();
+            i++;
+            if (i >= playerList.size()) {
+                i = 0;
+            }
+            playerIdx=i;
             return i;
         }
+    }
+
+    public boolean isPlayersDead(){
+        int i = 0;
+        for (Robot r : playerList){
+            if(r.getDeadState() == r.getState()) i++;
+        }
+        if(i==playerList.size()) return true;
+        else return false;
     }
 }

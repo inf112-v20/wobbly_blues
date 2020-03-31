@@ -125,6 +125,13 @@ public class BoardScreen implements Screen {
                                                     setPlayer();
                                                     break;
                                             }
+                                            if(map.isPlayersDead()){
+                                                System.out.println("All players are dead");
+                                                Gdx.app.exit();
+                                            }
+                                            if(robot.getState() == robot.getDeadState()){
+                                                setPlayer();
+                                            }
                                             return false;
                                         }
 

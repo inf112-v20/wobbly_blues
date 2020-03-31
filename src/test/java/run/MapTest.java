@@ -29,7 +29,7 @@ public class MapTest {
     @Test
     public void testPlayerList(){
         List<Robot> players = map.getPlayerList();
-        assertEquals(8, players.size());
+         assertEquals(8, players.size());
     }
 
     @Test
