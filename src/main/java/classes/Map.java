@@ -325,12 +325,7 @@ public class Map {
         isFlag(x, y, robot);
         isOut(x, y, robot);
         isHole(x, y, robot);
-        if (isPlayer(robot)){
-            if (robot.getHp() == 0){
-                System.out.println("You Lose!");
-                Gdx.app.exit();
-            }
-        }
+
     }
 
     public boolean isPlayer(Robot robot){
