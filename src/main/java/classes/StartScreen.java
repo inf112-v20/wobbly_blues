@@ -28,9 +28,9 @@ public class StartScreen implements Screen {
         int width = Gdx.graphics.getWidth();
 
         //creating buttons, and setting positons
-        startBtn = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("startbtn.png"))));
-        exitBtn = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("endbtn.png"))));
-        logo = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("logo.png"))));
+        startBtn = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startbtn.png"))));
+        exitBtn = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("buttons/endbtn.png"))));
+        logo = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("buttons/logo.png"))));
 
         startBtn.setPosition(width /2f - startBtn.getWidth()/2, height*2 /6f);
         exitBtn.setPosition(width /2f - exitBtn.getWidth()/2, height/6f);

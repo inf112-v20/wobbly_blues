@@ -125,7 +125,7 @@ public class BoardScreen implements Screen {
                                                     setPlayer();
                                                     break;
                                                 case Input.Keys.F:
-                                                    map.fireLaser();
+                                                    System.out.println("fire");
                                                     break;
                                                 case Input.Keys.ESCAPE:
                                                     Gdx.app.exit();

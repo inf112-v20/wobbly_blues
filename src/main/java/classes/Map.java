@@ -16,16 +16,21 @@ public class Map {
     private TiledMapTileLayer playerLayer;
     private TiledMapTileLayer wallLayer;
     private TiledMapTileLayer startPos;
+    private TiledMapTileLayer laserLineLayer;
+    private TiledMapTileLayer laserLayer;
 
     private List<Vector2> startPositions;
     private List<Robot> playerList;
     private List<Vector2> flagPos;
+    private List<Vector2> laserPos;
 
     private int width, height;
 
     private int playerIdx;
 
     private BoardScreen board;
+
+    private final TiledMapTileSet tileSet;
 
     public Map(String boardName){
         map = new TmxMapLoader().load(boardName);
@@ -34,12 +39,17 @@ public class Map {
         holeLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
         playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
         wallLayer = (TiledMapTileLayer) map.getLayers().get("Walls");
-        startPos =  (TiledMapTileLayer) map.getLayers().get("startPos");
+        startPos = (TiledMapTileLayer) map.getLayers().get("startPos");
+        laserLayer = (TiledMapTileLayer) map.getLayers().get("Lasers");
+        laserLineLayer = (TiledMapTileLayer) map.getLayers().get("LaserLines");
+
+        tileSet = map.getTileSets().getTileSet("tiles");
 
         MapProperties prop = map.getProperties();
 
         startPositions = findStart();
         flagPos = findFlags();
+        laserPos = findLasers();
 
         width = prop.get("width", Integer.class);
         height = prop.get("height", Integer.class);
@@ -48,7 +58,7 @@ public class Map {
 
     public Map() {
         this("friboard.tmx");
-}
+    }
 
     /**
      * Check if robot is on a hole and do appropriate action
@@ -457,7 +467,21 @@ public class Map {
 
     }
 
+    private List<Vector2> findLasers(){
+        List<Vector2> list = new ArrayList<>();
+        for(int i= 0; i<laserLayer.getWidth(); i++){
+            for(int j = 0; j<laserLayer.getHeight();j++){
+                if(laserLayer.getCell(i,j) != null)
+                {
+                    list.add(new Vector2(i,j));
+                }
+            }
+        }
+        return list;
+    }
+
     public void fireLaser(){
-        System.out.println("fire");
+        TiledMapTileLayer.Cell cell;
+
     }
 }
