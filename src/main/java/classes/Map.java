@@ -19,10 +19,13 @@ public class Map {
 
     private List<Vector2> startPositions;
     private List<Robot> playerList;
+    private List<Vector2> flagPos;
 
     private int width, height;
 
     private int playerIdx;
+
+    private BoardScreen board;
 
     public Map(String boardName){
         map = new TmxMapLoader().load(boardName);
@@ -36,6 +39,7 @@ public class Map {
         MapProperties prop = map.getProperties();
 
         startPositions = findStart();
+        flagPos = findFlags();
 
         width = prop.get("width", Integer.class);
         height = prop.get("height", Integer.class);
@@ -43,8 +47,8 @@ public class Map {
     }
 
     public Map() {
-        this("fullboard.tmx");
-    }
+        this("friboard.tmx");
+}
 
     /**
      * Check if robot is on a hole and do appropriate action
@@ -60,6 +64,14 @@ public class Map {
         }
         else
             return false;
+    }
+
+    /**
+     * retrives the board to the map
+     * @param board
+     */
+    public void getBoard(BoardScreen board){
+        this.board = board;
     }
 
     /**
@@ -93,9 +105,9 @@ public class Map {
     public boolean isFlag(int x, int y, Robot robot) {
         if (flagLayer.getCell(x,y) != null){
            robot.addFlag(flagLayer.getCell(x,y).getTile().getId());
-            if(robot.numbFlags() == 4){
+            if(robot.numbFlags() == flagPos.size()){
                 playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
-                System.out.println("Robot "+playerList.indexOf(robot)+" has Won!");
+                System.out.println("Robot " + robot.getName()+ " has Won!");
                 Gdx.app.exit();
             }
            return true;
@@ -229,7 +241,9 @@ public class Map {
                 default:
                     return false;
             }
-        }else return false;
+
+        }else
+            return false;
     }
 
     public TiledMap getMap() {
@@ -327,6 +341,15 @@ public class Map {
         isOut(x, y, robot);
         isHole(x, y, robot);
 
+        if(isPlayersDead()){
+            System.out.println("All players are dead");
+            Gdx.app.exit();
+        }
+        if(robot.getState() == robot.getDeadState()){
+            board.setPlayer();
+            removePlayer(robot);
+        }
+
     }
 
     public boolean isPlayer(Robot robot){
@@ -342,6 +365,19 @@ public class Map {
         for(int i= 0; i<startPos.getWidth(); i++){
             for(int j = 0; j<startPos.getHeight();j++){
                 if(startPos.getCell(i,j) != null)
+                {
+                    list.add(new Vector2(i,j));
+                }
+            }
+        }
+        return list;
+    }
+
+    private List<Vector2> findFlags(){
+        List<Vector2> list = new ArrayList<>();
+        for(int i= 0; i<flagLayer.getWidth(); i++){
+            for(int j = 0; j<flagLayer.getHeight();j++){
+                if(flagLayer.getCell(i,j) != null)
                 {
                     list.add(new Vector2(i,j));
                 }
@@ -419,5 +455,9 @@ public class Map {
         playerLayer.setCell(prevRobot.getBp_x(), prevRobot.getBp_y(), null);
         playerList.remove(prevRobot);
 
+    }
+
+    public void fireLaser(){
+        System.out.println("fire");
     }
 }

@@ -32,6 +32,7 @@ public class BoardScreen implements Screen {
         this.game = game;
 
         map = new Map();
+        map.getBoard(this);
 
         map.placePlayers(2);
 
@@ -124,14 +125,12 @@ public class BoardScreen implements Screen {
                                                 case Input.Keys.S:
                                                     setPlayer();
                                                     break;
-                                            }
-                                            if(map.isPlayersDead()){
-                                                System.out.println("All players are dead");
-                                                Gdx.app.exit();
-                                            }
-                                            if(robot.getState() == robot.getDeadState()){
-                                                setPlayer();
-                                                map.removePlayer(robot);
+                                                case Input.Keys.F:
+                                                    map.fireLaser();
+                                                    break;
+                                                case Input.Keys.ESCAPE:
+                                                    Gdx.app.exit();
+                                                    break;
                                             }
                                             return false;
                                         }
