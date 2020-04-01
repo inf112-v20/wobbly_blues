@@ -480,8 +480,10 @@ public class Map {
         return list;
     }
 
-    public void fireLaser(){
-        TiledMapTileLayer.Cell cell;
-
+    public void fireLaser(int x, int y, Direction direction){
+      TiledMapTileLayer.Cell cell= laserLayer.getCell(x,y);
+      if(cell == null) cell = new TiledMapTileLayer.Cell();
+      cell.setTile(tileSet.getTile(TileID.HORIZONTAL_LASER.getId()));
+      laserLayer.setCell(x,y,cell);
     }
 }
