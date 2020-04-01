@@ -74,7 +74,7 @@ public class MapTest {
 
     @Test
     public void testCanGo(){
-        Robot robot = new Robot(new Vector2(5,7), robotNames.getById(0));
+        Robot robot = new Robot(new Vector2(5,7), RobotNames.getById(0));
         for (Direction dir : Direction.values()){
             assertFalse(map.canGo(robot, dir));
         }

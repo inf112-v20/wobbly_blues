@@ -19,9 +19,9 @@ public class Robot {
     private Direction direction;
     private boolean died;
     private States states;
-    private robotNames name;
+    private RobotNames name;
 
-    public Robot(Vector2 pos, robotNames name){
+    public Robot(Vector2 pos, RobotNames name){
         this.name = name;
         hp = 3;
         damageToken = 0;
@@ -197,7 +197,7 @@ public class Robot {
        return states.getDead();
     }
 
-    public robotNames getName() {
+    public RobotNames getName() {
         return name;
     }
 }

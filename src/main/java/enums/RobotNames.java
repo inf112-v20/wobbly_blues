@@ -2,7 +2,7 @@ package enums;
 
 import java.util.*;
 
-public enum robotNames {
+public enum RobotNames {
 
     //robot names
     TWONKEY (0),
@@ -16,13 +16,13 @@ public enum robotNames {
 
     private final int id;
 
-    robotNames(int id){this.id = id;}
+    RobotNames(int id){this.id = id;}
 
     public int getId() {
         return this.id;
     }
-    public static robotNames getById(int id) {
-        for(robotNames e : values()) {
+    public static RobotNames getById(int id) {
+        for(RobotNames e : values()) {
             if(Objects.equals(e.id, id)) return e;
         }
         return TWONKEY;

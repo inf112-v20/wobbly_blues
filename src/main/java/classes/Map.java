@@ -406,7 +406,7 @@ public class Map {
             }
 
             if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
-                Robot r = new Robot(pos,robotNames.getById(i));
+                Robot r = new Robot(pos, RobotNames.getById(i));
                 setPlayer(r);
                 playerList.add(r);
                 startPositions.remove(pos);
