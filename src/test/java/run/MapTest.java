@@ -76,19 +76,19 @@ public class MapTest {
     public void testCanGo(){
         Robot robot = new Robot(new Vector2(5,7), RobotNames.getById(0));
         for (Direction dir : Direction.values()){
-            assertFalse(map.canGo(robot, dir));
+            assertFalse(map.canGo(robot.getPosX(), robot.getPosY(), dir));
         }
 
         robot.setPos(9, 5);
         for (Direction dir : Direction.values()){
-            assertTrue(map.canGo(robot, dir));
+            assertTrue(map.canGo(robot.getPosX(), robot.getPosY(), dir));
         }
 
         robot.setPos(7, 7);
-        assertFalse(map.canGo(robot, Direction.RIGHT));
-        assertFalse(map.canGo(robot, Direction.DOWN));
-        assertTrue(map.canGo(robot, Direction.UP));
-        assertTrue(map.canGo(robot, Direction.LEFT));
+        assertFalse(map.canGo(robot.getPosX(), robot.getPosY(), Direction.RIGHT));
+        assertFalse(map.canGo(robot.getPosX(), robot.getPosY(), Direction.DOWN));
+        assertTrue(map.canGo(robot.getPosX(), robot.getPosY(), Direction.UP));
+        assertTrue(map.canGo(robot.getPosX(), robot.getPosY(), Direction.LEFT));
     }
 
 

@@ -32,8 +32,7 @@ public enum TileID {
     //Laser Lines
     VERTICAL_LASER(47),
     HORIZONTAL_LASER(39),
-
-
+    CROSSED_LASER(40),
 
     NORMAL_HOLE(6),
     NORMAL_HOLE2(91),

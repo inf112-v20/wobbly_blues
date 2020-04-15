@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.*;
+import com.badlogic.gdx.math.*;
 import enums.*;
 
 public class BoardScreen implements Screen {
@@ -125,7 +126,7 @@ public class BoardScreen implements Screen {
                                                     setPlayer();
                                                     break;
                                                 case Input.Keys.F:
-                                                    map.fireLaser(robot.getPosX(), robot.getPosY(), robot.getDirection());
+                                                    map.playerLaser(new Vector2(robot.getPosX(), robot.getPosY()), robot.getDirection());
                                                     break;
                                                 case Input.Keys.ESCAPE:
                                                     Gdx.app.exit();
@@ -163,4 +164,9 @@ public class BoardScreen implements Screen {
             robot = map.getPlayerList().get(map.switchPlayer(robot));
         }
     }
+
+    public Map getMap() {
+        return map;
+    }
+
 }

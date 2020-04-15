@@ -17,12 +17,11 @@ public class Map {
     private TiledMapTileLayer wallLayer;
     private TiledMapTileLayer startPos;
     private TiledMapTileLayer laserLineLayer;
-    private TiledMapTileLayer laserLayer;
 
     private List<Vector2> startPositions;
     private List<Robot> playerList;
     private List<Vector2> flagPos;
-    private List<Vector2> laserPos;
+    private List<Laser> laserPos;
 
     private int width, height;
 
@@ -40,7 +39,6 @@ public class Map {
         playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
         wallLayer = (TiledMapTileLayer) map.getLayers().get("Walls");
         startPos = (TiledMapTileLayer) map.getLayers().get("startPos");
-        laserLayer = (TiledMapTileLayer) map.getLayers().get("Lasers");
         laserLineLayer = (TiledMapTileLayer) map.getLayers().get("LaserLines");
 
         tileSet = map.getTileSets().getTileSet("tiles");
@@ -190,6 +188,47 @@ public class Map {
         return null;
     }
 
+    public Vector2 getNeighbourPos(Vector2 pos, Direction dir) {
+        Vector2 neighbourPos = new Vector2(pos);
+        switch (dir) {
+            case RIGHT:
+                neighbourPos.x++;
+                break;
+            case LEFT:
+                neighbourPos.x--;
+                break;
+            case UP:
+                neighbourPos.y++;
+                break;
+            case DOWN:
+                neighbourPos.y--;
+                break;
+            default:
+                break;
+        }
+        return neighbourPos;
+    }
+
+    public boolean hasPlayer(Vector2 position) {
+        for (Robot r : playerList) {
+            Vector2 pos = new Vector2(r.getPosX(),r.getPosY());
+            if (pos.equals(position)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Robot getPlayer(Vector2 position) {
+        for (Robot r : playerList) {
+            Vector2 pos = new Vector2(r.getPosX(),r.getPosY());
+            if (pos.equals(position)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
     /**
      * Move a robot 1 step in the given direction
      * @param robot robot to move
@@ -199,7 +238,7 @@ public class Map {
     public boolean moveRobot(Robot robot, Direction dir) {
         //TODO: make so robot pushes other robots when "respawning"
 
-        if(canGo(robot,dir)) {
+        if(canGo(robot.getPosX(), robot.getPosY(), dir)) {
             if (getRobot(robot.getPosX(),robot.getPosY(),dir) != null){
                 if (!moveRobot(getRobot(robot.getPosX(),robot.getPosY(),dir),dir)) return false;
             }
@@ -262,16 +301,16 @@ public class Map {
 
     /**
      * Check if robot can move in given direction
-     * @param robot robot in question
+     * from the x,y positon
      * @param dir direction to move robot
      * @return if robot can move 1 in the given direction (ie no walls)
      */
-    public boolean canGo(Robot robot, Direction dir) {
-        TiledMapTileLayer.Cell cell = wallLayer.getCell(robot.getPosX(), robot.getPosY());
-        TiledMapTileLayer.Cell northCell = wallLayer.getCell(robot.getPosX(), robot.getPosY() + 1);
-        TiledMapTileLayer.Cell southCell = wallLayer.getCell(robot.getPosX(), robot.getPosY() - 1);
-        TiledMapTileLayer.Cell eastCell = wallLayer.getCell(robot.getPosX() + 1, robot.getPosY());
-        TiledMapTileLayer.Cell westCell = wallLayer.getCell(robot.getPosX() - 1, robot.getPosY());
+    public boolean canGo(int x, int y, Direction dir) {
+        TiledMapTileLayer.Cell cell = wallLayer.getCell(x, y);
+        TiledMapTileLayer.Cell northCell = wallLayer.getCell(x, y + 1);
+        TiledMapTileLayer.Cell southCell = wallLayer.getCell(x, y - 1);
+        TiledMapTileLayer.Cell eastCell = wallLayer.getCell(x + 1, y);
+        TiledMapTileLayer.Cell westCell = wallLayer.getCell(x - 1, y);
 
         switch (dir) {
             case UP:
@@ -305,7 +344,8 @@ public class Map {
         if (cell != null) {
             return cell.getTile().getId() == TileID.NORTH_WALL.getId() ||
                     cell.getTile().getId() == TileID.NORTH_WEST_WALL.getId() ||
-                    cell.getTile().getId() == TileID.NORTH_EAST_WALL.getId();
+                    cell.getTile().getId() == TileID.NORTH_EAST_WALL.getId()||
+                    cell.getTile().getId() == TileID.NORTH_LASER_WALL.getId();
         }
         return false;
     }
@@ -315,7 +355,8 @@ public class Map {
         if (cell != null) {
             return cell.getTile().getId() == TileID.SOUTH_WALL.getId() ||
                     cell.getTile().getId() == TileID.SOUTH_WEST_WALL.getId() ||
-                    cell.getTile().getId() == TileID.SOUTH_EAST_WALL.getId();
+                    cell.getTile().getId() == TileID.SOUTH_EAST_WALL.getId()||
+                    cell.getTile().getId() == TileID.SOUTH_LASER_WALL.getId();
         }
         return false;
     }
@@ -325,7 +366,8 @@ public class Map {
         if (cell != null) {
             return cell.getTile().getId() == TileID.WEST_WALL.getId() ||
                     cell.getTile().getId() == TileID.NORTH_WEST_WALL.getId() ||
-                    cell.getTile().getId() == TileID.SOUTH_WEST_WALL.getId();
+                    cell.getTile().getId() == TileID.SOUTH_WEST_WALL.getId()||
+                    cell.getTile().getId() == TileID.WEST_LASER_WALL.getId();
         }
         return false;
     }
@@ -335,7 +377,8 @@ public class Map {
         if (cell != null) {
             return cell.getTile().getId() == TileID.EAST_WALL.getId() ||
                     cell.getTile().getId() == TileID.NORTH_EAST_WALL.getId() ||
-                    cell.getTile().getId() == TileID.SOUTH_EAST_WALL.getId();
+                    cell.getTile().getId() == TileID.SOUTH_EAST_WALL.getId()||
+                    cell.getTile().getId() == TileID.EAST_LASER_WALL.getId();
         }
         return false;
     }
@@ -372,11 +415,11 @@ public class Map {
      */
     private List<Vector2> findStart(){
         List<Vector2> list = new ArrayList<>();
-        for(int i= 0; i<startPos.getWidth(); i++){
-            for(int j = 0; j<startPos.getHeight();j++){
-                if(startPos.getCell(i,j) != null)
+        for(int x= 0; x<startPos.getWidth(); x++){
+            for(int y = 0; y<startPos.getHeight();y++){
+                if(startPos.getCell(x,y) != null)
                 {
-                    list.add(new Vector2(i,j));
+                    list.add(new Vector2(x,y));
                 }
             }
         }
@@ -385,11 +428,11 @@ public class Map {
 
     private List<Vector2> findFlags(){
         List<Vector2> list = new ArrayList<>();
-        for(int i= 0; i<flagLayer.getWidth(); i++){
-            for(int j = 0; j<flagLayer.getHeight();j++){
-                if(flagLayer.getCell(i,j) != null)
+        for(int x= 0; x<flagLayer.getWidth(); x++){
+            for(int y = 0; y<flagLayer.getHeight();y++){
+                if(flagLayer.getCell(x,y) != null)
                 {
-                    list.add(new Vector2(i,j));
+                    list.add(new Vector2(x,y));
                 }
             }
         }
@@ -467,23 +510,74 @@ public class Map {
 
     }
 
-    private List<Vector2> findLasers(){
-        List<Vector2> list = new ArrayList<>();
-        for(int i= 0; i<laserLayer.getWidth(); i++){
-            for(int j = 0; j<laserLayer.getHeight();j++){
-                if(laserLayer.getCell(i,j) != null)
-                {
-                    list.add(new Vector2(i,j));
+    private List<Laser> findLasers() {
+        List<Laser> list = new ArrayList<>();
+        for (int x = 0; x < wallLayer.getWidth(); x++) {
+            for (int y = 0; y < wallLayer.getHeight(); y++) {
+                TiledMapTileLayer.Cell cell = wallLayer.getCell(x, y);
+                if (cell != null) {
+                    int ID = cell.getTile().getId();
+                    if (ID == TileID.EAST_LASER_WALL.getId()) {
+                        list.add(new Laser(new Vector2(x, y), Direction.LEFT));
+                    } else if (ID == TileID.WEST_LASER_WALL.getId()) {
+                        list.add(new Laser(new Vector2(x, y), Direction.RIGHT));
+                    } else if (ID == TileID.NORTH_LASER_WALL.getId()) {
+                        list.add(new Laser(new Vector2(x, y), Direction.DOWN));
+                    } else if (ID == TileID.SOUTH_LASER_WALL.getId()) {
+                        list.add(new Laser(new Vector2(x, y), Direction.UP));
+                    }
                 }
             }
         }
+        for (Laser l:list) {
+            System.out.println(l.getPos());
+        }
+
         return list;
     }
 
-    public void fireLaser(int x, int y, Direction direction){
-      TiledMapTileLayer.Cell cell= laserLayer.getCell(x,y);
-      if(cell == null) cell = new TiledMapTileLayer.Cell();
-      cell.setTile(tileSet.getTile(TileID.HORIZONTAL_LASER.getId()));
-      laserLayer.setCell(x,y,cell);
+    /**
+     * Add laser in position in the right direction
+     *
+     * @param position  to add laser
+     * @param direction of laser
+     */
+
+    public void addLaser(Vector2 position, Direction direction) {
+        TiledMapTileLayer.Cell cell = laserLineLayer.getCell((int) position.x, (int) position.y);
+
+        if (cell == null) cell = new TiledMapTileLayer.Cell();
+        if (direction == Direction.UP || direction == Direction.DOWN) {
+            if (cell.getTile() == null) {
+                cell.setTile(tileSet.getTile(TileID.VERTICAL_LASER.getId()));
+            } else if (cell.getTile().getId() == TileID.HORIZONTAL_LASER.getId()) {
+                cell.setTile(tileSet.getTile(TileID.CROSSED_LASER.getId()));
+            }
+        } else {
+            if (cell.getTile() == null) {
+                cell.setTile(tileSet.getTile(TileID.HORIZONTAL_LASER.getId()));
+            } else if (cell.getTile().getId() == TileID.VERTICAL_LASER.getId()) {
+                cell.setTile(tileSet.getTile(TileID.CROSSED_LASER.getId()));
+            }
+        }
+        laserLineLayer.setCell((int) position.x, (int) position.y, cell);
+    }
+
+    public void fireLaser(Vector2 position, Direction dir) {
+        addLaser(position, dir);
+        if (hasPlayer(position)) {
+            getPlayer(position).takeDamage();
+        } else if (canGo((int)position.x, (int)position.y, dir)) {
+            fireLaser(getNeighbourPos(position, dir), dir);
+        }
+    }
+
+    public void playerLaser(Vector2 position, Direction dir){
+       addLaser(position, dir);
+        if (hasPlayer(getNeighbourPos(position, dir))){
+            getPlayer(position).takeDamage();
+        } else if (canGo((int)position.x, (int)position.y, dir)){
+            playerLaser(getNeighbourPos(position, dir), dir);
+        }
     }
 }
