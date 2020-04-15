@@ -575,7 +575,7 @@ public class Map {
     public void playerLaser(Vector2 position, Direction dir){
        addLaser(position, dir);
         if (hasPlayer(getNeighbourPos(position, dir))){
-            getPlayer(position).takeDamage();
+            getPlayer(getNeighbourPos(position, dir)).takeDamage();
         } else if (canGo((int)position.x, (int)position.y, dir)){
             playerLaser(getNeighbourPos(position, dir), dir);
         }
