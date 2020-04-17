@@ -108,10 +108,7 @@ public class Map {
     }
 
     public boolean isOutside(Vector2 pos){
-        if(pos.x > boardLayer.getWidth()) return false;
-        if(pos.y > boardLayer.getHeight()) return false;
-        if(pos.x < 0) return false;
-        if(pos.y < 0) return false;
+        if(pos.x > boardLayer.getWidth() || pos.y > boardLayer.getHeight() || pos.x < 0 || pos.y < 0) return false;
         return true;
     }
 
@@ -410,11 +407,16 @@ public class Map {
             System.out.println("All players are dead");
             Gdx.app.exit();
         }
-        if(robot.getState() == robot.getDeadState()){
-            board.setPlayer();
-            removePlayer(robot);
-        }
+        isThisPLayerDead(robot);
+    }
 
+    public boolean isThisPLayerDead(Robot r){
+        if(r.getState() == r.getDeadState()){
+            board.setPlayer();
+            removePlayer(r);
+            return true;
+        }
+        return false;
     }
 
     public boolean isPlayer(Robot robot){
@@ -557,7 +559,6 @@ public class Map {
 
     public void addLaser(Vector2 position, Direction direction) {
         TiledMapTileLayer.Cell cell = laserLineLayer.getCell((int) position.x, (int) position.y);
-
         if (cell == null) cell = new TiledMapTileLayer.Cell();
         if (direction == Direction.UP || direction == Direction.DOWN) {
             if (cell.getTile() == null) {
@@ -577,11 +578,15 @@ public class Map {
 
     public void fireLaser(Vector2 pos, Direction dir) {
         addLaser(pos, dir);
-        if(!isOutside(pos)) return;
+        if (!isOutside(pos)) return;
 
-        if (hasPlayer(pos)) {
-            getPlayer(pos).takeDamage();
-        } else if (canGo((int)pos.x, (int)pos.y, dir)) {
+        if (hasPlayer(getNeighbourPos(pos, dir))) {
+            getRobot((int) pos.x, (int) pos.y, dir).takeDamage();
+            if (getRobot((int) pos.x, (int) pos.y, dir).getHp() == 0) {
+                removePlayer(getRobot((int) pos.x, (int) pos.y, dir));
+            }
+        }
+        else if (canGo((int) pos.x, (int) pos.y, dir)) {
             fireLaser(getNeighbourPos(pos, dir), dir);
         }
     }
@@ -591,9 +596,25 @@ public class Map {
         if(!isOutside(pos)) return;
 
         if (hasPlayer(getNeighbourPos(pos, dir))){
-            getPlayer(getNeighbourPos(pos, dir)).takeDamage();
+            getRobot((int)pos.x, (int)pos.y,dir).takeDamage();
+            if(getRobot((int)pos.x, (int)pos.y,dir).getHp() == 0) {
+                removePlayer(getRobot((int)pos.x, (int)pos.y,dir));
+            }
         } else if (canGo((int)pos.x, (int)pos.y, dir)){
             playerLaser(getNeighbourPos(pos, dir), dir);
+        }
+    }
+
+    public void fireAllLasers(){
+        for(Laser l : laserPos){
+            fireLaser(l.getPos(),l.getDir());
+        }
+    }
+    public void clearLasers() {
+        for (int y = 0; y < laserLineLayer.getHeight(); y++) {
+            for (int x = 0; x < laserLineLayer.getWidth(); x++) {
+                laserLineLayer.setCell(x, y, null);
+            }
         }
     }
 }
