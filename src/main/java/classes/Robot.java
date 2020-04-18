@@ -67,7 +67,6 @@ public class Robot {
 
     public Direction getDirection() {return direction;}
 
-
     public void setDirection(Direction direction) {
         switch (direction){
             case LEFT:
@@ -86,30 +85,23 @@ public class Robot {
         this.direction = direction;
     }
 
-
     public TiledMapTileLayer.Cell getState(){
         return state;
     }
-
-
 
     public void setPos(int x, int y){
         this.x = x;
         this.y = y;
     }
 
-
     public int getPosX(){ return x;}
 
-
     public int getPosY(){return y;}
-
 
     public void setBackup(int x, int y){
         bp_y = y;
         bp_x = x;
     }
-
 
     /**
      * Add flag to robot if it is the correct flag
@@ -140,16 +132,13 @@ public class Robot {
         else return false;
     }
 
-
     public boolean hasFlag(int id){
         return flags.contains(id);
     }
 
-
     public int numbFlags(){
         return flags.size();
     }
-
 
     public int getBp_x() {
         return bp_x;

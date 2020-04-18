@@ -126,7 +126,7 @@ public class BoardScreen implements Screen {
                                                     setPlayer();
                                                     break;
                                                 case Input.Keys.F:
-                                                    map.playerLaser(new Vector2(robot.getPosX(), robot.getPosY()), robot.getDirection());
+                                                    map.fireLaser(new Vector2(robot.getPosX(), robot.getPosY()), robot.getDirection());
                                                     break;
                                                 case Input.Keys.C:
                                                     map.clearLasers();

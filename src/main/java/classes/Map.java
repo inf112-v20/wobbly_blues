@@ -183,7 +183,7 @@ public class Map {
      * @param dir direction
      * @return robot that lies 1 step in the given direction from (x,y)
      */
-    public Robot getRobot(int x, int y, Direction dir){
+    public Robot getNeighbourRobot(int x, int y, Direction dir){
         switch (dir){
             case DOWN:
                 return getRobot(x,y-1);
@@ -228,16 +228,6 @@ public class Map {
         return false;
     }
 
-    public Robot getPlayer(Vector2 position) {
-        for (Robot r : playerList) {
-            Vector2 pos = new Vector2(r.getPosX(),r.getPosY());
-            if (pos.equals(position)) {
-                return r;
-            }
-        }
-        return null;
-    }
-
     /**
      * Move a robot 1 step in the given direction
      * @param robot robot to move
@@ -248,8 +238,8 @@ public class Map {
         //TODO: make so robot pushes other robots when "respawning"
 
         if(canGo(robot.getPosX(), robot.getPosY(), dir)) {
-            if (getRobot(robot.getPosX(),robot.getPosY(),dir) != null){
-                if (!moveRobot(getRobot(robot.getPosX(),robot.getPosY(),dir),dir)) return false;
+            if (getNeighbourRobot(robot.getPosX(),robot.getPosY(),dir) != null){
+                if (!moveRobot(getNeighbourRobot(robot.getPosX(),robot.getPosY(),dir),dir)) return false;
             }
             switch (dir) {
                 case LEFT:
@@ -413,7 +403,7 @@ public class Map {
     public boolean isThisPLayerDead(Robot r){
         if(r.getState() == r.getDeadState()){
             board.setPlayer();
-            removePlayer(r);
+            removePrevPlayer(r);
             return true;
         }
         return false;
@@ -482,7 +472,6 @@ public class Map {
         return playerList;
     }
 
-
     public List<Robot> getPlayerList(){
         return playerList;
     }
@@ -515,13 +504,12 @@ public class Map {
         else return false;
     }
 
-    public void removePlayer(Robot r){
+    public void removePrevPlayer(Robot r){
         Robot prevRobot;
         if(playerIdx == 0) prevRobot = playerList.get(playerList.size()-1);
         else  prevRobot = playerList.get(playerIdx - 1);
         playerLayer.setCell(prevRobot.getBp_x(), prevRobot.getBp_y(), null);
         playerList.remove(prevRobot);
-
     }
 
     private List<Laser> findLasers() {
@@ -543,10 +531,6 @@ public class Map {
                 }
             }
         }
-        for (Laser l:list) {
-            System.out.println(l.getPos());
-        }
-
         return list;
     }
 
@@ -578,30 +562,17 @@ public class Map {
 
     public void fireLaser(Vector2 pos, Direction dir) {
         addLaser(pos, dir);
-        if (!isOutside(pos)) return;
-
-        if (hasPlayer(getNeighbourPos(pos, dir))) {
-            getRobot((int) pos.x, (int) pos.y, dir).takeDamage();
-            if (getRobot((int) pos.x, (int) pos.y, dir).getHp() == 0) {
-                removePlayer(getRobot((int) pos.x, (int) pos.y, dir));
-            }
-        }
-        else if (canGo((int) pos.x, (int) pos.y, dir)) {
-            fireLaser(getNeighbourPos(pos, dir), dir);
-        }
-    }
-
-    public void playerLaser(Vector2 pos, Direction dir){
-        addLaser(pos, dir);
         if(!isOutside(pos)) return;
 
         if (hasPlayer(getNeighbourPos(pos, dir))){
-            getRobot((int)pos.x, (int)pos.y,dir).takeDamage();
-            if(getRobot((int)pos.x, (int)pos.y,dir).getHp() == 0) {
-                removePlayer(getRobot((int)pos.x, (int)pos.y,dir));
+            Robot r = getNeighbourRobot((int)pos.x, (int)pos.y,dir);
+            r.takeDamage();
+            if(r.getHp() == 0) {
+                playerLayer.setCell(r.getPosX(),r.getPosY(),null);
+                playerList.remove(r);
             }
         } else if (canGo((int)pos.x, (int)pos.y, dir)){
-            playerLaser(getNeighbourPos(pos, dir), dir);
+            fireLaser(getNeighbourPos(pos, dir), dir);
         }
     }
 
@@ -610,6 +581,7 @@ public class Map {
             fireLaser(l.getPos(),l.getDir());
         }
     }
+
     public void clearLasers() {
         for (int y = 0; y < laserLineLayer.getHeight(); y++) {
             for (int x = 0; x < laserLineLayer.getWidth(); x++) {
