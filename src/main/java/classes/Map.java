@@ -94,10 +94,8 @@ public class Map {
 
     private void decreaseLife(int x, int y, Robot robot) {
         if (robot.getHp() > 0) {
-            playerLayer.setCell(x, y, null);
+            respawnPlayer(robot);
             robot.looseLife();
-            robot.setPos(robot.getBp_x(), robot.getBp_y());
-            playerLayer.setCell(robot.getBp_x(), robot.getBp_y(), robot.getState());
             robot.setDied(true);
         }
        if (robot.getHp() == 0){
@@ -472,6 +470,12 @@ public class Map {
         return playerList;
     }
 
+    public void respawnPlayer(Robot r){
+        playerLayer.setCell(r.getPosX(),r.getPosY(),null);
+        r.setPos(r.getBp_x(), r.getBp_y());
+        playerLayer.setCell(r.getBp_x(), r.getBp_y(), r.getState());
+    }
+
     public List<Robot> getPlayerList(){
         return playerList;
     }
@@ -568,8 +572,12 @@ public class Map {
             Robot r = getNeighbourRobot((int)pos.x, (int)pos.y,dir);
             r.takeDamage();
             if(r.getHp() == 0) {
+                board.setPlayer();
                 playerLayer.setCell(r.getPosX(),r.getPosY(),null);
                 playerList.remove(r);
+            }
+            else if(r.getDamageToken() == 0){
+                respawnPlayer(r);
             }
         } else if (canGo((int)pos.x, (int)pos.y, dir)){
             fireLaser(getNeighbourPos(pos, dir), dir);
