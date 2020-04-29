@@ -62,3 +62,9 @@ Jobbet selvstendig med kodeopprydding
 Møtende medlemmer: Alle
 
 Gjøre klar for å levere oppgaven.
+
+### Onsdag 29.April
+Møtende medlemmer: Sindre, Tines og Torstein
+
+- Oppdaterte hverandre med hva som har blitt gjort siden sist.
+- Koordinerte arbeidsoppgaver for uken.
