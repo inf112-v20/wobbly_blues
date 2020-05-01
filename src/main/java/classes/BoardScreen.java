@@ -143,6 +143,7 @@ public class BoardScreen implements Screen {
                     TurnHandler.doTurn(2, map);
                     TurnHandler.doTurn(3, map);
                     TurnHandler.doTurn(4, map);
+
                 }
             }
         }
@@ -159,7 +160,6 @@ public class BoardScreen implements Screen {
                     } else {
                         int xPos = (Options.screenWidth*i/9);
                         addSelectedText(i,xPos);
-
                     }
 
                 }
@@ -186,10 +186,12 @@ public class BoardScreen implements Screen {
             removeLastSelectedText();
             addSelectedText(cardNr,xPos);
         }
-        cards.get(cardNr).setDisabled(true);
-        cards.get(cardNr).setColor(Color.MAGENTA);
-        robot.selectCard(cardNr);
-        System.out.println("selected card " + cardNr);
+        else {
+            cards.get(cardNr).setDisabled(true);
+            cards.get(cardNr).setColor(Color.MAGENTA);
+            robot.selectCard(cardNr);
+            System.out.println("selected card " + cardNr);
+        }
     }
 
     private void removeLastSelectedText(){
