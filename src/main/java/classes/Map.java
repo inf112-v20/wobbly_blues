@@ -1,58 +1,32 @@
 package classes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.math.*;
 import enums.*;
 
 import java.util.*;
 
-public class Map {
-
-    private TiledMap map;
-    private TiledMapTileLayer flagLayer;
-    private TiledMapTileLayer holeLayer;
-    private TiledMapTileLayer playerLayer;
-    private TiledMapTileLayer wallLayer;
-    private TiledMapTileLayer startPos;
-    private TiledMapTileLayer laserLineLayer;
-    private TiledMapTileLayer boardLayer;
+public class Map extends MapLayers{
 
     private List<Vector2> startPositions;
     private List<Robot> playerList;
     private List<Vector2> flagPos;
     private List<Laser> laserPos;
 
-    private int width, height;
-
     private int playerIdx;
 
     private BoardScreen board;
-
-    private final TiledMapTileSet tileSet;
+    private GameLogic logic;
 
     public Map(String boardName){
-        map = new TmxMapLoader().load(boardName);
+        super(boardName);
 
-        flagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
-        holeLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
-        playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
-        wallLayer = (TiledMapTileLayer) map.getLayers().get("Walls");
-        startPos = (TiledMapTileLayer) map.getLayers().get("startPos");
-        laserLineLayer = (TiledMapTileLayer) map.getLayers().get("LaserLines");
-        boardLayer = (TiledMapTileLayer) map.getLayers().get("board");
-
-        tileSet = map.getTileSets().getTileSet("tiles");
-
-        MapProperties prop = map.getProperties();
+        logic = new GameLogic(this);
 
         startPositions = findStart();
         flagPos = findFlags();
         laserPos = findLasers();
-
-        width = prop.get("width", Integer.class);
-        height = prop.get("height", Integer.class);
         playerIdx=0;
 
     }
@@ -61,21 +35,6 @@ public class Map {
         this("friboard.tmx");
     }
 
-    /**
-     * Check if robot is on a hole and do appropriate action
-     * @param x xPos of robot
-     * @param y yPos of robot
-     * @param robot robot in question
-     * @return True if robot was on hole
-     */
-    public boolean isHole(int x, int y, Robot robot) {
-        if (holeLayer.getCell(x, y) != null) {
-            decreaseLife(x, y, robot);
-            return true;
-        }
-        else
-            return false;
-    }
 
     /**
      * retrives the board to the map
@@ -92,7 +51,7 @@ public class Map {
      * @param robot robot in question
      */
 
-    private void decreaseLife(int x, int y, Robot robot) {
+    void decreaseLife(int x, int y, Robot robot) {
         if (robot.getHp() > 0) {
             respawnPlayer(robot);
             robot.looseLife();
@@ -105,9 +64,21 @@ public class Map {
         }
     }
 
-    public boolean isOutside(Vector2 pos){
-        if(pos.x > boardLayer.getWidth() || pos.y > boardLayer.getHeight() || pos.x < 0 || pos.y < 0) return false;
-        return true;
+    /**
+     * Check if robot is on a hole and do appropriate action
+     * @param x xPos of robot
+     * @param y yPos of robot
+     * @param robot robot in question
+     * @return True if robot was on hole
+     */
+    public boolean isHole(int x, int y, Robot robot) {
+        if (holeLayer.getCell(x, y) != null) {
+            System.out.println();
+            decreaseLife(x, y, robot);
+            return true;
+        }
+        else
+            return false;
     }
 
     /**
@@ -292,10 +263,6 @@ public class Map {
             return false;
     }
 
-    public TiledMap getMap() {
-        return map;
-    }
-
     /**
      * Check if robot can move in given direction
      * from the x,y positon
@@ -412,36 +379,6 @@ public class Map {
     }
 
     /**
-     * Finds all the starting positions on the map
-     * @return list of starting positions
-     */
-    private List<Vector2> findStart(){
-        List<Vector2> list = new ArrayList<>();
-        for(int x= 0; x<startPos.getWidth(); x++){
-            for(int y = 0; y<startPos.getHeight();y++){
-                if(startPos.getCell(x,y) != null)
-                {
-                    list.add(new Vector2(x,y));
-                }
-            }
-        }
-        return list;
-    }
-
-    private List<Vector2> findFlags(){
-        List<Vector2> list = new ArrayList<>();
-        for(int x= 0; x<flagLayer.getWidth(); x++){
-            for(int y = 0; y<flagLayer.getHeight();y++){
-                if(flagLayer.getCell(x,y) != null)
-                {
-                    list.add(new Vector2(x,y));
-                }
-            }
-        }
-        return list;
-    }
-
-    /**
      * Place up to 8 players (robots) on the map, max amount is dependant on amount of starting positions
      * @param numbPLayers desired number of players
      * @return the list of robots that was added
@@ -514,28 +451,6 @@ public class Map {
         else  prevRobot = playerList.get(playerIdx - 1);
         playerLayer.setCell(prevRobot.getBp_x(), prevRobot.getBp_y(), null);
         playerList.remove(prevRobot);
-    }
-
-    private List<Laser> findLasers() {
-        List<Laser> list = new ArrayList<>();
-        for (int x = 0; x < wallLayer.getWidth(); x++) {
-            for (int y = 0; y < wallLayer.getHeight(); y++) {
-                TiledMapTileLayer.Cell cell = wallLayer.getCell(x, y);
-                if (cell != null) {
-                    int ID = cell.getTile().getId();
-                    if (ID == TileID.EAST_LASER_WALL.getId()) {
-                        list.add(new Laser(new Vector2(x, y), Direction.LEFT));
-                    } else if (ID == TileID.WEST_LASER_WALL.getId()) {
-                        list.add(new Laser(new Vector2(x, y), Direction.RIGHT));
-                    } else if (ID == TileID.NORTH_LASER_WALL.getId()) {
-                        list.add(new Laser(new Vector2(x, y), Direction.DOWN));
-                    } else if (ID == TileID.SOUTH_LASER_WALL.getId()) {
-                        list.add(new Laser(new Vector2(x, y), Direction.UP));
-                    }
-                }
-            }
-        }
-        return list;
     }
 
     /**
