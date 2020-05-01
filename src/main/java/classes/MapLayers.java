@@ -11,10 +11,10 @@ public class MapLayers {
     protected final TiledMap map;
     protected final TiledMapTileLayer flagLayer;
     protected final TiledMapTileLayer holeLayer;
-    protected final TiledMapTileLayer playerLayer;
+    protected TiledMapTileLayer playerLayer;
     protected final TiledMapTileLayer wallLayer;
     protected final TiledMapTileLayer startPos;
-    protected final TiledMapTileLayer laserLineLayer;
+    protected TiledMapTileLayer laserLineLayer;
     protected final TiledMapTileLayer boardLayer;
 
     protected final int width, height;
