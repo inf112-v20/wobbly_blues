@@ -20,4 +20,5 @@ public class Laser {
     public Direction getDir() {
         return dir;
     }
+
 }

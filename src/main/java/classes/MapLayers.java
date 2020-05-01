@@ -11,15 +11,18 @@ public class MapLayers {
     protected final TiledMap map;
     protected final TiledMapTileLayer flagLayer;
     protected final TiledMapTileLayer holeLayer;
-    protected final TiledMapTileLayer playerLayer;
+    protected TiledMapTileLayer playerLayer;
     protected final TiledMapTileLayer wallLayer;
     protected final TiledMapTileLayer startPos;
-    protected final TiledMapTileLayer laserLineLayer;
+    protected TiledMapTileLayer laserLineLayer;
     protected final TiledMapTileLayer boardLayer;
 
     protected final int width, height;
 
     protected final  TiledMapTileSet tileSet;
+
+    protected BoardScreen board;
+
 
     public MapLayers(String boardName){
         map = new TmxMapLoader().load(boardName);
@@ -42,6 +45,14 @@ public class MapLayers {
 
     public TiledMap getMap() {
         return map;
+    }
+
+    /**
+     * retrives the board to the map
+     * @param board
+     */
+    public void getBoard(BoardScreen board){
+        this.board = board;
     }
 
     /**
@@ -100,5 +111,6 @@ public class MapLayers {
         if(pos.x > boardLayer.getWidth() || pos.y > boardLayer.getHeight() || pos.x < 0 || pos.y < 0) return false;
         return true;
     }
+
 
 }
