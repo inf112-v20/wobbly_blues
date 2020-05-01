@@ -9,15 +9,14 @@ import java.util.*;
 
 public class Map extends MapLayers{
 
-    private List<Vector2> startPositions;
-    private List<Robot> playerList;
-    private List<Vector2> flagPos;
-    private List<Laser> laserPos;
+    protected final List<Vector2> startPositions;
+    protected List<Robot> playerList;
+    protected final List<Vector2> flagPos;
+    protected final List<Laser> laserPos;
 
-    private int playerIdx;
+    protected int playerIdx;
 
-    private BoardScreen board;
-    private GameLogic logic;
+    protected GameLogic logic;
 
     public Map(String boardName){
         super(boardName);
@@ -35,98 +34,6 @@ public class Map extends MapLayers{
         this("friboard.tmx");
     }
 
-
-    /**
-     * retrives the board to the map
-     * @param board
-     */
-    public void getBoard(BoardScreen board){
-        this.board = board;
-    }
-
-    /**
-     * Reduce the hp of robot, respawn the robot at current base position
-     * @param x xPos robot was destroyed
-     * @param y yPos robot was destroyed
-     * @param robot robot in question
-     */
-
-    void decreaseLife(int x, int y, Robot robot) {
-        if (robot.getHp() > 0) {
-            respawnPlayer(robot);
-            robot.looseLife();
-            robot.setDied(true);
-        }
-       if (robot.getHp() == 0){
-           System.out.println("Robot "+robot.getName()+" Died!");
-           robot.setDeadState();
-
-        }
-    }
-
-    /**
-     * Check if robot is on a hole and do appropriate action
-     * @param x xPos of robot
-     * @param y yPos of robot
-     * @param robot robot in question
-     * @return True if robot was on hole
-     */
-    public boolean isHole(int x, int y, Robot robot) {
-        if (holeLayer.getCell(x, y) != null) {
-            System.out.println();
-            decreaseLife(x, y, robot);
-            return true;
-        }
-        else
-            return false;
-    }
-
-    /**
-     * Check if robot is on a flag and do appropriate action
-     * @param x robots xPos
-     * @param y robots yPos
-     * @param robot robot in question
-     * @return True if robot was on flag
-     */
-    public boolean isFlag(int x, int y, Robot robot) {
-        if (flagLayer.getCell(x,y) != null){
-           robot.addFlag(flagLayer.getCell(x,y).getTile().getId());
-            if(robot.numbFlags() == flagPos.size()){
-                playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
-                System.out.println("Robot " + robot.getName()+ " has Won!");
-                Gdx.app.exit();
-            }
-           return true;
-        }
-        else if (flagLayer.getCell(x,y) == null){
-            return false;
-        }
-        return false;
-    }
-
-    /**
-     * Check if robot is out of bounds and do appropriate action
-     * @param x robots xPos
-     * @param y robots yPos
-     * @param robot robot in question
-     * @return True if robot was out of bounds
-     */
-    public boolean isOut(int x, int y, Robot robot) {
-        if (x > width-1) {
-            decreaseLife(x,y,robot);
-            return true;
-        } else if (x < 0) {
-            decreaseLife(x,y,robot);
-            return true;
-        } else if (y > height-1) {
-            decreaseLife(x,y,robot);
-            return true;
-        } else if (y < 0) {
-            decreaseLife(x,y,robot);
-            return true;
-        } else
-            return false;
-    }
 
     /**
      * Add/set a robot to the player layer
@@ -217,7 +124,7 @@ public class Map extends MapLayers{
                         robot.setPos(robot.getPosX() - 1, robot.getPosY());
                         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                        check(robot.getPosX(), robot.getPosY(), robot);
+                        logic.check(robot.getPosX(), robot.getPosY(), robot);
 
                         return true;
                     }
@@ -228,7 +135,7 @@ public class Map extends MapLayers{
                         robot.setPos(robot.getPosX() + 1, robot.getPosY());
                         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                        check(robot.getPosX(), robot.getPosY(), robot);
+                        logic.check(robot.getPosX(), robot.getPosY(), robot);
 
                         return true;
                     }
@@ -239,7 +146,7 @@ public class Map extends MapLayers{
                         robot.setPos(robot.getPosX(), robot.getPosY() + 1);
                         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                        check(robot.getPosX(), robot.getPosY(), robot);
+                        logic.check(robot.getPosX(), robot.getPosY(), robot);
 
                         return true;
                     }
@@ -250,7 +157,7 @@ public class Map extends MapLayers{
                         robot.setPos(robot.getPosX(), robot.getPosY() - 1);
                         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                        check(robot.getPosX(), robot.getPosY(), robot);
+                        logic.check(robot.getPosX(), robot.getPosY(), robot);
 
                         return true;
                     }
@@ -347,28 +254,10 @@ public class Map extends MapLayers{
         return false;
     }
 
-    /**
-     * Check if robot is on a flag, hole or out of bounds, and do appropriate actions
-     * @param x posX of robot
-     * @param y posY of robot
-     * @param robot robot in question
-     */
-    public void check(int x, int y, Robot robot){
-        isFlag(x, y, robot);
-        isOut(x, y, robot);
-        isHole(x, y, robot);
-
-        if(isPlayersDead()){
-            System.out.println("All players are dead");
-            Gdx.app.exit();
-        }
-        isThisPLayerDead(robot);
-    }
-
     public boolean isThisPLayerDead(Robot r){
         if(r.getState() == r.getDeadState()){
             board.setPlayer();
-            removePrevPlayer(r);
+            removePrevPlayer();
             return true;
         }
         return false;
@@ -436,16 +325,8 @@ public class Map extends MapLayers{
         }
     }
 
-    public boolean isPlayersDead(){
-        int i = 0;
-        for (Robot r : playerList){
-            if(r.getDeadState() == r.getState()) i++;
-        }
-        if(i==playerList.size()) return true;
-        else return false;
-    }
 
-    public void removePrevPlayer(Robot r){
+    public void removePrevPlayer(){
         Robot prevRobot;
         if(playerIdx == 0) prevRobot = playerList.get(playerList.size()-1);
         else  prevRobot = playerList.get(playerIdx - 1);
@@ -477,39 +358,5 @@ public class Map extends MapLayers{
             }
         }
         laserLineLayer.setCell((int) position.x, (int) position.y, cell);
-    }
-
-    public void fireLaser(Vector2 pos, Direction dir) {
-        addLaser(pos, dir);
-        if(!isOutside(pos)) return;
-
-        if (hasPlayer(getNeighbourPos(pos, dir))){
-            Robot r = getNeighbourRobot((int)pos.x, (int)pos.y,dir);
-            r.takeDamage();
-            if(r.getHp() == 0) {
-                board.setPlayer();
-                playerLayer.setCell(r.getPosX(),r.getPosY(),null);
-                playerList.remove(r);
-            }
-            else if(r.getDamageToken() == 0){
-                respawnPlayer(r);
-            }
-        } else if (canGo((int)pos.x, (int)pos.y, dir)){
-            fireLaser(getNeighbourPos(pos, dir), dir);
-        }
-    }
-
-    public void fireAllLasers(){
-        for(Laser l : laserPos){
-            fireLaser(l.getPos(),l.getDir());
-        }
-    }
-
-    public void clearLasers() {
-        for (int y = 0; y < laserLineLayer.getHeight(); y++) {
-            for (int x = 0; x < laserLineLayer.getWidth(); x++) {
-                laserLineLayer.setCell(x, y, null);
-            }
-        }
     }
 }

@@ -126,13 +126,13 @@ public class BoardScreen implements Screen {
                                                     setPlayer();
                                                     break;
                                                 case Input.Keys.F:
-                                                    map.fireLaser(new Vector2(robot.getPosX(), robot.getPosY()), robot.getDirection());
+                                                    map.logic.fireLaser(new Vector2(robot.getPosX(), robot.getPosY()), robot.getDirection());
                                                     break;
                                                 case Input.Keys.C:
-                                                    map.clearLasers();
+                                                    map.logic.clearLasers();
                                                     break;
                                                 case Input.Keys.L:
-                                                    map.fireAllLasers();
+                                                    map.logic.fireAllLasers();
                                                     break;
                                                 case Input.Keys.ESCAPE:
                                                     Gdx.app.exit();
