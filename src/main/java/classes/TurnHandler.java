@@ -6,7 +6,7 @@ import java.util.Collections;
 public class TurnHandler{
 
     private static int playerAmount;
-    private static ArrayList<ArrayList<Card>> registerList;
+    private static ArrayList<ArrayList<Card>> registerList = new ArrayList<>();
 
     /**
      * Set the amount of players in the game for the turn handler to interact with
@@ -35,13 +35,23 @@ public class TurnHandler{
         }
     }
 
+    public static boolean removeCard(Card card){
+        for (ArrayList<Card> register: registerList) {
+            if (register.contains(card)){
+                register.remove(card);
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * check if all registers are full
      * @return True if all registers are full
      */
     public static boolean isReady() {
         for (int i = 0; i < 5; i++) {
-            if (registerList.get(i).size() != playerAmount-1) return false;
+            if (registerList.get(i).size() != playerAmount) return false;
         }
         return true;
     }
@@ -60,6 +70,7 @@ public class TurnHandler{
      * @param map map to do action on
      */
     public static void doTurn(int register, Map map) {
+        System.out.println("doTurn "+register);
         if (!isReady()){
             throw new IllegalArgumentException("cannot start turn, not all " +
                     "robots are ready!");

@@ -91,5 +91,4 @@ public class MapTest {
         assertTrue(map.canGo(robot.getPosX(), robot.getPosY(), Direction.LEFT));
     }
 
-
 }

@@ -12,6 +12,7 @@ public class Robot {
 
     private int x, y;
     private ArrayList<Card> hand;
+    private ArrayList<Card> cardsChosen;
     private int bp_x, bp_y;
     private ArrayList<Integer> flags;
     private int hp;
@@ -20,6 +21,7 @@ public class Robot {
     private boolean died;
     private States states;
     private RobotNames name;
+    private boolean ready=false;
 
     public Robot(Vector2 pos, RobotNames name){
         this.name = name;
@@ -33,6 +35,7 @@ public class Robot {
         direction = Direction.UP;
         states = new States();
         setNormalState();
+        cardsChosen = new ArrayList<>();
     }
 
     public void looseLife() {
@@ -60,9 +63,38 @@ public class Robot {
         }
     }
 
-    public boolean isReady() {
-        //TODO: implement this!
+    public void selectCard(int cardNr){
+        if (cardNr<0 || cardNr>=hand.size()){
+            throw new IllegalArgumentException("illegal card number");
+        }
+        if (cardsChosen.size() > 5){
+            cardsChosen.remove(4);
+        }
+        cardsChosen.add(hand.get(cardNr));
+    }
+
+    public void unselectCard(int cardNr){
+        if (cardNr<0 || cardNr>=hand.size()){
+            throw new IllegalArgumentException("illegal card number");
+        }
+        Card card = hand.get(cardNr);
+        TurnHandler.removeCard(card);
+        cardsChosen.remove(card);
+    }
+
+    public boolean setReady(){
+        if (cardsChosen.size() == 5){
+            for (int i = 0; i < 5; i++) {
+                TurnHandler.addCard(i,cardsChosen.get(i));
+            }
+            ready=true;
+            return true;
+        }
         return false;
+    }
+
+    public boolean isReady() {
+        return ready;
     }
 
     public Direction getDirection() {return direction;}

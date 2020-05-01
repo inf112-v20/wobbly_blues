@@ -112,10 +112,9 @@ public class Card implements Comparable<Card> {
         cardSymbol = new Texture("assets/card/"+cardType.name()+".png");
     }
 
-    public void render(SpriteBatch batch, BitmapFont font, int x, int y,
-                       int w, int h){
+    public void render(SpriteBatch batch, BitmapFont font, int x, int y, int w, int h){
         int padding = 5;
-        batch.draw(cardTexture,x,y,w,h);
+//        batch.draw(cardTexture,x,y,w,h);
         font.draw(
             batch,
             getName(),
@@ -128,8 +127,6 @@ public class Card implements Comparable<Card> {
         if (cardSymbol == null) getCardTexture();
         batch.draw(cardSymbol,x,y+padding,w,w);
     }
-
-
 
     public int getPriority() {
         return priority;
