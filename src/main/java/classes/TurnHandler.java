@@ -1,5 +1,7 @@
 package classes;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.Semaphore;
@@ -99,6 +101,9 @@ public class TurnHandler{
         this.map = map;
     }
 
+    /**
+     * multithreaded gameloop that waits for all robots to be ready, then does all movement and lasers.
+     */
     public void doTurnThread(){
         while(true){
             try {
@@ -114,15 +119,25 @@ public class TurnHandler{
                     GameLogic.doConveyor(robot);
                 }
                 registerList.get(i).clear();
-                try {
-                    Thread.sleep(400);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                GameLogic.fireAllLasers();
+                for (Robot robot: map.getPlayerList()) {
+                    GameLogic.fireLaser(new Vector2(robot.getPosX(),robot.getPosY()),robot.getDirection());
                 }
+                sleep(200);
+                GameLogic.clearLasers();
+                sleep(400);
             }
             for (Robot robot:map.getPlayerList()) {
                 robot.clearHand();
             }
+        }
+    }
+
+    public void sleep(int i){
+        try {
+            Thread.sleep(i);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
