@@ -37,6 +37,7 @@ public class BoardScreen implements Screen {
     private Button doTurnButton;
     private ArrayList<Button> cards;
     private TextField[] selectedNumbers;
+    private TurnHandler turnHandler;
 
     private Stage stage;
 
@@ -48,7 +49,11 @@ public class BoardScreen implements Screen {
         map = new Map();
         map.getBoard(this);
 
-        map.placePlayers(2);
+        TurnHandler.setPlayers(1);
+        turnHandler = new TurnHandler();
+        turnHandler.setMap(map);
+
+        map.placePlayers(1);
 
         setPlayer();
 
@@ -64,9 +69,8 @@ public class BoardScreen implements Screen {
         float w = camera.viewportWidth;
 
         doTurnButton = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startbtn.png"))));
-        System.out.println(w+", "+h);
         doTurnButton.setSize(100,50);
-        doTurnButton.setPosition(Options.screenWidth/2,Options.screenHeight/6,0);
+        doTurnButton.setPosition((float)(Options.screenWidth/2),(float)(Options.screenHeight/6),0);
         stage.addActor(doTurnButton);
 
         camera.position.set(w/2,(h-6)/2,0);
@@ -81,14 +85,13 @@ public class BoardScreen implements Screen {
         selectedNumbers = new TextField[5];
 
         Gdx.input.setInputProcessor(stage);
-        TurnHandler.setPlayers(1);
     }
 
     private void initCards(){
         cards = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             Button button = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("card/card.png"))));
-            button.setPosition(Options.screenWidth*i/9,0);
+            button.setPosition((float)(Options.screenWidth * i / 9) + getCardPadding(),0);
             button.setName(""+i);
 //            button.setBounds(Options.screenWidth*i/9,0,86,120);
 //            button.setSize(86,120);
@@ -96,6 +99,10 @@ public class BoardScreen implements Screen {
             cards.add(button);
             stage.addActor(button);
         }
+    }
+
+    public int getCardPadding(){
+        return ((Options.screenWidth/robot.getHand().size())-72)/2;
     }
 
     @Override
@@ -125,7 +132,7 @@ public class BoardScreen implements Screen {
 
         batch.begin();
         for (int i = 0; i < robot.getHand().size(); i++) {
-            robot.getHand().get(i).render(batch,font,Options.screenWidth*i/9,0,86,120);
+            robot.getHand().get(i).render(batch,font,Options.screenWidth*i/9+getCardPadding(),0,86,120);
         }
         batch.end();
         inputCooldown = inputCooldownDone() ? 0 : inputCooldown-1;
@@ -138,12 +145,8 @@ public class BoardScreen implements Screen {
                 System.out.println("START");
                 if (robot.setReady()) {
                     System.out.println("yes");
-                    TurnHandler.doTurn(0, map);
-                    TurnHandler.doTurn(1, map);
-                    TurnHandler.doTurn(2, map);
-                    TurnHandler.doTurn(3, map);
-                    TurnHandler.doTurn(4, map);
-
+                    turnHandler.setReady();
+                    newTurnCleanup();
                 }
             }
         }
@@ -158,7 +161,7 @@ public class BoardScreen implements Screen {
                     if (card.isDisabled()) {
                         removeSelectedText(i);
                     } else {
-                        int xPos = (Options.screenWidth*i/9);
+                        int xPos = (Options.screenWidth*i/9)+getCardPadding();
                         addSelectedText(i,xPos);
                     }
 
@@ -175,7 +178,6 @@ public class BoardScreen implements Screen {
                 textField.setName(""+cardNr);
 //                textField.setBounds(xPos,125,50,50);
                 textField.setPosition(xPos,120);
-                System.out.println(xPos);
                 selectedNumbers[i]=textField;
                 stage.addActor(textField);
                 failed=false;
@@ -197,6 +199,17 @@ public class BoardScreen implements Screen {
     private void removeLastSelectedText(){
         int lastIdx = Character.getNumericValue(selectedNumbers[4].getName().charAt(0));
         removeSelectedText(lastIdx);
+    }
+
+    private void newTurnCleanup(){
+        for (Button cardButton: cards) {
+            cardButton.setColor(Color.CYAN);
+            cardButton.setDisabled(false);
+        }
+        for (int i = 0; i < selectedNumbers.length; i++) {
+            selectedNumbers[i].remove();
+            selectedNumbers[i]=null;
+        }
     }
 
     private void removeSelectedText(int cardNr){
@@ -264,13 +277,13 @@ public class BoardScreen implements Screen {
                         setPlayer();
                         break;
                     case Input.Keys.F:
-                        map.logic.fireLaser(new Vector2(robot.getPosX(), robot.getPosY()), robot.getDirection());
+                        GameLogic.fireLaser(new Vector2(robot.getPosX(), robot.getPosY()), robot.getDirection());
                         break;
                     case Input.Keys.C:
-                        map.logic.clearLasers();
+                        GameLogic.clearLasers();
                         break;
                     case Input.Keys.L:
-                        map.logic.fireAllLasers();
+                        GameLogic.fireAllLasers();
                         break;
                     case Input.Keys.ESCAPE:
                         Gdx.app.exit();

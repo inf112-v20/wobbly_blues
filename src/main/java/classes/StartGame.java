@@ -9,7 +9,6 @@ public class StartGame extends Game {
     public void create() {
         //setting the screen
         this.setScreen(new StartScreen(this));
-
     }
 
     @Override

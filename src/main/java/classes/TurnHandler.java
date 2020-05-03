@@ -2,11 +2,25 @@ package classes;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.Semaphore;
 
 public class TurnHandler{
 
     private static int playerAmount;
     private static ArrayList<ArrayList<Card>> registerList = new ArrayList<>();
+    private static boolean isReady=false;
+
+    //CONCURRENCY TEST
+    private Semaphore isReadySem;
+    private Thread thread;
+    private Map map;
+
+
+    public TurnHandler() {
+        isReadySem = new Semaphore(0);
+        thread = new Thread(this::doTurnThread);
+        thread.start();
+    }
 
     /**
      * Set the amount of players in the game for the turn handler to interact with
@@ -49,14 +63,10 @@ public class TurnHandler{
      * check if all registers are full
      * @return True if all registers are full
      */
-    public static boolean isReady() {
-        for (int i = 0; i < 5; i++) {
-            if (registerList.get(i).size() != playerAmount) return false;
-        }
-        return true;
+    public void setReady() {
+        isReadySem.release();
     }
 
-    //TODO: needs testing
     public static ArrayList<ArrayList<Card>> sortByPriority(ArrayList<ArrayList<Card>> cards) {
         for ( ArrayList<Card> register: cards) {
             Collections.sort(register);
@@ -64,20 +74,55 @@ public class TurnHandler{
         return cards;
     }
 
+    public static boolean allPlayersReady(){
+        for (int i = 0; i < 5; i++) {
+            if (registerList.get(i).size() != playerAmount) return false;
+        }
+        return true;
+    }
+
     /**
      * Do turn of robot with given register index, all cards in the register do their action
      * @param register index of register
      * @param map map to do action on
      */
-    public static void doTurn(int register, Map map) {
+    public void doTurn(int register, Map map) {
         System.out.println("doTurn "+register);
-        if (!isReady()){
-            throw new IllegalArgumentException("cannot start turn, not all " +
-                    "robots are ready!");
-        }
         sortByPriority(registerList);
         for (Card card: registerList.get(register)) {
+            System.out.println(card.getName());
             card.doAction(map);
+        }
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    public void doTurnThread(){
+        while(true){
+            try {
+                isReadySem.acquire();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (Thread.interrupted()) return;
+            for (int i = 0; i < 5; i++) {
+                doTurn(i,map);
+                for (Robot robot: map.getPlayerList()) {
+                    GameLogic.check(robot.getPosX(),robot.getPosY(),robot);
+                    GameLogic.doConveyor(robot);
+                }
+                registerList.get(i).clear();
+                try {
+                    Thread.sleep(400);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            for (Robot robot:map.getPlayerList()) {
+                robot.clearHand();
+            }
         }
     }
 }

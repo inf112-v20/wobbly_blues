@@ -9,6 +9,7 @@ public enum Direction {
     private final int directionAsInt;
     private final int xMovement;
     private final int yMovement;
+
     Direction(int directionAsInt, int xMovement, int yMovement){
         this.directionAsInt = directionAsInt;
         this.xMovement = xMovement;

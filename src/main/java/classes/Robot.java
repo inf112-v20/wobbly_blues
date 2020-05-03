@@ -11,8 +11,7 @@ public class Robot {
     private TiledMapTileLayer.Cell state;
 
     private int x, y;
-    private ArrayList<Card> hand;
-    private ArrayList<Card> cardsChosen;
+    private ArrayList<Card> hand, discardPile, cardsChosen;
     private int bp_x, bp_y;
     private ArrayList<Integer> flags;
     private int hp;
@@ -27,6 +26,7 @@ public class Robot {
         this.name = name;
         hp = 3;
         damageToken = 0;
+        discardPile = new ArrayList<>();
         this.x = (int)pos.x;
         this.y = (int)pos.y;
         bp_x = x;
@@ -36,6 +36,7 @@ public class Robot {
         states = new States();
         setNormalState();
         cardsChosen = new ArrayList<>();
+
     }
 
     public void looseLife() {
@@ -192,6 +193,14 @@ public class Robot {
         else if (hand.isEmpty())
             createHand();
         return hand;
+    }
+
+    public void clearHand(){
+        for (int i = 0; i < hand.size(); i++) {
+            discardPile.add(hand.get(i));
+        }
+        cardsChosen.clear();
+        createHand();
     }
 
     public void setDied(boolean b){

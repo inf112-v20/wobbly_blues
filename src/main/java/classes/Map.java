@@ -13,20 +13,20 @@ public class Map extends MapLayers{
     protected List<Robot> playerList;
     protected final List<Vector2> flagPos;
     protected final List<Laser> laserPos;
+    protected final List<Belt> beltList;
 
     protected int playerIdx;
-
-    protected GameLogic logic;
 
     public Map(String boardName){
         super(boardName);
 
-        logic = new GameLogic(this);
+        GameLogic.setMap(this);
 
         startPositions = findStart();
         flagPos = findFlags();
         laserPos = findLasers();
         playerIdx=0;
+        beltList = findBelts();
 
     }
 
@@ -124,7 +124,7 @@ public class Map extends MapLayers{
                         robot.setPos(robot.getPosX() - 1, robot.getPosY());
                         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                        logic.check(robot.getPosX(), robot.getPosY(), robot);
+                        GameLogic.check(robot.getPosX(), robot.getPosY(), robot);
 
                         return true;
                     }
@@ -135,7 +135,7 @@ public class Map extends MapLayers{
                         robot.setPos(robot.getPosX() + 1, robot.getPosY());
                         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                        logic.check(robot.getPosX(), robot.getPosY(), robot);
+                        GameLogic.check(robot.getPosX(), robot.getPosY(), robot);
 
                         return true;
                     }
@@ -146,7 +146,7 @@ public class Map extends MapLayers{
                         robot.setPos(robot.getPosX(), robot.getPosY() + 1);
                         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                        logic.check(robot.getPosX(), robot.getPosY(), robot);
+                        GameLogic.check(robot.getPosX(), robot.getPosY(), robot);
 
                         return true;
                     }
@@ -157,7 +157,7 @@ public class Map extends MapLayers{
                         robot.setPos(robot.getPosX(), robot.getPosY() - 1);
                         playerLayer.setCell(robot.getPosX(), robot.getPosY(), robot.getState());
 
-                        logic.check(robot.getPosX(), robot.getPosY(), robot);
+                        GameLogic.check(robot.getPosX(), robot.getPosY(), robot);
 
                         return true;
                     }
@@ -359,4 +359,19 @@ public class Map extends MapLayers{
         }
         laserLineLayer.setCell((int) position.x, (int) position.y, cell);
     }
+
+    public boolean isConveyor(int x, int y){
+        return (conveyorLayer.getCell(x,y) != null);
+    }
+
+    public Belt getBelt(int x, int y){
+        Vector2 pos = new Vector2(x,y);
+        for (Belt belt: beltList) {
+            if (belt.getPos().equals(pos)){
+                return belt;
+            }
+        }
+        throw new IllegalArgumentException("no such belt!");
+    }
+
 }

@@ -16,6 +16,7 @@ public class MapLayers {
     protected final TiledMapTileLayer startPos;
     protected TiledMapTileLayer laserLineLayer;
     protected final TiledMapTileLayer boardLayer;
+    protected final TiledMapTileLayer conveyorLayer;
 
     protected final int width, height;
 
@@ -34,6 +35,7 @@ public class MapLayers {
         startPos = (TiledMapTileLayer) map.getLayers().get("startPos");
         laserLineLayer = (TiledMapTileLayer) map.getLayers().get("LaserLines");
         boardLayer = (TiledMapTileLayer) map.getLayers().get("board");
+        conveyorLayer = (TiledMapTileLayer) map.getLayers().get("Belts");
 
         tileSet = map.getTileSets().getTileSet("tiles");
 
@@ -101,6 +103,19 @@ public class MapLayers {
                     } else if (ID == TileID.SOUTH_LASER_WALL.getId()) {
                         list.add(new Laser(new Vector2(x, y), Direction.UP));
                     }
+                }
+            }
+        }
+        return list;
+    }
+
+    protected List<Belt> findBelts(){
+        List<Belt> list = new ArrayList<>();
+        for (int x = 0; x < conveyorLayer.getWidth(); x++) {
+            for (int y = 0; y < conveyorLayer.getHeight(); y++) {
+                TiledMapTileLayer.Cell cell = conveyorLayer.getCell(x, y);
+                if (cell != null) {
+                    list.add(new Belt(new Vector2(x,y), cell.getTile().getId()));
                 }
             }
         }

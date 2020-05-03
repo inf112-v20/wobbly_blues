@@ -5,10 +5,12 @@ import com.badlogic.gdx.math.*;
 import enums.*;
 
 public class GameLogic {
-    private Map map;
 
-    public GameLogic(Map map){
-        this.map = map;
+    private static Map map;
+
+
+    public static void setMap(Map map){
+        GameLogic.map = map;
     }
     /**
      * Check if robot is on a flag, hole or out of bounds, and do appropriate actions
@@ -16,7 +18,7 @@ public class GameLogic {
      * @param y posY of robot
      * @param robot robot in question
      */
-    public void check(int x, int y, Robot robot){
+    public static void check(int x, int y, Robot robot){
         isFlag(x, y, robot);
         isOut(x, y, robot);
         isHole(x, y, robot);
@@ -35,7 +37,7 @@ public class GameLogic {
      * @param robot robot in question
      * @return True if robot was on hole
      */
-    public boolean isHole(int x, int y, Robot robot) {
+    public static boolean isHole(int x, int y, Robot robot) {
         if (map.holeLayer.getCell(x, y) != null) {
             System.out.println();
             decreaseLife(robot);
@@ -52,7 +54,7 @@ public class GameLogic {
      * @param robot robot in question
      * @return True if robot was on flag
      */
-    public boolean isFlag(int x, int y, Robot robot) {
+    public static boolean isFlag(int x, int y, Robot robot) {
         if (map.flagLayer.getCell(x,y) != null){
             robot.addFlag(map.flagLayer.getCell(x,y).getTile().getId());
             if(robot.numbFlags() == map.flagPos.size()){
@@ -74,7 +76,7 @@ public class GameLogic {
      * @param robot robot in question
      * @return True if robot was out of bounds
      */
-    public boolean isOut(int x, int y, Robot robot) {
+    public static boolean isOut(int x, int y, Robot robot) {
         if (x > map.width-1) {
             decreaseLife(robot);
             return true;
@@ -91,7 +93,7 @@ public class GameLogic {
             return false;
     }
 
-    public boolean isPlayersDead(){
+    public static boolean isPlayersDead(){
         int i = 0;
         for (Robot r : map.playerList){
             if(r.getDeadState() == r.getState()) i++;
@@ -104,7 +106,7 @@ public class GameLogic {
      * Reduce the hp of robot, respawn the robot at current base position
      * @param robot robot in question
      */
-    void decreaseLife(Robot robot) {
+    static void decreaseLife(Robot robot) {
         if (robot.getHp() > 0) {
             map.respawnPlayer(robot);
             robot.looseLife();
@@ -117,7 +119,7 @@ public class GameLogic {
         }
     }
 
-    public void fireLaser(Vector2 pos, Direction dir) {
+    public static void fireLaser(Vector2 pos, Direction dir) {
         map.addLaser(pos, dir);
         if(!map.isOutside(pos)) return;
 
@@ -128,8 +130,7 @@ public class GameLogic {
                 r.setDeadState();
                 map.isThisPLayerDead(r);
                 map.playerLayer.setCell((int)pos.x, (int)pos.y, null);
-            }
-            else if(r.getDamageToken() == 0){
+            } else if(r.getDamageToken() == 0){
                 map.respawnPlayer(r);
             }
         } else if (map.canGo((int)pos.x, (int)pos.y, dir)){
@@ -137,17 +138,25 @@ public class GameLogic {
         }
     }
 
-    public void fireAllLasers(){
+    public static void fireAllLasers(){
         for(Laser l : map.laserPos){
             fireLaser(l.getPos(),l.getDir());
         }
     }
 
-    public void clearLasers() {
+    public static void clearLasers() {
         for (int y = 0; y < map.laserLineLayer.getHeight(); y++) {
             for (int x = 0; x < map.laserLineLayer.getWidth(); x++) {
                 map.laserLineLayer.setCell(x, y, null);
             }
+        }
+    }
+
+    public static void doConveyor(Robot robot){
+        if (map.isConveyor(robot.getPosX(),robot.getPosY())){
+            Belt belt = map.getBelt(robot.getPosX(),robot.getPosY());
+            map.moveRobot(robot,belt.getDirection());
+            //TODO: implement after belts are finished
         }
     }
 }
