@@ -58,7 +58,7 @@ public class BoardScreen implements Screen {
         setPlayer();
 
         //creates an input controller
-        createController();
+//        createController();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false,WIDTH,HEIGHT);
@@ -254,61 +254,61 @@ public class BoardScreen implements Screen {
     /**
      * Add keyboard and mouse interactions
      */
-    private void createController() {
-        /*Input controller*/
-        Gdx.input.setInputProcessor(new InputAdapter() {
-            @Override
-            public boolean keyUp(int keycode) {
-                /*input controller*/
-                switch (keycode) {
-                    case Input.Keys.LEFT:
-                        map.moveRobot(robot, Direction.LEFT);
-                        break;
-                    case Input.Keys.RIGHT:
-                        map.moveRobot(robot, Direction.RIGHT);
-                        break;
-                    case Input.Keys.UP:
-                        map.moveRobot(robot, Direction.UP);
-                        break;
-                    case Input.Keys.DOWN:
-                        map.moveRobot(robot, Direction.DOWN);
-                        break;
-                    case Input.Keys.S:
-                        setPlayer();
-                        break;
-                    case Input.Keys.F:
-                        GameLogic.fireLaser(new Vector2(robot.getPosX(), robot.getPosY()), robot.getDirection());
-                        break;
-                    case Input.Keys.C:
-                        GameLogic.clearLasers();
-                        break;
-                    case Input.Keys.L:
-                        GameLogic.fireAllLasers();
-                        break;
-                    case Input.Keys.ESCAPE:
-                        Gdx.app.exit();
-                        break;
-                }
-                return false;
-            }
-
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-//                for (int i = 0; i < robot.getHand().size(); i++) {
-//                    int minX = (5 + i * 88);
-//                    int maxX = minX + 86;
-//                    int minY = 1000;
-//                    int maxY = minY - 120;
-//                    if (screenX >= minX && screenX <= maxX && screenY <= minY && screenY >= maxY) {
-//                        robot.getHand().get(i).doAction(map);
-//                        return true;
-//                    }
+//    private void createController() {
+//        /*Input controller*/
+//        Gdx.input.setInputProcessor(new InputAdapter() {
+//            @Override
+//            public boolean keyUp(int keycode) {
+//                /*input controller*/
+//                switch (keycode) {
+//                    case Input.Keys.LEFT:
+//                        map.moveRobot(robot, Direction.LEFT);
+//                        break;
+//                    case Input.Keys.RIGHT:
+//                        map.moveRobot(robot, Direction.RIGHT);
+//                        break;
+//                    case Input.Keys.UP:
+//                        map.moveRobot(robot, Direction.UP);
+//                        break;
+//                    case Input.Keys.DOWN:
+//                        map.moveRobot(robot, Direction.DOWN);
+//                        break;
+//                    case Input.Keys.S:
+//                        setPlayer();
+//                        break;
+//                    case Input.Keys.F:
+//                        GameLogic.fireLaser(new Vector2(robot.getPosX(), robot.getPosY()), robot.getDirection());
+//                        break;
+//                    case Input.Keys.C:
+//                        GameLogic.clearLasers();
+//                        break;
+//                    case Input.Keys.L:
+//                        GameLogic.fireAllLasers();
+//                        break;
+//                    case Input.Keys.ESCAPE:
+//                        Gdx.app.exit();
+//                        break;
 //                }
-                return false;
-            }
-        }
-        );
-    }
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+////                for (int i = 0; i < robot.getHand().size(); i++) {
+////                    int minX = (5 + i * 88);
+////                    int maxX = minX + 86;
+////                    int minY = 1000;
+////                    int maxY = minY - 120;
+////                    if (screenX >= minX && screenX <= maxX && screenY <= minY && screenY >= maxY) {
+////                        robot.getHand().get(i).doAction(map);
+////                        return true;
+////                    }
+////                }
+//                return false;
+//            }
+//        }
+//        );
+//    }
 
     /**
      * Set player to interact with
