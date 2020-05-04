@@ -181,6 +181,10 @@ public class Robot {
         return bp_y;
     }
 
+    public Vector2 getPos(){
+        return new Vector2(x,y);
+    }
+
     public int getHp(){
         return hp;
     }

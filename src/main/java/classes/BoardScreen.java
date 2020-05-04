@@ -34,6 +34,8 @@ public class BoardScreen implements Screen {
 
     private SpriteBatch batch;
     private BitmapFont font;
+    private SpriteBatch batch2;
+    private BitmapFont font2;
     private Button doTurnButton;
     private ArrayList<Button> cards;
     private TextField[] selectedNumbers;
@@ -49,16 +51,13 @@ public class BoardScreen implements Screen {
         map = new Map();
         map.getBoard(this);
 
-        TurnHandler.setPlayers(2);
+        TurnHandler.setPlayers(1);
         turnHandler = new TurnHandler();
         turnHandler.setMap(map);
 
         map.placePlayers(2);
 
         setPlayer();
-
-        //creates an input controller
-//        createController();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false,WIDTH,HEIGHT);
@@ -73,10 +72,10 @@ public class BoardScreen implements Screen {
         doTurnButton.setPosition((float)(Options.screenWidth/2),(float)(Options.screenHeight/6),0);
         stage.addActor(doTurnButton);
 
-        camera.position.set(w/2,(h-6)/2,0);
+        camera.position.set((w-(float)1.8)/2,(h-(float)9.5)/2,0);
         camera.update();
 
-        TMRenderer = new OrthogonalTiledMapRenderer(map.getMap(), (float) 0.00333);
+        TMRenderer = new OrthogonalTiledMapRenderer(map.getMap(), (float) 1/350);
         TMRenderer.setView(camera);
 
         batch = new SpriteBatch();
@@ -84,7 +83,20 @@ public class BoardScreen implements Screen {
         font.setColor(Color.BLACK);
         selectedNumbers = new TextField[5];
 
-        Gdx.input.setInputProcessor(stage);
+        batch2 = new SpriteBatch();
+        font2 = new BitmapFont();
+        font2.getData().setScale((float) 1.2);
+        font2.setColor(Color.BLACK);
+
+        InputProcessor inputProcessorOne = stage;
+        InputProcessor inputProcessorTwo = createController();
+
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+
+        inputMultiplexer.addProcessor(inputProcessorOne);
+        inputMultiplexer.addProcessor(inputProcessorTwo);
+
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     private void initCards(){
@@ -93,8 +105,7 @@ public class BoardScreen implements Screen {
             Button button = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("card/card.png"))));
             button.setPosition((float)(Options.screenWidth * i / 9) + getCardPadding(),0);
             button.setName(""+i);
-//            button.setBounds(Options.screenWidth*i/9,0,86,120);
-//            button.setSize(86,120);
+
             button.setColor(Color.CYAN);
             cards.add(button);
             stage.addActor(button);
@@ -123,11 +134,13 @@ public class BoardScreen implements Screen {
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         TMRenderer.render();
+
+        InfoText();
+
         stage.act();
         stage.draw();
 
         cardPress();
-
         startPressed();
 
         batch.begin();
@@ -136,6 +149,22 @@ public class BoardScreen implements Screen {
         }
         batch.end();
         inputCooldown = inputCooldownDone() ? 0 : inputCooldown-1;
+    }
+
+    private void InfoText() {
+
+        String playerInfoText = robot.getName() + "\n" +
+                "Lives: " + robot.getHp() + "\n" +
+                "Health: " + robot.getDamageToken() + "\n" +
+                "Flags taken: " + robot.numbFlags() + "\n" +
+                "Direction: " + robot.getDirection() + "\n" +
+                "Position: " + robot.getPos().toString();
+
+        batch2.begin();
+        // Player Info
+        font2.draw(batch2, playerInfoText, 30, 50 + 200);
+        batch2.end();
+
     }
 
     private void startPressed(){
@@ -254,61 +283,47 @@ public class BoardScreen implements Screen {
     /**
      * Add keyboard and mouse interactions
      */
-//    private void createController() {
-//        /*Input controller*/
-//        Gdx.input.setInputProcessor(new InputAdapter() {
-//            @Override
-//            public boolean keyUp(int keycode) {
-//                /*input controller*/
-//                switch (keycode) {
-//                    case Input.Keys.LEFT:
-//                        map.moveRobot(robot, Direction.LEFT);
-//                        break;
-//                    case Input.Keys.RIGHT:
-//                        map.moveRobot(robot, Direction.RIGHT);
-//                        break;
-//                    case Input.Keys.UP:
-//                        map.moveRobot(robot, Direction.UP);
-//                        break;
-//                    case Input.Keys.DOWN:
-//                        map.moveRobot(robot, Direction.DOWN);
-//                        break;
-//                    case Input.Keys.S:
-//                        setPlayer();
-//                        break;
-//                    case Input.Keys.F:
-//                        GameLogic.fireLaser(new Vector2(robot.getPosX(), robot.getPosY()), robot.getDirection());
-//                        break;
-//                    case Input.Keys.C:
-//                        GameLogic.clearLasers();
-//                        break;
-//                    case Input.Keys.L:
-//                        GameLogic.fireAllLasers();
-//                        break;
-//                    case Input.Keys.ESCAPE:
-//                        Gdx.app.exit();
-//                        break;
-//                }
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-////                for (int i = 0; i < robot.getHand().size(); i++) {
-////                    int minX = (5 + i * 88);
-////                    int maxX = minX + 86;
-////                    int minY = 1000;
-////                    int maxY = minY - 120;
-////                    if (screenX >= minX && screenX <= maxX && screenY <= minY && screenY >= maxY) {
-////                        robot.getHand().get(i).doAction(map);
-////                        return true;
-////                    }
-////                }
-//                return false;
-//            }
-//        }
-//        );
-//    }
+
+    private InputProcessor createController() {
+        /*Input controller*/
+       InputProcessor input = new InputAdapter() {
+            @Override
+            public boolean keyUp(int keycode) {
+                /*input controller*/
+                switch (keycode) {
+                    case Input.Keys.LEFT:
+                        map.moveRobot(robot, Direction.LEFT);
+                        break;
+                    case Input.Keys.RIGHT:
+                        map.moveRobot(robot, Direction.RIGHT);
+                        break;
+                    case Input.Keys.UP:
+                        map.moveRobot(robot, Direction.UP);
+                        break;
+                    case Input.Keys.DOWN:
+                        map.moveRobot(robot, Direction.DOWN);
+                        break;
+                        case Input.Keys.S:
+                        setPlayer();
+                        break;
+                    case Input.Keys.F:
+                        GameLogic.fireLaser(new Vector2(robot.getPosX(), robot.getPosY()), robot.getDirection());
+                        break;
+                    case Input.Keys.C:
+                        GameLogic.clearLasers();
+                        break;
+                    case Input.Keys.L:
+                        GameLogic.fireAllLasers();
+                        break;
+                    case Input.Keys.ESCAPE:
+                        Gdx.app.exit();
+                        break;
+                }
+                return false;
+            }
+        };
+       return input;
+    }
 
     /**
      * Set player to interact with

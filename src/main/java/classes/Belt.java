@@ -29,12 +29,6 @@ public class Belt {
         return type;
     }
 
-    /**
-     * hei og velkommen til den ekleste metoden noen gang laget,
-     * laget av selveste Tines Valen ;)
-     * @param id
-     * @return
-     */
     public Direction translateID(int id){
         if (id == SOUTH_TO_NORTH_BELT.getId() ||
             id == EAST_TO_NORTH_BELT.getId() ||

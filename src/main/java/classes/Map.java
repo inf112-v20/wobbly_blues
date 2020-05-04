@@ -374,4 +374,8 @@ public class Map extends MapLayers{
         throw new IllegalArgumentException("no such belt!");
     }
 
+    public void boardSwithPlayer(){
+        board.setPlayer();
+    }
+
 }

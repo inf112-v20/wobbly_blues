@@ -128,8 +128,9 @@ public class GameLogic {
             r.takeDamage();
             if(r.getHp() == 0) {
                 r.setDeadState();
-                map.isThisPLayerDead(r);
-                map.playerLayer.setCell((int)pos.x, (int)pos.y, null);
+                map.playerList.remove(r);
+                map.playerLayer.setCell(r.getPosX(), r.getPosY(), null);
+                map.boardSwithPlayer();
             } else if(r.getDamageToken() == 0){
                 map.respawnPlayer(r);
             }
