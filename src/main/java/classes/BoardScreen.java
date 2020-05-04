@@ -152,16 +152,13 @@ public class BoardScreen implements Screen {
     }
 
     private void InfoText() {
-
         String playerInfoText = robot.getName() + "\n" +
                 "Lives: " + robot.getHp() + "\n" +
-                "Health: " + robot.getDamageToken() + "\n" +
+                "Damage Tokens: " + robot.getDamageToken() + "\n" +
                 "Flags taken: " + robot.numbFlags() + "\n" +
-                "Direction: " + robot.getDirection() + "\n" +
-                "Position: " + robot.getPos().toString();
+                "Direction: " + robot.getDirection() + "\n";
 
         batch2.begin();
-        // Player Info
         font2.draw(batch2, playerInfoText, 30, 50 + 200);
         batch2.end();
 
@@ -314,6 +311,9 @@ public class BoardScreen implements Screen {
                         break;
                     case Input.Keys.L:
                         GameLogic.fireAllLasers();
+                        break;
+                    case Input.Keys.B:
+                        GameLogic.doConveyor(robot);
                         break;
                     case Input.Keys.ESCAPE:
                         Gdx.app.exit();
