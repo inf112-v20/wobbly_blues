@@ -155,6 +155,10 @@ public class GameLogic {
     public static void doConveyor(Robot robot){
         if (map.isConveyor(robot.getPosX(),robot.getPosY())){
             Belt belt = map.getBelt(robot.getPosX(),robot.getPosY());
+            if(belt.getType() == Belt.BeltType.FASTBELT){
+                map.moveRobot(robot,belt.getDirection());
+
+            }
             map.moveRobot(robot,belt.getDirection());
             //TODO: implement after belts are finished
         }

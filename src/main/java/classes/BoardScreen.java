@@ -49,11 +49,11 @@ public class BoardScreen implements Screen {
         map = new Map();
         map.getBoard(this);
 
-        TurnHandler.setPlayers(1);
+        TurnHandler.setPlayers(2);
         turnHandler = new TurnHandler();
         turnHandler.setMap(map);
 
-        map.placePlayers(1);
+        map.placePlayers(2);
 
         setPlayer();
 

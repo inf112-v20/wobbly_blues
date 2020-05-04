@@ -33,7 +33,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="2" name="Belt" width="12" height="12">
+ <layer id="2" name="Belts" width="12" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 49,50,51,52,13,21,14,22,0,0,0,0,

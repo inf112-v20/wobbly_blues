@@ -104,6 +104,7 @@ public class TurnHandler{
     /**
      * multithreaded gameloop that waits for all robots to be ready, then does all movement and lasers.
      */
+    //TODO: tweeking for at det fungere litt bedre
     public void doTurnThread(){
         while(true){
             try {

@@ -1,6 +1,6 @@
 package classes;
 
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.math.*;
 import enums.*;
