@@ -126,6 +126,15 @@ public class Card implements Comparable<Card> {
         );
         if (cardSymbol == null) getCardTexture();
         batch.draw(cardSymbol,x,y+padding,w,w);
+        font.draw(
+                batch,
+                ""+getPriority(),
+                x,
+                y+padding*3,
+                w,
+                Align.center,
+                true
+        );
     }
 
     public int getPriority() {

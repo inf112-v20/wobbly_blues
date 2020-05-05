@@ -9,7 +9,9 @@ import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import enums.*;
 
@@ -50,12 +52,13 @@ public class BoardScreen implements Screen {
         stage = new Stage();
         map = new Map();
         map.getBoard(this);
+        TurnHandler.setPlayers(1);
 
         TurnHandler.setPlayers(1);
         turnHandler = new TurnHandler();
         turnHandler.setMap(map);
 
-        map.placePlayers(2);
+        map.placePlayers(1);
 
         setPlayer();
 
@@ -130,7 +133,7 @@ public class BoardScreen implements Screen {
 
     @Override
     public void render(float v) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0.33f, 0.33f, 0.33f, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         TMRenderer.render();
@@ -145,7 +148,7 @@ public class BoardScreen implements Screen {
 
         batch.begin();
         for (int i = 0; i < robot.getHand().size(); i++) {
-            robot.getHand().get(i).render(batch,font,Options.screenWidth*i/9+getCardPadding(),0,86,120);
+            robot.getHand().get(i).render(batch,font,(Options.screenWidth * i / 9) + getCardPadding(),0,(int)cards.get(0).getWidth(),(int)cards.get(0).getHeight());
         }
         batch.end();
         inputCooldown = inputCooldownDone() ? 0 : inputCooldown-1;
@@ -157,7 +160,6 @@ public class BoardScreen implements Screen {
                 "Damage Tokens: " + robot.getDamageToken() + "\n" +
                 "Flags taken: " + robot.numbFlags() + "\n" +
                 "Direction: " + robot.getDirection() + "\n";
-
         batch2.begin();
         font2.draw(batch2, playerInfoText, 30, 50 + 200);
         batch2.end();
@@ -187,7 +189,7 @@ public class BoardScreen implements Screen {
                     if (card.isDisabled()) {
                         removeSelectedText(i);
                     } else {
-                        int xPos = (Options.screenWidth*i/9)+getCardPadding();
+                        int xPos = (Options.screenWidth*i/9)+(int)(card.getWidth()/2);
                         addSelectedText(i,xPos);
                     }
 
@@ -203,7 +205,7 @@ public class BoardScreen implements Screen {
                 TextField textField = new TextField(""+i,new TextField.TextFieldStyle(new BitmapFont(),Color.BLACK,null,null,null));
                 textField.setName(""+cardNr);
 //                textField.setBounds(xPos,125,50,50);
-                textField.setPosition(xPos,120);
+                textField.setPosition(xPos,100);
                 selectedNumbers[i]=textField;
                 stage.addActor(textField);
                 failed=false;
