@@ -159,7 +159,9 @@ public class GameLogic {
             if(belt.getType() == Belt.BeltType.FASTBELT){
                 map.moveRobot(robot,belt.getDirection());
                 if(map.isConveyor(robot.getPosX(),robot.getPosY())) {
-                    map.moveRobot(robot, map.getBelt(robot.getPosX(), robot.getPosY()).getDirection());
+                    if(map.getBelt(robot.getPosX(),robot.getPosY()).getType() == Belt.BeltType.FASTBELT) {
+                        map.moveRobot(robot, map.getBelt(robot.getPosX(), robot.getPosY()).getDirection());
+                    }
                 }
             }
             else {
