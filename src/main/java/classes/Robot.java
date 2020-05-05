@@ -16,11 +16,14 @@ public class Robot {
     protected ArrayList<Integer> flags;
     protected int hp;
     protected int damageToken;
+
     protected Direction direction;
     protected boolean died;
     protected States states;
     protected RobotNames name;
+
     protected boolean ready = false;
+
     protected int numbCards;
     protected int numbRegister;
 
@@ -47,6 +50,9 @@ public class Robot {
         hp--;
     }
 
+    public int getNumbCards() {
+        return numbCards;
+    }
 
     public void takeDamage(){
         damageToken++;

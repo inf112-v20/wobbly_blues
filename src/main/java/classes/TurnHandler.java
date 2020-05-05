@@ -118,6 +118,8 @@ public class TurnHandler{
                 for (Robot robot: map.getPlayerList()) {
                     GameLogic.check(robot.getPosX(),robot.getPosY(),robot);
                     GameLogic.doConveyor(robot);
+                    GameLogic.rotorPad(robot);
+                    GameLogic.repeair(robot);
                 }
                 registerList.get(i).clear();
                 GameLogic.fireAllLasers();
