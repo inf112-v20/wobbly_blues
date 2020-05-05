@@ -52,11 +52,10 @@ public class BoardScreen implements Screen {
         stage = new Stage();
         map = new Map();
         map.getBoard(this);
-        TurnHandler.setPlayers(numbPlayers);
 
-        TurnHandler.setPlayers(numbPlayers);
         turnHandler = new TurnHandler();
         turnHandler.setMap(map);
+        TurnHandler.setPlayers(numbPlayers);
 
         map.placePlayers(numbPlayers);
 
@@ -170,21 +169,33 @@ public class BoardScreen implements Screen {
         if (inputCooldownDone()) {
             if (doTurnButton.isPressed() && !doTurnButton.isDisabled()) {
                 resetInputCooldown();
+                robot.setReady();
                 System.out.println("START");
-                if (robot.setReady()) {
+                if(playersReady()) {
                     System.out.println("yes");
                     turnHandler.setReady();
                     newTurnCleanup();
                 }
+                else{
+                    newPlayerCleanup();
+                    setPlayer();
+                }
             }
         }
+    }
+
+    public boolean playersReady(){
+        for(Robot r : map.playerList){
+            if(!r.isReady()) return false;
+        }
+        return true;
     }
 
     private void cardPress(){
         if (inputCooldownDone()) {
             for (int i = 0; i < 9; i++) {
                 Button card = cards.get(i);
-                if (card.isPressed()) {
+                if (card.isPressed()) { ;
                     resetInputCooldown();
                     if (card.isDisabled()) {
                         removeSelectedText(i);
@@ -229,6 +240,17 @@ public class BoardScreen implements Screen {
         removeSelectedText(lastIdx);
     }
 
+    private void newPlayerCleanup(){
+        for (Button cardButton: cards) {
+            cardButton.setColor(Color.CYAN);
+            cardButton.setDisabled(false);
+        }
+        for (int i = 0; i < selectedNumbers.length; i++) {
+            selectedNumbers[i].remove();
+            selectedNumbers[i]=null;
+        }
+    }
+
     private void newTurnCleanup(){
         for (Button cardButton: cards) {
             cardButton.setColor(Color.CYAN);
@@ -237,6 +259,9 @@ public class BoardScreen implements Screen {
         for (int i = 0; i < selectedNumbers.length; i++) {
             selectedNumbers[i].remove();
             selectedNumbers[i]=null;
+        }
+        for(Robot r : map.playerList){
+            r.notReady();
         }
     }
 

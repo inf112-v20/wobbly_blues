@@ -76,7 +76,7 @@ public class TurnHandler{
         return cards;
     }
 
-    public static boolean allPlayersReady(){
+    public boolean allPlayersReady(){
         for (int i = 0; i < 5; i++) {
             if (registerList.get(i).size() != playerAmount) return false;
         }

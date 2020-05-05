@@ -10,19 +10,19 @@ public class Robot {
 
     private TiledMapTileLayer.Cell state;
 
-    private int x, y;
-    private ArrayList<Card> hand, discardPile, cardsChosen;
-    private int bp_x, bp_y;
-    private ArrayList<Integer> flags;
-    private int hp;
-    private int damageToken;
-    private Direction direction;
-    private boolean died;
-    private States states;
-    private RobotNames name;
-    private boolean ready=false;
-    private int numbCards;
-    private int numbRegister;
+    protected int x, y;
+    protected ArrayList<Card> hand, discardPile, cardsChosen;
+    protected int bp_x, bp_y;
+    protected ArrayList<Integer> flags;
+    protected int hp;
+    protected int damageToken;
+    protected Direction direction;
+    protected boolean died;
+    protected States states;
+    protected RobotNames name;
+    protected boolean ready = false;
+    protected int numbCards;
+    protected int numbRegister;
 
     public Robot(Vector2 pos, RobotNames name){
         this.name = name;
@@ -106,6 +106,10 @@ public class Robot {
     public boolean isReady() {
         return ready;
     }
+    public void notReady() {
+        ready = false;
+    }
+
 
     public Direction getDirection() {return direction;}
 

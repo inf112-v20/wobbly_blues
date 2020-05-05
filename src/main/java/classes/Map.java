@@ -11,6 +11,7 @@ public class Map extends MapLayers{
 
     protected final List<Vector2> startPositions;
     protected List<Robot> playerList;
+    protected List<AIPlayer> AIList;
     protected final List<Vector2> flagPos;
     protected final List<Laser> laserPos;
     protected final List<Belt> beltList;
@@ -298,6 +299,30 @@ public class Map extends MapLayers{
             }
         }
         return playerList;
+    }
+
+    public List<AIPlayer> placeAI(int numbAI) {
+        if(numbAI >= 8) numbAI = 8;
+
+        if(numbAI > startPositions.size()) numbAI=startPositions.size();
+
+        AIList = new ArrayList<>();
+        for (int i = 0; i < numbAI; i++) {
+            Random rand = new Random();
+            Vector2 pos = startPositions.get(rand.nextInt(startPositions.size()));
+
+            if (playerLayer.getCell((int) pos.x, (int) pos.y) != null){
+                pos = startPositions.get(rand.nextInt(startPositions.size()));
+            }
+
+            if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
+                Robot r = new AIPlayer(pos, RobotNames.getById(i));
+                setPlayer(r);
+                playerList.add(r);
+                startPositions.remove(pos);
+            }
+        }
+        return AIList;
     }
 
     public void respawnPlayer(Robot r){
