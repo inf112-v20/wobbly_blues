@@ -104,7 +104,7 @@ public class ChoosePlayerScreen implements Screen{
         //actions for the buttons
         if(startBtn.isPressed()){
             //if pressed sett a new screen
-            game.setScreen(new BoardScreen(game,selectNumbPlayers.getSelectedIndex()+1));
+            game.setScreen(new BoardScreen(game,selectNumbPlayers.getSelectedIndex()+1,selectNumbAI.getSelectedIndex()));
         }
 
         if (cooldownTimer==0) {

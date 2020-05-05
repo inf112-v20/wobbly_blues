@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import enums.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class BoardScreen implements Screen {
 
@@ -42,12 +42,13 @@ public class BoardScreen implements Screen {
     private ArrayList<Button> cards;
     private TextField[] selectedNumbers;
     private TurnHandler turnHandler;
+    private List<AIPlayer> AIList;
 
     private Stage stage;
 
     private int inputCooldown;
 
-    public BoardScreen(StartGame game, int numbPlayers){
+    public BoardScreen(StartGame game, int numbPlayers, int numbAI){
         this.game = game;
         stage = new Stage();
         map = new Map();
@@ -58,6 +59,9 @@ public class BoardScreen implements Screen {
         TurnHandler.setPlayers(numbPlayers);
 
         map.placePlayers(numbPlayers);
+        map.placeAI(numbAI);
+
+        this.AIList = map.getAIList();
 
         setPlayer();
 
@@ -83,7 +87,7 @@ public class BoardScreen implements Screen {
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.BLACK);
-        selectedNumbers = new TextField[5];
+        selectedNumbers = new TextField[robot.getNumbRegister()];
 
         batch2 = new SpriteBatch();
         font2 = new BitmapFont();
@@ -173,12 +177,14 @@ public class BoardScreen implements Screen {
                 System.out.println("START");
                 if(playersReady()) {
                     System.out.println("yes");
+                    AIdoTurn();
                     turnHandler.setReady();
                     newTurnCleanup();
                 }
                 else{
-                    newPlayerCleanup();
+                    if(robot.cardsChosen.size() == robot.getNumbRegister())
                     setPlayer();
+                    newPlayerCleanup();
                 }
             }
         }
@@ -245,10 +251,7 @@ public class BoardScreen implements Screen {
             cardButton.setColor(Color.CYAN);
             cardButton.setDisabled(false);
         }
-        for (int i = 0; i < selectedNumbers.length; i++) {
-            selectedNumbers[i].remove();
-            selectedNumbers[i]=null;
-        }
+        selectedNumbers = new TextField[robot.getNumbRegister()];
     }
 
     private void newTurnCleanup(){
@@ -367,6 +370,12 @@ public class BoardScreen implements Screen {
         }
         else {
             robot = map.getPlayerList().get(map.switchPlayer(robot));
+        }
+    }
+
+    public void AIdoTurn(){
+        for(AIPlayer AI : AIList){
+            AI.doTurn();
         }
     }
 

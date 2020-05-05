@@ -21,6 +21,7 @@ public class AIPlayer extends Robot {
             }
             selectCard(rand);
         }
+        System.out.println(cardsChosen);
         ready = true;
     }
 

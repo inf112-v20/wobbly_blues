@@ -316,9 +316,9 @@ public class Map extends MapLayers{
             }
 
             if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
-                Robot r = new AIPlayer(pos, RobotNames.getById(i));
+                AIPlayer r = new AIPlayer(pos, RobotNames.getById(i));
                 setPlayer(r);
-                playerList.add(r);
+                AIList.add(r);
                 startPositions.remove(pos);
             }
         }
@@ -428,6 +428,18 @@ public class Map extends MapLayers{
             }
         }
         throw new IllegalArgumentException("no such pad!");
+    }
+
+    public List<AIPlayer> getAIList() {
+        return AIList;
+    }
+
+    public List<Robot> getListOfPlayers(){
+        System.out.println(AIList);
+        List<Robot> list = new ArrayList<>();
+        if(AIList.size() != 0){ list.addAll(AIList);}
+        list.addAll(playerList);
+        return list;
     }
 
     public void boardSwithPlayer(){

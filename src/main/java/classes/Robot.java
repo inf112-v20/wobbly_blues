@@ -53,6 +53,9 @@ public class Robot {
     public int getNumbCards() {
         return numbCards;
     }
+    public int getNumbRegister() {
+        return numbRegister;
+    }
 
     public void takeDamage(){
         damageToken++;

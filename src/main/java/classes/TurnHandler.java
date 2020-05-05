@@ -115,7 +115,7 @@ public class TurnHandler{
             if (Thread.interrupted()) return;
             for (int i = 0; i < 5; i++) {
                 doTurn(i,map);
-                for (Robot robot: map.getPlayerList()) {
+                for (Robot robot: map.getListOfPlayers()) {
                     GameLogic.check(robot.getPosX(),robot.getPosY(),robot);
                     GameLogic.doConveyor(robot);
                     GameLogic.rotorPad(robot);
@@ -123,14 +123,14 @@ public class TurnHandler{
                 }
                 registerList.get(i).clear();
                 GameLogic.fireAllLasers();
-                for (Robot robot: map.getPlayerList()) {
-                    GameLogic.fireLaser(new Vector2(robot.getPosX(),robot.getPosY()),robot.getDirection());
+                for (Robot robot: map.getListOfPlayers()) {
+                    GameLogic.fireLaser(robot.getPos(),robot.getDirection());
                 }
                 sleep(200);
                 GameLogic.clearLasers();
                 sleep(400);
             }
-            for (Robot robot:map.getPlayerList()) {
+            for (Robot robot:map.getListOfPlayers()) {
                 robot.clearHand();
             }
         }
