@@ -21,6 +21,8 @@ public class Robot {
     private States states;
     private RobotNames name;
     private boolean ready=false;
+    private int numbCards;
+    private int numbRegister;
 
     public Robot(Vector2 pos, RobotNames name){
         this.name = name;
@@ -36,6 +38,8 @@ public class Robot {
         states = new States();
         setNormalState();
         cardsChosen = new ArrayList<>();
+        numbCards = 9;
+        numbRegister = 5;
 
     }
 
@@ -46,9 +50,14 @@ public class Robot {
 
     public void takeDamage(){
         damageToken++;
+        numbCards--;
+        if(damageToken >=5){
+            numbRegister--;
+        }
         if (damageToken == 10){
             looseLife();
             damageToken = 0;
+            numbCards = 9;
         }
     }
 
@@ -58,7 +67,7 @@ public class Robot {
 
     public void createHand() {
         hand = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < numbCards; i++) {
             hand.add(new Card());
             hand.get(i).setRobot(this);
         }
@@ -68,7 +77,7 @@ public class Robot {
         if (cardNr<0 || cardNr>=hand.size()){
             throw new IllegalArgumentException("illegal card number");
         }
-        if (cardsChosen.size() > 5){
+        if (cardsChosen.size() > numbRegister){
             cardsChosen.remove(4);
         }
         cardsChosen.add(hand.get(cardNr));
