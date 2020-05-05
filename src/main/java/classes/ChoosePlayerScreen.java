@@ -18,20 +18,39 @@ public class ChoosePlayerScreen implements Screen{
     private final Button logo;
     private int cooldown, cooldownTimer;
     private float r=.66f, g=.66f, b=1f;
-    public Skin defaultSkin;
+    public SelectBox<String> selectMap;
+
+    public final float BUTTON_WIDTH;
+    public final float BUTTON_HEIGHT;
+    public final float BUTTON_X;
 
     public ChoosePlayerScreen(StartGame game) {
         this.game = game;
         stage = new Stage();
         int height = Gdx.graphics.getHeight();
         int width = Gdx.graphics.getWidth();
-        this.defaultSkin = new Skin(Gdx.files.internal("assets/skins/uiskin.json"));
+
+
+        BUTTON_WIDTH = (float) (Gdx.graphics.getWidth() * 0.25);
+        BUTTON_HEIGHT = (float) (Gdx.graphics.getHeight() * 0.25);
+        BUTTON_X = (float) (Gdx.graphics.getWidth() * 0.5 - BUTTON_WIDTH * 0.5);
 
         //creating buttons, and setting positons
         logo = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("buttons/logo.png"))));
 
         logo.setPosition(width /2f - logo.getWidth()/2, height*4 /6f);
 
+        selectMap = new SelectBox<>(game.defaultSkin);
+
+        selectMap.setItems("1","2","3","4");
+
+        selectMap.setSelected("1");
+
+        selectMap.setWidth(BUTTON_WIDTH * .87f);
+
+        selectMap.setPosition(BUTTON_X - selectMap.getWidth(),  BUTTON_HEIGHT / 2);
+
+        stage.addActor(selectMap);
         stage.addActor(logo);
 
         Gdx.input.setInputProcessor(stage);
