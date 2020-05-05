@@ -239,6 +239,9 @@ public class Robot {
     public TiledMapTileLayer.Cell getDeadState(){
        return states.getDead();
     }
+    public TiledMapTileLayer.Cell getNormState(){
+        return states.getNormal();
+    }
 
     public RobotNames getName() {
         return name;

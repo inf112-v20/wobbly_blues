@@ -96,10 +96,14 @@ public class GameLogic {
     public static boolean isPlayersDead(){
         int i = 0;
         for (Robot r : map.playerList){
-            if(r.getDeadState() == r.getState()) i++;
+            if(r.getNormState() == r.getState()) i++;
         }
-        if(i==map.playerList.size()) return true;
-        else return false;
+        if(i==0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     /**

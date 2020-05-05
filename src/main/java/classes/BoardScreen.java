@@ -47,18 +47,18 @@ public class BoardScreen implements Screen {
 
     private int inputCooldown;
 
-    public BoardScreen(StartGame game){
+    public BoardScreen(StartGame game, int numbPlayers){
         this.game = game;
         stage = new Stage();
         map = new Map();
         map.getBoard(this);
-        TurnHandler.setPlayers(1);
+        TurnHandler.setPlayers(numbPlayers);
 
-        TurnHandler.setPlayers(1);
+        TurnHandler.setPlayers(numbPlayers);
         turnHandler = new TurnHandler();
         turnHandler.setMap(map);
 
-        map.placePlayers(1);
+        map.placePlayers(numbPlayers);
 
         setPlayer();
 

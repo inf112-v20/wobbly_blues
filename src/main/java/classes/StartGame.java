@@ -1,15 +1,12 @@
 package classes;
 
 import classes.*;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.Game;
 
 public class StartGame extends Game {
 
-    public Skin defaultSkin;
     @Override
     public void create() {
-        this.defaultSkin = new Skin(Gdx.files.internal("uiskin.json"));
         //setting the screen
         this.setScreen(new StartScreen(this));
     }
