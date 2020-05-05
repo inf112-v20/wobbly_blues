@@ -14,6 +14,8 @@ public class Map extends MapLayers{
     protected final List<Vector2> flagPos;
     protected final List<Laser> laserPos;
     protected final List<Belt> beltList;
+    protected final List<Tool> tools;
+    protected final List<RotorPad> rotorPos;
 
     protected int playerIdx;
 
@@ -27,6 +29,8 @@ public class Map extends MapLayers{
         laserPos = findLasers();
         playerIdx=0;
         beltList = findBelts();
+        tools = findTools();
+        rotorPos = findRotors();
 
     }
 
@@ -364,6 +368,13 @@ public class Map extends MapLayers{
         return (conveyorLayer.getCell(x,y) != null);
     }
 
+    public boolean isTool(int x, int y){
+        return (toolLayer.getCell(x,y) != null);
+    }
+
+    public boolean isRotorPad(int x, int y){
+        return (rotorLayer.getCell(x,y) != null);
+    }
     public Belt getBelt(int x, int y){
         Vector2 pos = new Vector2(x,y);
         for (Belt belt: beltList) {
@@ -372,6 +383,26 @@ public class Map extends MapLayers{
             }
         }
         throw new IllegalArgumentException("no such belt!");
+    }
+
+    public RotorPad getPad(int x, int y){
+        Vector2 pos = new Vector2(x,y);
+        for (RotorPad pad: rotorPos) {
+            if (pad.getPos().equals(pos)){
+                return pad;
+            }
+        }
+        throw new IllegalArgumentException("no such pad!");
+    }
+
+    public Tool getTool(int x, int y){
+        Vector2 pos = new Vector2(x,y);
+        for (Tool tool : tools) {
+            if (tool.getPos().equals(pos)){
+                return tool;
+            }
+        }
+        throw new IllegalArgumentException("no such pad!");
     }
 
     public void boardSwithPlayer(){

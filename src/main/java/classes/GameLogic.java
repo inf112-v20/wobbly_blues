@@ -169,4 +169,22 @@ public class GameLogic {
             }
         }
     }
+
+    public static void rotorPad(Robot robot){
+        if(map.isRotorPad(robot.getPosX(),robot.getPosY())){
+            RotorPad pad = map.getPad(robot.getPosX(),robot.getPosY());
+            for (int i = 0; i < pad.getClockwiseRotation(); i++) {
+                assert robot.getDirection().turnRight() != null;
+                robot.setDirection(robot.getDirection().turnRight());
+            }
+        }
+    }
+
+    public static void repeair(Robot robot){
+        if(map.isTool(robot.getPosX(),robot.getPosY())){
+            robot.repeair();
+            robot.setBackup(robot.getPosX(),robot.getPosY());
+
+        }
+    }
 }

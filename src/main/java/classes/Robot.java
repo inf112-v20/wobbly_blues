@@ -234,5 +234,10 @@ public class Robot {
     public RobotNames getName() {
         return name;
     }
+
+    public int repeair(){
+        damageToken=damageToken-1;
+        return damageToken;
+    }
 }
 

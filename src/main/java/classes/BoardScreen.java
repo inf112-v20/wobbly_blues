@@ -315,6 +315,12 @@ public class BoardScreen implements Screen {
                     case Input.Keys.B:
                         GameLogic.doConveyor(robot);
                         break;
+                    case Input.Keys.R:
+                        GameLogic.rotorPad(robot);
+                        break;
+                    case Input.Keys.T:
+                        GameLogic.repeair(robot);
+                        break;
                     case Input.Keys.ESCAPE:
                         Gdx.app.exit();
                         break;

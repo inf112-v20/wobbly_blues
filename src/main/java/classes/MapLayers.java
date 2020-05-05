@@ -17,6 +17,8 @@ public class MapLayers {
     protected TiledMapTileLayer laserLineLayer;
     protected final TiledMapTileLayer boardLayer;
     protected final TiledMapTileLayer conveyorLayer;
+    protected final TiledMapTileLayer toolLayer;
+    protected final TiledMapTileLayer rotorLayer;
 
     protected final int width, height;
 
@@ -36,6 +38,8 @@ public class MapLayers {
         laserLineLayer = (TiledMapTileLayer) map.getLayers().get("LaserLines");
         boardLayer = (TiledMapTileLayer) map.getLayers().get("board");
         conveyorLayer = (TiledMapTileLayer) map.getLayers().get("Belts");
+        toolLayer = (TiledMapTileLayer) map.getLayers().get("Tools");
+        rotorLayer = (TiledMapTileLayer) map.getLayers().get("Rotors");
 
         tileSet = map.getTileSets().getTileSet("tiles");
 
@@ -51,7 +55,6 @@ public class MapLayers {
 
     /**
      * retrives the board to the map
-     * @param board
      */
     public void getBoard(BoardScreen board){
         this.board = board;
@@ -116,6 +119,32 @@ public class MapLayers {
                 TiledMapTileLayer.Cell cell = conveyorLayer.getCell(x, y);
                 if (cell != null) {
                     list.add(new Belt(new Vector2(x,y), cell.getTile().getId()));
+                }
+            }
+        }
+        return list;
+    }
+
+    protected List<RotorPad> findRotors(){
+        List<RotorPad> list = new ArrayList<>();
+        for (int x = 0; x < rotorLayer.getWidth(); x++) {
+            for (int y = 0; y < rotorLayer.getHeight(); y++) {
+                TiledMapTileLayer.Cell cell = rotorLayer.getCell(x, y);
+                if (cell != null) {
+                    list.add(new RotorPad(new Vector2(x,y),cell.getTile().getId()));
+                }
+            }
+        }
+        return list;
+    }
+
+    protected List<Tool> findTools(){
+        List<Tool> list = new ArrayList<>();
+        for (int x = 0; x < toolLayer.getWidth(); x++) {
+            for (int y = 0; y < toolLayer.getHeight(); y++) {
+                TiledMapTileLayer.Cell cell = toolLayer.getCell(x, y);
+                if (cell != null) {
+                    list.add(new Tool(new Vector2(x,y), cell.getTile().getId()));
                 }
             }
         }
