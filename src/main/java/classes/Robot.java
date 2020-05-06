@@ -274,7 +274,7 @@ public class Robot {
     }
 
     public void lockRegister(int register){
-        if (!lockedCards.contains(cardsChosen.get(register))){
+        if (cardsChosen.isEmpty() || !lockedCards.contains(cardsChosen.get(register))){
             lockedCards.add(cardsChosen.get(register));
         }
     }
