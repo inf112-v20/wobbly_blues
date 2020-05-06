@@ -41,7 +41,7 @@ public class Robot {
         states = new States();
         setNormalState();
         cardsChosen = new ArrayList<>();
-        numbCards = 9;
+        numbCards = 10;
         numbRegister = 5;
 
     }
@@ -86,7 +86,7 @@ public class Robot {
         if (cardNr<0 || cardNr>=hand.size()){
             throw new IllegalArgumentException("illegal card number");
         }
-        if (cardsChosen.size() > numbRegister){
+        if (cardsChosen.size() > 5){
             cardsChosen.remove(4);
         }
         cardsChosen.add(hand.get(cardNr));
@@ -102,7 +102,7 @@ public class Robot {
     }
 
     public boolean setReady(){
-        if (cardsChosen.size() == 5){
+        if (cardsChosen.size() == numbRegister){
             for (int i = 0; i < 5; i++) {
                 TurnHandler.addCard(i,cardsChosen.get(i));
             }
@@ -263,6 +263,25 @@ public class Robot {
     public int repeair(){
         damageToken=damageToken-1;
         return damageToken;
+    }
+
+
+    /**
+     * if there is AI in the game this is the method that controls the robot
+     * Selects random cards from the hand
+     * It is stupid, but it works.
+     */
+
+    public void doTurn() {
+        createHand();
+        while (cardsChosen.size() < numbRegister) {
+            int rand = (int) (Math.random() * numbCards);
+            while(cardsChosen.contains(hand.get(rand))) {
+                rand = (int) (Math.random() * numbCards);
+            }
+            selectCard(rand);
+        }
+        setReady();
     }
 }
 

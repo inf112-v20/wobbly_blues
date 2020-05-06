@@ -42,7 +42,7 @@ public class BoardScreen implements Screen {
     private ArrayList<Button> cards;
     private TextField[] selectedNumbers;
     private TurnHandler turnHandler;
-    private List<AIPlayer> AIList;
+    private List<Robot> AIList;
 
     private Stage stage;
 
@@ -56,7 +56,7 @@ public class BoardScreen implements Screen {
 
         turnHandler = new TurnHandler();
         turnHandler.setMap(map);
-        TurnHandler.setPlayers(numbPlayers);
+        TurnHandler.setPlayers(numbPlayers + numbAI);
 
         map.placePlayers(numbPlayers);
         map.placeAI(numbAI);
@@ -87,7 +87,8 @@ public class BoardScreen implements Screen {
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.BLACK);
-        selectedNumbers = new TextField[robot.getNumbRegister()];
+
+        selectedNumbers = new TextField[5];
 
         batch2 = new SpriteBatch();
         font2 = new BitmapFont();
@@ -179,6 +180,7 @@ public class BoardScreen implements Screen {
                     System.out.println("yes");
                     AIdoTurn();
                     turnHandler.setReady();
+                    setPlayer();
                     newTurnCleanup();
                 }
                 else{
@@ -251,7 +253,11 @@ public class BoardScreen implements Screen {
             cardButton.setColor(Color.CYAN);
             cardButton.setDisabled(false);
         }
-        selectedNumbers = new TextField[robot.getNumbRegister()];
+        for (int i = 0; i < selectedNumbers.length; i++) {
+            selectedNumbers[i].remove();
+            selectedNumbers[i]=null;
+        }
+
     }
 
     private void newTurnCleanup(){
@@ -374,7 +380,7 @@ public class BoardScreen implements Screen {
     }
 
     public void AIdoTurn(){
-        for(AIPlayer AI : AIList){
+        for(Robot AI : AIList){
             AI.doTurn();
         }
     }

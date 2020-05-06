@@ -11,7 +11,7 @@ public class Map extends MapLayers{
 
     protected final List<Vector2> startPositions;
     protected List<Robot> playerList;
-    protected List<AIPlayer> AIList;
+    protected List<Robot> AIList;
     protected final List<Vector2> flagPos;
     protected final List<Laser> laserPos;
     protected final List<Belt> beltList;
@@ -301,8 +301,8 @@ public class Map extends MapLayers{
         return playerList;
     }
 
-    public List<AIPlayer> placeAI(int numbAI) {
-        if(numbAI >= 8) numbAI = 8;
+    public List<Robot> placeAI(int numbAI) {
+        if(numbAI >= 7) numbAI = 7;
 
         if(numbAI > startPositions.size()) numbAI=startPositions.size();
 
@@ -316,7 +316,7 @@ public class Map extends MapLayers{
             }
 
             if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
-                AIPlayer r = new AIPlayer(pos, RobotNames.getById(i));
+                Robot r = new Robot(pos, RobotNames.getById(i));
                 setPlayer(r);
                 AIList.add(r);
                 startPositions.remove(pos);
@@ -430,7 +430,7 @@ public class Map extends MapLayers{
         throw new IllegalArgumentException("no such pad!");
     }
 
-    public List<AIPlayer> getAIList() {
+    public List<Robot> getAIList() {
         return AIList;
     }
 
