@@ -92,6 +92,7 @@ public class TurnHandler{
         System.out.println("doTurn "+register);
         sortByPriority(registerList);
         for (Card card: registerList.get(register)) {
+            sleep(200);
             System.out.println(card.getName());
             card.doAction(map);
         }
@@ -126,9 +127,9 @@ public class TurnHandler{
                 for (Robot robot: map.getListOfPlayers()) {
                     GameLogic.fireLaser(robot.getPos(),robot.getDirection());
                 }
-                sleep(200);
+                sleep(300);
                 GameLogic.clearLasers();
-                sleep(400);
+                sleep(500);
             }
             for (Robot robot:map.getListOfPlayers()) {
                 robot.clearHand();

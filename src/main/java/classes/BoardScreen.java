@@ -48,16 +48,25 @@ public class BoardScreen implements Screen {
 
     private int inputCooldown;
 
+    /**
+     * Gets the main game and the number of players and AI.
+     * @param game
+     * @param numbPlayers
+     * @param numbAI
+     */
+
     public BoardScreen(StartGame game, int numbPlayers, int numbAI){
         this.game = game;
         stage = new Stage();
+        //Loads the board.
         map = new Map();
         map.getBoard(this);
 
+        //Creates the turnahandler
         turnHandler = new TurnHandler();
         turnHandler.setMap(map);
         TurnHandler.setPlayers(numbPlayers + numbAI);
-
+        //places the players an AI on the boarsd.
         map.placePlayers(numbPlayers);
         map.placeAI(numbAI);
 
@@ -72,7 +81,7 @@ public class BoardScreen implements Screen {
 
         float h = camera.viewportHeight;
         float w = camera.viewportWidth;
-
+        //creates the button for swapping players and starting the rounds.
         doTurnButton = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startbtn.png"))));
         doTurnButton.setSize(100,50);
         doTurnButton.setPosition((float)(Options.screenWidth/2),(float)(Options.screenHeight/6),0);
@@ -95,6 +104,7 @@ public class BoardScreen implements Screen {
         font2.getData().setScale((float) 1.2);
         font2.setColor(Color.BLACK);
 
+        //Creates the input.
         InputProcessor inputProcessorOne = stage;
         InputProcessor inputProcessorTwo = createController();
 
@@ -105,7 +115,7 @@ public class BoardScreen implements Screen {
 
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
-
+     //initiates the card buttons.
     private void initCards(){
         cards = new ArrayList<>();
         for (int i = 0; i < robot.getHand().size(); i++) {
@@ -150,6 +160,7 @@ public class BoardScreen implements Screen {
         cardPress();
         startPressed();
 
+        //prints the type of card.
         batch.begin();
         for (int i = 0; i < robot.getHand().size(); i++) {
             robot.getHand().get(i).render(batch,font,(Options.screenWidth * i / robot.getHand().size()) + getCardPadding(),0,(int)cards.get(0).getWidth(),(int)cards.get(0).getHeight());
@@ -158,12 +169,14 @@ public class BoardScreen implements Screen {
         inputCooldown = inputCooldownDone() ? 0 : inputCooldown-1;
     }
 
+    //updates card button positions
     public void updateCardButtons(){
         for (int i = 0; i < cards.size(); i++) {
             cards.get(i).setPosition((float)(Options.screenWidth * i / robot.getHand().size()) + getCardPadding(),0);
         }
     }
 
+    //prints the info about the player.
     private void InfoText() {
         String playerInfoText = robot.getName() + "\n" +
                 "Lives: " + robot.getHp() + "\n" +
@@ -176,6 +189,7 @@ public class BoardScreen implements Screen {
 
     }
 
+    //checks if the player is ready and the round. can begin or just switch player.
     private void startPressed(){
         if (inputCooldownDone()) {
             if (doTurnButton.isPressed() && !doTurnButton.isDisabled()) {
@@ -198,6 +212,7 @@ public class BoardScreen implements Screen {
         }
     }
 
+    //checks if all the players are ready-
     public boolean playersReady(){
         for(Robot r : map.playerList){
             if(!r.isReady()) return false;
@@ -205,6 +220,7 @@ public class BoardScreen implements Screen {
         return true;
     }
 
+    //cheack if the card is pressed, and then add that to the selected cards of the player.
     private void cardPress(){
         if (inputCooldownDone()) {
             for (int i = 0; i < robot.getHand().size(); i++) {
@@ -222,7 +238,7 @@ public class BoardScreen implements Screen {
             }
         }
     }
-
+    // see cardpress
     private void addSelectedText(int cardNr, int xPos){
         boolean failed = true;
         for (int i = 0; i < 5; i++) {
@@ -249,11 +265,13 @@ public class BoardScreen implements Screen {
         }
     }
 
+    //removes the card if it is selected.
     private void removeLastSelectedText(){
         int lastIdx = Character.getNumericValue(selectedNumbers[4].getName().charAt(0));
         removeSelectedText(lastIdx);
     }
 
+    //sets the board up for the next player.
     private void newPlayerCleanup(){
         for (Button cardButton: cards) {
             cardButton.setColor(Color.CYAN);
@@ -265,6 +283,7 @@ public class BoardScreen implements Screen {
         selectedNumbers = new TextField[robot.getNumbRegister()];
     }
 
+    //cleans the board up for a new round.
     private void newTurnCleanup(){
         for (Button cardButton: cards) {
             cardButton.setColor(Color.CYAN);
@@ -321,7 +340,6 @@ public class BoardScreen implements Screen {
     /**
      * Add keyboard and mouse interactions
      */
-
     private InputProcessor createController() {
         /*Input controller*/
        InputProcessor input = new InputAdapter() {
@@ -383,6 +401,7 @@ public class BoardScreen implements Screen {
             robot = map.getPlayerList().get(map.switchPlayer(robot));
         }
     }
+
 
     public void AIdoTurn(){
         for(Robot AI : AIList){

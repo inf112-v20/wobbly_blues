@@ -11,6 +11,11 @@ public class Belt {
     private Vector2 pos;
     private BeltType type;
 
+    /**
+     * sets the belt with th correct position and the corresponding type of belt to the ID
+     * @param pos
+     * @param id
+     */
     public Belt(Vector2 pos, int id){
         this.pos = pos;
         dir = translateID(id);

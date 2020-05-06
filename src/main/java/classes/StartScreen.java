@@ -20,6 +20,11 @@ public class StartScreen implements Screen {
     private int cooldown, cooldownTimer;
     private float r=.66f, g=.66f, b=1f;
 
+
+    /**
+     * This contains the main game and gives you the option to either quit or start the game.
+     * @param game
+     */
     public StartScreen(StartGame game) {
         this.game = game;
         stage = new Stage();
@@ -59,7 +64,7 @@ public class StartScreen implements Screen {
 
         //actions for the buttons
         if(startBtn.isPressed()){
-            //if pressed sett a new screen
+            //if pressed send you to the screen where you choose number of players and AI
            game.setScreen(new ChoosePlayerScreen(game));
         }
         if(exitBtn.isPressed()) {

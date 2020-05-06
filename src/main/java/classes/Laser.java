@@ -7,7 +7,10 @@ public class Laser {
 
     private Vector2 pos;
     private Direction dir;
-
+    /**
+     * sets the laser with th correct position
+     * @param pos
+     */
     public Laser(Vector2 pos, Direction dir){
         this.pos = pos;
         this.dir = dir;
