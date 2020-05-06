@@ -108,9 +108,9 @@ public class BoardScreen implements Screen {
 
     private void initCards(){
         cards = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < robot.getHand().size(); i++) {
             Button button = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("card/card.png"))));
-            button.setPosition((float)(Options.screenWidth * i / 9) + getCardPadding(),0);
+            button.setPosition((float)(Options.screenWidth * i / robot.getHand().size()) + getCardPadding(),0);
             button.setName(""+i);
 
             button.setColor(Color.CYAN);
@@ -143,7 +143,7 @@ public class BoardScreen implements Screen {
         TMRenderer.render();
 
         InfoText();
-
+        updateCardButtons();
         stage.act();
         stage.draw();
 
@@ -152,10 +152,16 @@ public class BoardScreen implements Screen {
 
         batch.begin();
         for (int i = 0; i < robot.getHand().size(); i++) {
-            robot.getHand().get(i).render(batch,font,(Options.screenWidth * i / 9) + getCardPadding(),0,(int)cards.get(0).getWidth(),(int)cards.get(0).getHeight());
+            robot.getHand().get(i).render(batch,font,(Options.screenWidth * i / robot.getHand().size()) + getCardPadding(),0,(int)cards.get(0).getWidth(),(int)cards.get(0).getHeight());
         }
         batch.end();
         inputCooldown = inputCooldownDone() ? 0 : inputCooldown-1;
+    }
+
+    public void updateCardButtons(){
+        for (int i = 0; i < cards.size(); i++) {
+            cards.get(i).setPosition((float)(Options.screenWidth * i / robot.getHand().size()) + getCardPadding(),0);
+        }
     }
 
     private void InfoText() {
@@ -201,14 +207,14 @@ public class BoardScreen implements Screen {
 
     private void cardPress(){
         if (inputCooldownDone()) {
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < robot.getHand().size(); i++) {
                 Button card = cards.get(i);
                 if (card.isPressed()) { ;
                     resetInputCooldown();
                     if (card.isDisabled()) {
                         removeSelectedText(i);
                     } else {
-                        int xPos = (Options.screenWidth*i/9)+(int)(card.getWidth()/2);
+                        int xPos = (Options.screenWidth*i/robot.getHand().size())+(int)(card.getWidth()/2);
                         addSelectedText(i,xPos);
                     }
 
@@ -253,11 +259,10 @@ public class BoardScreen implements Screen {
             cardButton.setColor(Color.CYAN);
             cardButton.setDisabled(false);
         }
-        for (int i = 0; i < selectedNumbers.length; i++) {
-            selectedNumbers[i].remove();
-            selectedNumbers[i]=null;
+        for (TextField textField: selectedNumbers) {
+            textField.remove();
         }
-
+        selectedNumbers = new TextField[robot.getNumbRegister()];
     }
 
     private void newTurnCleanup(){

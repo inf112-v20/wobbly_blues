@@ -186,7 +186,7 @@ public class GameLogic {
 
     public static void repeair(Robot robot){
         if(map.isTool(robot.getPosX(),robot.getPosY())){
-            robot.repeair();
+            robot.repair();
             robot.setBackup(robot.getPosX(),robot.getPosY());
 
         }

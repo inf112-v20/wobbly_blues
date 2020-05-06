@@ -11,7 +11,7 @@ public class Robot {
     private TiledMapTileLayer.Cell state;
 
     protected int x, y;
-    protected ArrayList<Card> hand, discardPile, cardsChosen;
+    protected ArrayList<Card> hand, discardPile, cardsChosen, lockedCards;
     protected int bp_x, bp_y;
     protected ArrayList<Integer> flags;
     protected int hp;
@@ -38,10 +38,11 @@ public class Robot {
         bp_y = y;
         flags = new ArrayList<>();
         direction = Direction.UP;
-        states = new States();
+        states = new States(name.name()+".png");
+        lockedCards = new ArrayList<>();
         setNormalState();
         cardsChosen = new ArrayList<>();
-        numbCards = 10;
+        numbCards = 9;
         numbRegister = 5;
 
     }
@@ -62,6 +63,7 @@ public class Robot {
         numbCards--;
         if(damageToken >=5){
             numbRegister--;
+            lockRegister(damageToken-1);
         }
         if (damageToken == 10){
             looseLife();
@@ -102,9 +104,12 @@ public class Robot {
     }
 
     public boolean setReady(){
-        if (cardsChosen.size() == numbRegister){
-            for (int i = 0; i < 5; i++) {
+        if (cardsChosen.size()+lockedCards.size() == 5){
+            for (int i = 0; i < cardsChosen.size(); i++) {
                 TurnHandler.addCard(i,cardsChosen.get(i));
+            }
+            for (int i = 0; i < lockedCards.size(); i++) {
+                TurnHandler.addCard(i,lockedCards.get(i));
             }
             ready=true;
             return true;
@@ -225,6 +230,9 @@ public class Robot {
         for (int i = 0; i < hand.size(); i++) {
             discardPile.add(hand.get(i));
         }
+        for (int i = 0; i < cardsChosen.size(); i++) {
+
+        }
         cardsChosen.clear();
         createHand();
     }
@@ -260,7 +268,13 @@ public class Robot {
         return name;
     }
 
-    public int repeair(){
+    public void lockRegister(int register){
+        if (!lockedCards.contains(cardsChosen.get(register))){
+            lockedCards.add(cardsChosen.get(register));
+        }
+    }
+
+    public int repair(){
         damageToken=damageToken-1;
         return damageToken;
     }
