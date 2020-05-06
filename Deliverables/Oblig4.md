@@ -6,26 +6,33 @@
 
 - Hvordan fungerer rollene i teamet? Trenger dere å oppdatere hvem som er teamlead eller kundekontakt?
 
-        svar
+        Det funket helt greit, men vi har merket at det har vært litt unødvending å fordele roller i et sånn prosjekt 
+        siden det er et så lite team og det gjør til at alle gjør litt av alt. 
 
 - Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes teamet at de valgene
  dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på?
 
-        svar
+        Team-messig så har vi slitt litt, siden det har blitt flytttet til nettet og det har vi merket at sliter litt på arbeidet.
+        Men mtp prosjektmetodikken så har vi valgt den som funker best for oss.
+        Vi ser at selv om vi har blitt flyttet til nettbaserte møter så burde vi vært flinkere til å følge opp, og holde kontakt, for å få bedre flytt i arbeidet.
 
 - Gjør et retrospektiv hvor dere vurderer prosjektet har gått. Hva har dere gjort bra, hva hadde dere gjort annerledes
  hvis dere begynte på nytt?
 
-        svar
+        Vi kunne satt litt oftere møter og litt mere oppfølging. Vi burde snakket litt mere sammen når vi jobbet, siden det ble mye jobbing en og en.
+        Utover det så tenker vi at vi hadde gjort det samme, siden det har funger, kanskje ikke optimalt, men det har funket.
 
 - Legg ved skjermdump av project board ved innlevering. Sørg for at det er oppdatert med siste status ved innlevering.
 
-        svar
+        https://trello.com/b/Olr9FOFd/wobbly-blues
+        Her er en link til projektboardet, og gruppeleder har tilgang til det
 
 - Hvordan fungerer gruppedynamikken og kommunikasjonen nå i forhold til i starten? Hvordan påvirket karantene og
  nedstengning teamet og fremdriften?
 
-        svar
+        Vi ble ganske har hardt rammet sånn kommunikasjons messig, og selve dynamikken i gruppen ble svekket. dette førte til 
+        at an av gruppemedlemmene droppet ut av faget. Dette i seg selv fører jo til at resten av gruppet sliter litt 
+        siden vi må gjøre en annens person sine oppgaver sammen med våre egne. Noe som fører til at frem driften i spillet blir dårligere.
         
 ##Deloppgave 2: Krav
 - Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang
