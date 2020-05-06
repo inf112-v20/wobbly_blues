@@ -7,7 +7,11 @@ public class RotorPad {
 
     private Vector2 pos;
     private RotorType Type;
-
+    /**
+     * sets the rotor pad with th correct position and the corresponding type of rotorpad to the ID
+     * @param pos
+     * @param ID
+     */
     public RotorPad(Vector2 pos, int ID){
         this.pos = pos;
         this.Type = getType(ID);
@@ -37,7 +41,9 @@ public class RotorPad {
         return Type.getclockwiseRotation();
     }
 
-
+    /**
+     * which why the pad rotates the player.
+     */
     public enum RotorType {
         LEFTTURN(3),
         RIGHTTURN(1);

@@ -27,7 +27,7 @@ public class GameLogic {
             System.out.println("All players are dead");
             Gdx.app.exit();
         }
-        map.isThisPLayerDead(robot);
+        isThisPLayerDead(robot);
     }
 
     /**
@@ -93,6 +93,9 @@ public class GameLogic {
             return false;
     }
 
+    /**
+     * checks if all the players is dead
+     */
     public static boolean isPlayersDead(){
         int i = 0;
         for (Robot r : map.playerList){
@@ -104,6 +107,15 @@ public class GameLogic {
         else{
             return false;
         }
+    }
+    //checks if the current player us dead.
+    public static boolean isThisPLayerDead(Robot r){
+        if(r.getState() == r.getDeadState()){
+            map.boardSwithPlayer();
+            map.removePrevPlayer();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -123,6 +135,11 @@ public class GameLogic {
         }
     }
 
+    /**
+     * fires the laser from that position and in the correct direction., no mater if it is a robot or an AI.
+     * @param pos
+     * @param dir
+     */
     public static void fireLaser(Vector2 pos, Direction dir) {
         map.addLaser(pos, dir);
         if(!map.isOutside(pos)) return;
@@ -143,12 +160,18 @@ public class GameLogic {
         }
     }
 
+    /**
+     * fires the lasers to all the lasers, but not the robots.
+     */
     public static void fireAllLasers(){
         for(Laser l : map.laserPos){
             fireLaser(l.getPos(),l.getDir());
         }
     }
 
+    /**
+     * clears the laser lines.
+     */
     public static void clearLasers() {
         for (int y = 0; y < map.laserLineLayer.getHeight(); y++) {
             for (int x = 0; x < map.laserLineLayer.getWidth(); x++) {
@@ -157,6 +180,11 @@ public class GameLogic {
         }
     }
 
+    /**
+     * moves a robot that is on a conveyor belt.
+     * but only one for the normal belt an twice for the express.
+     * @param robot
+     */
     public static void doConveyor(Robot robot){
         if (map.isConveyor(robot.getPosX(),robot.getPosY())){
             Belt belt = map.getBelt(robot.getPosX(),robot.getPosY());
@@ -174,6 +202,10 @@ public class GameLogic {
         }
     }
 
+    /**
+     * rotats the robot on the rotator pad.
+     * @param robot
+     */
     public static void rotorPad(Robot robot){
         if(map.isRotorPad(robot.getPosX(),robot.getPosY())){
             RotorPad pad = map.getPad(robot.getPosX(),robot.getPosY());
@@ -184,6 +216,10 @@ public class GameLogic {
         }
     }
 
+    /**
+     * repeairs the robot on the tool-
+     * @param robot
+     */
     public static void repeair(Robot robot){
         if(map.isTool(robot.getPosX(),robot.getPosY())){
             robot.repeair();

@@ -20,6 +20,10 @@ public class Map extends MapLayers{
 
     protected int playerIdx;
 
+    /**
+     * loads the map with the correct boardName
+     * @param boardName
+     */
     public Map(String boardName){
         super(boardName);
 
@@ -35,6 +39,7 @@ public class Map extends MapLayers{
 
     }
 
+    //loads a standard board.
     public Map() {
         this("friboard.tmx");
     }
@@ -78,6 +83,12 @@ public class Map extends MapLayers{
         return null;
     }
 
+    /**
+     * gets the position in the direction asked.
+     * @param pos
+     * @param dir
+     * @return
+     */
     public Vector2 getNeighbourPos(Vector2 pos, Direction dir) {
         Vector2 neighbourPos = new Vector2(pos);
         switch (dir) {
@@ -99,6 +110,11 @@ public class Map extends MapLayers{
         return neighbourPos;
     }
 
+    /**
+     * checks if there is a player in that position.
+     * @param position
+     * @return
+     */
     public boolean hasPlayer(Vector2 position) {
         for (Robot r : playerList) {
             Vector2 pos = new Vector2(r.getPosX(),r.getPosY());
@@ -259,15 +275,6 @@ public class Map extends MapLayers{
         return false;
     }
 
-    public boolean isThisPLayerDead(Robot r){
-        if(r.getState() == r.getDeadState()){
-            board.setPlayer();
-            removePrevPlayer();
-            return true;
-        }
-        return false;
-    }
-
     public boolean isPlayer(Robot robot){
         return playerList.indexOf(robot) == playerIdx;
     }
@@ -301,6 +308,11 @@ public class Map extends MapLayers{
         return playerList;
     }
 
+    /**
+     * Place up to 7 AI (robots) on the map, max amount is dependant on amount of starting positions and the amount of players.
+     * @param numbAI desired number of players
+     * @return the list of robots that was added
+     */
     public List<Robot> placeAI(int numbAI) {
         if(numbAI >= 7) numbAI = 7;
 
@@ -325,6 +337,10 @@ public class Map extends MapLayers{
         return AIList;
     }
 
+    /**
+     * respawns the robot at their backup position.
+     * @param r
+     */
     public void respawnPlayer(Robot r){
         playerLayer.setCell(r.getPosX(),r.getPosY(),null);
         r.setPos(r.getBp_x(), r.getBp_y());
@@ -355,6 +371,9 @@ public class Map extends MapLayers{
     }
 
 
+    /**
+     * removes the last player that is dead.
+     */
     public void removePrevPlayer(){
         Robot prevRobot;
         if(playerIdx == 0) prevRobot = playerList.get(playerList.size()-1);
@@ -389,17 +408,42 @@ public class Map extends MapLayers{
         laserLineLayer.setCell((int) position.x, (int) position.y, cell);
     }
 
+    /**
+     * checks if there is a conveyor belt on the position.
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean isConveyor(int x, int y){
         return (conveyorLayer.getCell(x,y) != null);
     }
 
+    /**
+     * checks if there is a tool on the position.
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean isTool(int x, int y){
         return (toolLayer.getCell(x,y) != null);
     }
 
+    /**
+     * checks if there is a rotor pad on the position.
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean isRotorPad(int x, int y){
         return (rotorLayer.getCell(x,y) != null);
     }
+
+    /**
+     * returns the belt that is on that position.
+     * @param x
+     * @param y
+     * @return
+     */
     public Belt getBelt(int x, int y){
         Vector2 pos = new Vector2(x,y);
         for (Belt belt: beltList) {
@@ -409,7 +453,12 @@ public class Map extends MapLayers{
         }
         throw new IllegalArgumentException("no such belt!");
     }
-
+    /**
+     * returns the rotor pad that is on that position.
+     * @param x
+     * @param y
+     * @return
+     */
     public RotorPad getPad(int x, int y){
         Vector2 pos = new Vector2(x,y);
         for (RotorPad pad: rotorPos) {
@@ -420,6 +469,12 @@ public class Map extends MapLayers{
         throw new IllegalArgumentException("no such pad!");
     }
 
+    /**
+     * returns the tool that is on that position.
+     * @param x
+     * @param y
+     * @return
+     */
     public Tool getTool(int x, int y){
         Vector2 pos = new Vector2(x,y);
         for (Tool tool : tools) {
@@ -430,10 +485,17 @@ public class Map extends MapLayers{
         throw new IllegalArgumentException("no such pad!");
     }
 
+    /**
+     * returns a list of the AI
+     * @return
+     */
     public List<Robot> getAIList() {
         return AIList;
     }
 
+    /**
+     *returns a list fo both the players and the AI.
+     */
     public List<Robot> getListOfPlayers(){
         System.out.println(AIList);
         List<Robot> list = new ArrayList<>();

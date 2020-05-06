@@ -57,6 +57,7 @@ public class Robot {
         return numbRegister;
     }
 
+    // adds a damagetoken to the player.
     public void takeDamage(){
         damageToken++;
         numbCards--;
@@ -73,7 +74,6 @@ public class Robot {
     /**
      * Fills a hand with random cards
      */
-
     public void createHand() {
         hand = new ArrayList<>();
         for (int i = 0; i < numbCards; i++) {
@@ -115,10 +115,10 @@ public class Robot {
     public boolean isReady() {
         return ready;
     }
+
     public void notReady() {
         ready = false;
     }
-
 
     public Direction getDirection() {return direction;}
 
@@ -153,6 +153,11 @@ public class Robot {
 
     public int getPosY(){return y;}
 
+    /**
+     * sets the backup position to the robot.
+     * @param x
+     * @param y
+     */
     public void setBackup(int x, int y){
         bp_y = y;
         bp_x = x;

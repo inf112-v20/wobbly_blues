@@ -8,6 +8,11 @@ public class Tool {
     private Vector2 pos;
     private TileID Type;
 
+    /**
+     * sets the tool with th correct position and the corresponding type of tool to the ID
+     * @param pos
+     * @param ID
+     */
     public Tool(Vector2 pos, int ID){
         this.pos = pos;
         Type = getType(ID);

@@ -27,6 +27,10 @@ public class MapLayers {
     protected BoardScreen board;
 
 
+    /**
+     * creates the map with the layers on the board.
+     * @param boardName
+     */
     public MapLayers(String boardName){
         map = new TmxMapLoader().load(boardName);
 
@@ -77,6 +81,10 @@ public class MapLayers {
         return list;
     }
 
+    /**
+     * finds all the flags in the map
+     * @return a list of the flag positions.
+     */
     protected List<Vector2> findFlags(){
         List<Vector2> list = new ArrayList<>();
         for(int x= 0; x<flagLayer.getWidth(); x++){
@@ -90,6 +98,10 @@ public class MapLayers {
         return list;
     }
 
+    /**
+     * finds all the lasers in the map
+     * @return a list of the lasers.
+     */
     protected List<Laser> findLasers() {
         List<Laser> list = new ArrayList<>();
         for (int x = 0; x < wallLayer.getWidth(); x++) {
@@ -111,7 +123,10 @@ public class MapLayers {
         }
         return list;
     }
-
+    /**
+     * finds all the belts in the map
+     * @return a list of the belts.
+     */
     protected List<Belt> findBelts(){
         List<Belt> list = new ArrayList<>();
         for (int x = 0; x < conveyorLayer.getWidth(); x++) {
@@ -124,7 +139,10 @@ public class MapLayers {
         }
         return list;
     }
-
+    /**
+     * finds all the rotor pads in the map
+     * @return a list of the rotor pads.
+     */
     protected List<RotorPad> findRotors(){
         List<RotorPad> list = new ArrayList<>();
         for (int x = 0; x < rotorLayer.getWidth(); x++) {
@@ -137,7 +155,10 @@ public class MapLayers {
         }
         return list;
     }
-
+    /**
+     * finds all the tools in the map
+     * @return a list of the tools.
+     */
     protected List<Tool> findTools(){
         List<Tool> list = new ArrayList<>();
         for (int x = 0; x < toolLayer.getWidth(); x++) {
@@ -151,6 +172,11 @@ public class MapLayers {
         return list;
     }
 
+    /**
+     * checkes if the position is outside the map.
+     * @param pos
+     * @return true or false.
+     */
     public boolean isOutside(Vector2 pos){
         if(pos.x > boardLayer.getWidth() || pos.y > boardLayer.getHeight() || pos.x < 0 || pos.y < 0) return false;
         return true;

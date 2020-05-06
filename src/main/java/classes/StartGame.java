@@ -5,6 +5,9 @@ import com.badlogic.gdx.Game;
 
 public class StartGame extends Game {
 
+    /**
+     * This creates the main game
+     */
     @Override
     public void create() {
         //setting the screen

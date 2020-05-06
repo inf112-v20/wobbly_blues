@@ -29,6 +29,7 @@ public class ChoosePlayerScreen implements Screen{
     public final float BUTTON_WIDTH;
     public final float BUTTON_HEIGHT;
 
+
     public ChoosePlayerScreen(StartGame game) {
         this.game = game;
         stage = new Stage();
@@ -36,6 +37,9 @@ public class ChoosePlayerScreen implements Screen{
         int width = Gdx.graphics.getWidth();
         this.defaultSkin = new Skin(Gdx.files.internal("uiskin.json"));
 
+        /**
+         * create the dropdown menu for choosing number of players and AI.
+         */
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.getData().setScale((float) 1.2);
@@ -56,7 +60,9 @@ public class ChoosePlayerScreen implements Screen{
         startBtn.setSize(150,75);
         startBtn.setPosition(width /2f - startBtn.getWidth()/2, height/6f);
 
-
+        /**
+         * sets the contents of the dropdown menu
+         */
         selectNumbPlayers = new SelectBox<>(defaultSkin);
         selectNumbPlayers.setItems("1","2","3","4","5","6","7","8");
         selectNumbPlayers.setSelected("1");
@@ -103,8 +109,13 @@ public class ChoosePlayerScreen implements Screen{
 
         //actions for the buttons
         if(startBtn.isPressed()){
-            //if pressed sett a new screen
-            game.setScreen(new BoardScreen(game,selectNumbPlayers.getSelectedIndex()+1,selectNumbAI.getSelectedIndex()));
+            //if pressed sends you to the board.
+            if(selectNumbAI.getSelectedIndex() + selectNumbPlayers.getSelectedIndex()+1 <=8){
+                game.setScreen(new BoardScreen(game,selectNumbPlayers.getSelectedIndex()+1,selectNumbAI.getSelectedIndex()));
+            }
+            else{
+                System.out.println("you can't have more than 8 players.");
+            }
         }
 
         if (cooldownTimer==0) {
