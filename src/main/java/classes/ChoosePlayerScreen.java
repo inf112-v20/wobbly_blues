@@ -85,7 +85,7 @@ public class ChoosePlayerScreen implements Screen{
         selectNumbAI.setPosition(width /2f - selectNumbAI.getWidth()/2, (stage.getHeight()/2)-100);
 
         selectMap = new SelectBox<>(defaultSkin);
-        selectMap.setItems("Random","Risky_Exchange","Dizzy_Dash","Bloodbath_Chess","Whirlwind_Tour","friboard");
+        selectMap.setItems("Random","Risky_Exchange","Dizzy_Dash","Bloodbath_Chess","Whirlwind_Tour",);
         selectMap.setSelected("Random");
         selectMap.setWidth(BUTTON_WIDTH * .87f);
         selectMap.setPosition(width /2f - selectNumbAI.getWidth()/2, (stage.getHeight()/2)-200);
