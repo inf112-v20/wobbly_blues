@@ -79,19 +79,16 @@ public class BoardScreen implements Screen {
         camera.setToOrtho(false,WIDTH,HEIGHT);
 
         initCards();
-
-        float h = camera.viewportHeight;
-        float w = camera.viewportWidth;
         //creates the button for swapping players and starting the rounds.
         doTurnButton = new Button(new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startbtn.png"))));
         doTurnButton.setSize(100,50);
-        doTurnButton.setPosition((float)(Options.screenWidth/2),(float)(Options.screenHeight/6),0);
+        doTurnButton.setPosition(Options.screenWidth/2f,Options.screenHeight/6f,0);
         stage.addActor(doTurnButton);
 
-        camera.position.set((w-(float)1.8)/2,(h-(float)9.5)/2,0);
+        camera.position.set((WIDTH-1.8f)/2,(HEIGHT-9.5f)/2,0);
         camera.update();
 
-        TMRenderer = new OrthogonalTiledMapRenderer(map.getMap(), (float) 1/350);
+        TMRenderer = new OrthogonalTiledMapRenderer(map.getMap(), 1f/350f);
         TMRenderer.setView(camera);
 
         batch = new SpriteBatch();
@@ -102,7 +99,6 @@ public class BoardScreen implements Screen {
 
         batch2 = new SpriteBatch();
         font2 = new BitmapFont();
-        font2.getData().setScale((float) 1.2);
         font2.setColor(Color.BLACK);
 
         //Creates the input.
@@ -185,9 +181,8 @@ public class BoardScreen implements Screen {
                 "Flags taken: " + robot.numbFlags() + "  " +
                 "Direction: " + robot.getDirection() + "\n";
         batch2.begin();
-        font2.draw(batch2, playerInfoText, 30, 200);
+        font2.draw(batch2, playerInfoText, 30, 75 + cards.get(0).getHeight());
         batch2.end();
-
     }
 
     //checks if the player is ready and the round. can begin or just switch player.
@@ -205,9 +200,10 @@ public class BoardScreen implements Screen {
                     newTurnCleanup();
                 }
                 else{
-                    if(robot.cardsChosen.size() == robot.getNumbRegister())
-                    setPlayer();
-                    newPlayerCleanup();
+                    if(robot.cardsChosen.size() == robot.getNumbRegister()) {
+                        setPlayer();
+                        newPlayerCleanup();
+                    }
                 }
             }
         }

@@ -113,27 +113,32 @@ public class Card implements Comparable<Card> {
     }
 
     public void render(SpriteBatch batch, BitmapFont font, int x, int y, int w, int h){
-        int padding = 5;
-//        batch.draw(cardTexture,x,y,w,h);
-        font.draw(
-            batch,
-            getName(),
-            x,
-            y+h-padding,
-            w,
-            Align.center,
-            true
-        );
         if (cardSymbol == null) getCardTexture();
-        batch.draw(cardSymbol,x,y+padding,w,w);
+        float w2=(w/1.25f);
+        batch.draw(
+            cardSymbol,
+            x+(w/2f)-w2/2f,
+            y+(h*4/9f)-(w2/2f),
+            w2,
+            w2
+        );
         font.draw(
                 batch,
-                ""+getPriority(),
+                getName(),
                 x,
-                y+padding*3,
+                y+h-5,
                 w,
                 Align.center,
                 true
+        );
+        font.draw(
+            batch,
+            ""+getPriority(),
+            x,
+            y+15,
+            w,
+            Align.center,
+            true
         );
     }
 
