@@ -17,6 +17,7 @@ public class Map extends MapLayers{
     protected final List<Belt> beltList;
     protected final List<Tool> tools;
     protected final List<RotorPad> rotorPos;
+    protected List<RobotNames> robotNamesList;
 
     protected int playerIdx;
 
@@ -285,6 +286,7 @@ public class Map extends MapLayers{
      * @return the list of robots that was added
      */
     public List<Robot> placePlayers(int numbPLayers) {
+        robotNamesList = new ArrayList<>();
         if(numbPLayers >= 8) numbPLayers = 8;
 
         if(numbPLayers > startPositions.size()) numbPLayers=startPositions.size();
@@ -300,6 +302,7 @@ public class Map extends MapLayers{
 
             if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
                 Robot r = new Robot(pos, RobotNames.getById(i));
+                robotNamesList.add(RobotNames.getById(i));
                 setPlayer(r);
                 playerList.add(r);
                 startPositions.remove(pos);
@@ -328,7 +331,13 @@ public class Map extends MapLayers{
             }
 
             if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
-                Robot r = new Robot(pos, RobotNames.getById(i));
+                RobotNames name = RobotNames.getById(i);
+                while(robotNamesList.contains(name)){
+                    i++;
+                    name = RobotNames.getById(i);
+                }
+
+                Robot r = new Robot(pos, name);
                 setPlayer(r);
                 AIList.add(r);
                 startPositions.remove(pos);

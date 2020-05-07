@@ -118,8 +118,11 @@ public class TurnHandler{
                 doTurn(i,map);
                 for (Robot robot: map.getListOfPlayers()) {
                     GameLogic.check(robot.getPosX(),robot.getPosY(),robot);
+                    sleep(100);
                     GameLogic.doConveyor(robot);
+                    sleep(100);
                     GameLogic.rotorPad(robot);
+                    sleep(100);
                     GameLogic.repeair(robot);
                 }
                 registerList.get(i).clear();
