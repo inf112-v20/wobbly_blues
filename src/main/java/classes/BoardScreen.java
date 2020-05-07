@@ -229,7 +229,7 @@ public class BoardScreen implements Screen {
         if (inputCooldownDone()) {
             for (int i = 0; i < robot.getHand().size(); i++) {
                 Button card = cards.get(i);
-                if (card.isPressed()) { ;
+                if (card.isPressed()) {
                     resetInputCooldown();
                     if (card.isDisabled()) {
                         removeSelectedText(i);
@@ -383,6 +383,9 @@ public class BoardScreen implements Screen {
                         break;
                     case Input.Keys.T:
                         GameLogic.repeair(robot);
+                        break;
+                    case Input.Keys.P:
+                        GameLogic.pushPad(robot);
                         break;
                     case Input.Keys.ESCAPE:
                         Gdx.app.exit();

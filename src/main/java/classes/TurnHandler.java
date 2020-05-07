@@ -63,7 +63,6 @@ public class TurnHandler{
 
     /**
      * check if all registers are full
-     * @return True if all registers are full
      */
     public void setReady() {
         isReadySem.release();
@@ -124,6 +123,8 @@ public class TurnHandler{
                     GameLogic.rotorPad(robot);
                     sleep(100);
                     GameLogic.repeair(robot);
+                    sleep(100);
+                    GameLogic.pushPad(robot);
                 }
                 registerList.get(i).clear();
                 GameLogic.fireAllLasers();

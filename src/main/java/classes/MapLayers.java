@@ -177,13 +177,13 @@ public class MapLayers {
      * finds all the tools in the map
      * @return a list of the tools.
      */
-    protected List<Tool> findPusher(){
-        List<Tool> list = new ArrayList<>();
+    protected List<Pusher> findPusher(){
+        List<Pusher> list = new ArrayList<>();
         for (int x = 0; x < pusherLayer.getWidth(); x++) {
             for (int y = 0; y < pusherLayer.getHeight(); y++) {
                 TiledMapTileLayer.Cell cell = pusherLayer.getCell(x, y);
                 if (cell != null) {
-                    list.add(new Tool(new Vector2(x,y), cell.getTile().getId()));
+                    list.add(new Pusher(new Vector2(x,y), cell.getTile().getId()));
                 }
             }
         }

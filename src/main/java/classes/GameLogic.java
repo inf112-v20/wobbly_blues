@@ -227,4 +227,11 @@ public class GameLogic {
 
         }
     }
+
+
+    public static void pushPad(Robot robot){
+        if(map.hasPusher(robot.getPosX(),robot.getPosY())) {
+            map.moveRobot(robot, map.getPusher(robot.getPosX(), robot.getPosY()).getDir());
+        }
+    }
 }

@@ -85,7 +85,7 @@ public class ChoosePlayerScreen implements Screen{
         selectNumbAI.setPosition(width /2f - selectNumbAI.getWidth()/2, (stage.getHeight()/2)-100);
 
         selectMap = new SelectBox<>(defaultSkin);
-        selectMap.setItems("Random","Risky_Exchange","Dizzy_Dash","Bloodbath_Chess","Whirlwind_Tour");
+        selectMap.setItems("Random","Risky_Exchange","Dizzy_Dash","Bloodbath_Chess","Whirlwind_Tour","friboard");
         selectMap.setSelected("Random");
         selectMap.setWidth(BUTTON_WIDTH * .87f);
         selectMap.setPosition(width /2f - selectNumbAI.getWidth()/2, (stage.getHeight()/2)-200);
@@ -132,13 +132,12 @@ public class ChoosePlayerScreen implements Screen{
             //if pressed sends you to the board.
             String boardName;
             if(selectNumbAI.getSelectedIndex() + selectNumbPlayers.getSelectedIndex()+1 <=8){
-                if(selectMap.getSelected() == "Random"){
+                if(selectMap.getSelected().equals("Random")){
                     boardName = null;
                 }
                 else{
                     boardName = selectMap.getSelected();
                 }
-                System.out.println(selectNumbAI.getSelectedIndex());
                 game.setScreen(new BoardScreen(game,selectNumbPlayers.getSelectedIndex()+1,selectNumbAI.getSelectedIndex(),boardName));
             }
             else{

@@ -17,6 +17,7 @@ public class Map extends MapLayers{
     protected final List<Belt> beltList;
     protected final List<Tool> tools;
     protected final List<RotorPad> rotorPos;
+    protected final List<Pusher> pushers;
     protected List<RobotNames> robotNamesList;
 
     protected int playerIdx;
@@ -37,6 +38,7 @@ public class Map extends MapLayers{
         beltList = findBelts();
         tools = findTools();
         rotorPos = findRotors();
+        pushers = findPusher();
 
     }
 
@@ -450,6 +452,16 @@ public class Map extends MapLayers{
     }
 
     /**
+     * checks if there is a pusher on the position.
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean hasPusher(int x, int y){
+        return (pusherLayer.getCell(x,y) != null);
+    }
+
+    /**
      * returns the belt that is on that position.
      * @param x
      * @param y
@@ -486,11 +498,11 @@ public class Map extends MapLayers{
      * @param y
      * @return
      */
-    public Tool getTool(int x, int y){
+    public Pusher getPusher(int x, int y){
         Vector2 pos = new Vector2(x,y);
-        for (Tool tool : tools) {
-            if (tool.getPos().equals(pos)){
-                return tool;
+        for (Pusher pusher : pushers) {
+            if (pusher.getPos().equals(pos)){
+                return pusher;
             }
         }
         throw new IllegalArgumentException("no such pad!");
