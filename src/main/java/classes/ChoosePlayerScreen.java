@@ -141,11 +141,8 @@ public class ChoosePlayerScreen implements Screen{
                         i++;
                     }
                     selectMap.setSelectedIndex(i);
-                    boardName = selectMap.getSelected();
                 }
-                else{
-                    boardName = selectMap.getSelected();
-                }
+                boardName = selectMap.getSelected();
                 System.out.println(boardName);
                 game.setScreen(new BoardScreen(game,selectNumbPlayers.getSelectedIndex()+1,selectNumbAI.getSelectedIndex(),boardName));
             }
