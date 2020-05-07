@@ -59,10 +59,7 @@ public class BoardScreen implements Screen {
         this.game = game;
         stage = new Stage();
         //Loads the board.
-        String boardName = "Risky_Exchange.tmx";
-        if(boardname != null) {
-            boardName = boardname + ".tmx";
-        }
+        String boardName = boardname + ".tmx";
         map = new Map(boardName);
         map.getBoard(this);
 

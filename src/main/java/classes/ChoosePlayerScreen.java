@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.*;
 
+import java.util.*;
+
 public class ChoosePlayerScreen implements Screen{
 
     //the main game
@@ -85,7 +87,7 @@ public class ChoosePlayerScreen implements Screen{
         selectNumbAI.setPosition(width /2f - selectNumbAI.getWidth()/2, (stage.getHeight()/2)-100);
 
         selectMap = new SelectBox<>(defaultSkin);
-        selectMap.setItems("Random","Risky_Exchange","Dizzy_Dash","Bloodbath_Chess","Whirlwind_Tour",);
+        selectMap.setItems("Random","Risky_Exchange","Dizzy_Dash","Bloodbath_Chess","Whirlwind_Tour");
         selectMap.setSelected("Random");
         selectMap.setWidth(BUTTON_WIDTH * .87f);
         selectMap.setPosition(width /2f - selectNumbAI.getWidth()/2, (stage.getHeight()/2)-200);
@@ -133,11 +135,18 @@ public class ChoosePlayerScreen implements Screen{
             String boardName;
             if(selectNumbAI.getSelectedIndex() + selectNumbPlayers.getSelectedIndex()+1 <=8){
                 if(selectMap.getSelected().equals("Random")){
-                    boardName = null;
+                    Random rand = new Random();
+                    int i = rand.nextInt(5);
+                    if(i == 0){
+                        i++;
+                    }
+                    selectMap.setSelectedIndex(i);
+                    boardName = selectMap.getSelected();
                 }
                 else{
                     boardName = selectMap.getSelected();
                 }
+                System.out.println(boardName);
                 game.setScreen(new BoardScreen(game,selectNumbPlayers.getSelectedIndex()+1,selectNumbAI.getSelectedIndex(),boardName));
             }
             else{
