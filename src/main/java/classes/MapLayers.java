@@ -19,6 +19,7 @@ public class MapLayers {
     protected final TiledMapTileLayer conveyorLayer;
     protected final TiledMapTileLayer toolLayer;
     protected final TiledMapTileLayer rotorLayer;
+    protected final TiledMapTileLayer pusherLayer;
 
     protected final int width, height;
 
@@ -44,6 +45,7 @@ public class MapLayers {
         conveyorLayer = (TiledMapTileLayer) map.getLayers().get("Belts");
         toolLayer = (TiledMapTileLayer) map.getLayers().get("Tools");
         rotorLayer = (TiledMapTileLayer) map.getLayers().get("Rotors");
+        pusherLayer = (TiledMapTileLayer) map.getLayers().get("Pusher");
 
         tileSet = map.getTileSets().getTileSet("tiles");
 
@@ -164,6 +166,22 @@ public class MapLayers {
         for (int x = 0; x < toolLayer.getWidth(); x++) {
             for (int y = 0; y < toolLayer.getHeight(); y++) {
                 TiledMapTileLayer.Cell cell = toolLayer.getCell(x, y);
+                if (cell != null) {
+                    list.add(new Tool(new Vector2(x,y), cell.getTile().getId()));
+                }
+            }
+        }
+        return list;
+    }
+    /**
+     * finds all the tools in the map
+     * @return a list of the tools.
+     */
+    protected List<Tool> findPusher(){
+        List<Tool> list = new ArrayList<>();
+        for (int x = 0; x < pusherLayer.getWidth(); x++) {
+            for (int y = 0; y < pusherLayer.getHeight(); y++) {
+                TiledMapTileLayer.Cell cell = pusherLayer.getCell(x, y);
                 if (cell != null) {
                     list.add(new Tool(new Vector2(x,y), cell.getTile().getId()));
                 }

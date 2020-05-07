@@ -25,6 +25,8 @@ public class States {
         normal = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(new Texture(Gdx.files.internal(filename)),900,300).split(300,300)[0][0]));
         dead = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(new Texture(Gdx.files.internal(filename)),900,300).split(300,300)[0][1]));
         won = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(new TextureRegion(new Texture(Gdx.files.internal(filename)),900,300).split(300,300)[0][2]));
+        System.out.println(normal);
+        System.out.println(dead);
     }
 
     public TiledMapTileLayer.Cell getNormal(){

@@ -11,6 +11,11 @@ public enum TileID {
     START7(131),
     START8(133),
 
+    PUSH_RIGHT(4),
+    PUSH_LEFT(10),
+    PUSH_DOWN(9),
+    PUSH_UP(11),
+
     //Single walls
     EAST_WALL(23),
     SOUTH_WALL(29),
@@ -34,27 +39,8 @@ public enum TileID {
     HORIZONTAL_LASER(39),
     CROSSED_LASER(40),
 
-    NORMAL_HOLE(6),
-    NORMAL_HOLE2(91),
-    NORTH_WEST_HOLE(105),
-    NORTH_HOLE(106),
-    NORTH_EAST_HOLE(107),
-
-    EAST_HOLE(108),
-    NORTH_EAST_SOUTH_HOLE(109),
-    WEST_EAST_SOUTH_HOLE(110),
-    SOUTH_WEST_HOLE(113),
-    SOUTH_HOLE(114),
-    SOUTH_EAST_HOLE(115),
-    WEST_HOLE(116),
-
-    NORTH_WEST_SOUTH_HOLE(117),
-    NORTH_WEST_EAST_HOLE(118),
-
     WRENCH(15),
     DOUBLE_WRENCH(7),
-
-    PLAYER(137),
 
     FLAG1(55),
     FLAG2(63),

@@ -55,7 +55,7 @@ public class Map extends MapLayers{
     }
 
     public Robot getRobot(int x, int y){
-        for (Robot robot: playerList) {
+        for (Robot robot: getListOfPlayers()) {
             if (robot.getPosX() == x && robot.getPosY() == y){
                 return robot;
             }
@@ -117,7 +117,7 @@ public class Map extends MapLayers{
      * @return
      */
     public boolean hasPlayer(Vector2 position) {
-        for (Robot r : playerList) {
+        for (Robot r : getListOfPlayers()) {
             Vector2 pos = new Vector2(r.getPosX(),r.getPosY());
             if (pos.equals(position)) {
                 return true;
@@ -333,11 +333,13 @@ public class Map extends MapLayers{
             if (playerLayer.getCell((int) pos.x, (int) pos.y) == null) {
                 RobotNames name = RobotNames.getById(i);
                 while(robotNamesList.contains(name)){
-                    i++;
-                    name = RobotNames.getById(i);
+                    int n = i;
+                    n++;
+                    name = RobotNames.getById(n);
                 }
 
                 Robot r = new Robot(pos, name);
+                robotNamesList.add(name);
                 setPlayer(r);
                 AIList.add(r);
                 startPositions.remove(pos);

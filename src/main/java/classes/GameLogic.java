@@ -98,7 +98,7 @@ public class GameLogic {
      */
     public static boolean isPlayersDead(){
         int i = 0;
-        for (Robot r : map.playerList){
+        for (Robot r : map.getListOfPlayers()){
             if(r.getNormState() == r.getState()) i++;
         }
         if(i==0){

@@ -64,7 +64,7 @@ public class Robot {
         numbCards--;
         if(damageToken >=5){
             numbRegister--;
-            lockRegister(damageToken-1);
+            //lockRegister(damageToken-1);
         }
         if (damageToken == 10){
             looseLife();
