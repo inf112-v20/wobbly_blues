@@ -32,7 +32,7 @@ public class BoardScreen implements Screen {
     private OrthographicCamera camera;
 
     private final int WIDTH = 12;
-    private final int HEIGHT = 15;
+    private final int HEIGHT = 19;
 
     private SpriteBatch batch;
     private BitmapFont font;
@@ -55,11 +55,15 @@ public class BoardScreen implements Screen {
      * @param numbAI
      */
 
-    public BoardScreen(StartGame game, int numbPlayers, int numbAI){
+    public BoardScreen(StartGame game, int numbPlayers, int numbAI,String boardname){
         this.game = game;
         stage = new Stage();
         //Loads the board.
-        map = new Map();
+        String boardName = "Risky_Exchange.tmx";
+        if(boardname != null) {
+            boardName = boardname + ".tmx";
+        }
+        map = new Map(boardName);
         map.getBoard(this);
 
         //Creates the turnahandler
@@ -179,12 +183,12 @@ public class BoardScreen implements Screen {
     //prints the info about the player.
     private void InfoText() {
         String playerInfoText = robot.getName() + "\n" +
-                "Lives: " + robot.getHp() + "\n" +
+                "Lives: " + robot.getHp() + "  " +
                 "Damage Tokens: " + robot.getDamageToken() + "\n" +
-                "Flags taken: " + robot.numbFlags() + "\n" +
+                "Flags taken: " + robot.numbFlags() + "  " +
                 "Direction: " + robot.getDirection() + "\n";
         batch2.begin();
-        font2.draw(batch2, playerInfoText, 30, 50 + 200);
+        font2.draw(batch2, playerInfoText, 30, 200);
         batch2.end();
 
     }

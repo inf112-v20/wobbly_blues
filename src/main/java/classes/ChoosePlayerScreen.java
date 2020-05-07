@@ -20,11 +20,14 @@ public class ChoosePlayerScreen implements Screen{
     public Skin defaultSkin;
     public SelectBox<String> selectNumbPlayers;
     public SelectBox<String> selectNumbAI;
+    public SelectBox<String> selectMap;
 
     private SpriteBatch batch;
     private BitmapFont font;
     private SpriteBatch batch2;
     private BitmapFont font2;
+    private SpriteBatch batch3;
+    private BitmapFont font3;
 
     public final float BUTTON_WIDTH;
     public final float BUTTON_HEIGHT;
@@ -44,10 +47,16 @@ public class ChoosePlayerScreen implements Screen{
         font = new BitmapFont();
         font.getData().setScale((float) 1.2);
         font.setColor(Color.BLACK);
+
         batch2 = new SpriteBatch();
         font2 = new BitmapFont();
         font2.getData().setScale((float) 1.2);
         font2.setColor(Color.BLACK);
+
+        batch3 = new SpriteBatch();
+        font3 = new BitmapFont();
+        font3.getData().setScale((float) 1.2);
+        font3.setColor(Color.BLACK);
 
         BUTTON_WIDTH = (float) (Gdx.graphics.getWidth() * 0.25);
         BUTTON_HEIGHT = (float) (Gdx.graphics.getHeight() * 0.25);
@@ -75,8 +84,15 @@ public class ChoosePlayerScreen implements Screen{
         selectNumbAI.setWidth(BUTTON_WIDTH * .87f);
         selectNumbAI.setPosition(width /2f - selectNumbAI.getWidth()/2, (stage.getHeight()/2)-100);
 
+        selectMap = new SelectBox<>(defaultSkin);
+        selectMap.setItems("Random","Risky_Exchange","friboard");
+        selectMap.setSelected("Random");
+        selectMap.setWidth(BUTTON_WIDTH * .87f);
+        selectMap.setPosition(width /2f - selectNumbAI.getWidth()/2, (stage.getHeight()/2)-200);
+
         stage.addActor(selectNumbPlayers);
         stage.addActor(selectNumbAI);
+        stage.addActor(selectMap);
         stage.addActor(startBtn);
         stage.addActor(logo);
 
@@ -104,14 +120,25 @@ public class ChoosePlayerScreen implements Screen{
         font2.draw(batch2, "Number of Players",(stage.getWidth()/2)-(BUTTON_WIDTH/2)+30, (stage.getHeight()/2)+55);
         batch2.end();
 
+        batch3.begin();
+        font3.draw(batch3, "Select map",(stage.getWidth()/2)-(BUTTON_WIDTH/2)+55, (stage.getHeight()/2)-145);
+        batch3.end();
+
         stage.act(v);
         stage.draw();
 
         //actions for the buttons
         if(startBtn.isPressed()){
             //if pressed sends you to the board.
+            String boardName;
             if(selectNumbAI.getSelectedIndex() + selectNumbPlayers.getSelectedIndex()+1 <=8){
-                game.setScreen(new BoardScreen(game,selectNumbPlayers.getSelectedIndex()+1,selectNumbAI.getSelectedIndex()));
+                if(selectMap.getSelected() == "Random"){
+                    boardName = null;
+                }
+                else{
+                    boardName = selectMap.getSelected();
+                }
+                game.setScreen(new BoardScreen(game,selectNumbPlayers.getSelectedIndex()+1,selectNumbAI.getSelectedIndex(),boardName));
             }
             else{
                 System.out.println("you can't have more than 8 players.");

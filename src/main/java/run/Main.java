@@ -10,7 +10,7 @@ public class Main {
 
         cfg.title = "Robo-Rally";
         cfg.width = 800;
-        cfg.height = 850;
+        cfg.height = 1000;
         Options.screenHeight = cfg.height;
         Options.screenWidth = cfg.width;
 
