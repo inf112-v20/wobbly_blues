@@ -27,7 +27,7 @@ public class Pusher {
             return Direction.LEFT;
         }
         else{
-            throw new IllegalArgumentException("not a valid id!");
+            throw new IllegalArgumentException("not valid id!");
         }
     }
     public Direction getDir(){
