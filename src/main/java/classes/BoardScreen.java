@@ -103,12 +103,13 @@ public class BoardScreen implements Screen {
 
         //Creates the input.
         InputProcessor inputProcessorOne = stage;
-        InputProcessor inputProcessorTwo = createController();
+        //creates testing controller
+        //InputProcessor inputProcessorTwo = createController();
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
 
         inputMultiplexer.addProcessor(inputProcessorOne);
-        inputMultiplexer.addProcessor(inputProcessorTwo);
+        //inputMultiplexer.addProcessor(inputProcessorTwo);
 
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
@@ -175,7 +176,7 @@ public class BoardScreen implements Screen {
 
     //prints the info about the player.
     private void InfoText() {
-        String playerInfoText = robot.getName() + "\n" +
+        String playerInfoText = robot.getName() + "  " + "Position: " + robot.getPos() + "\n" +
                 "Lives: " + robot.getHp() + "  " +
                 "Damage Tokens: " + robot.getDamageToken() + "\n" +
                 "Flags taken: " + robot.numbFlags() + "  " +

@@ -520,7 +520,6 @@ public class Map extends MapLayers{
      *returns a list fo both the players and the AI.
      */
     public List<Robot> getListOfPlayers(){
-        System.out.println(AIList);
         List<Robot> list = new ArrayList<>();
         if(AIList.size() != 0){ list.addAll(AIList);}
         list.addAll(playerList);

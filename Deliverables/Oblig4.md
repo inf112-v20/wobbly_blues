@@ -101,7 +101,7 @@
 
         Det er noen små bugs, som man kan merke til tider, men det er ikke noe som skal være spill ødelegende.
         Men det er også en liten bug kan man kalle det på kortene, siden de ikke er satt opp helt som de skulle vært ifølge reglene.
-        Priorteringen kan være litt rar og det kan være flere av de samme kortene.
+        Priorteringen kan være litt rar og det kan være flere av de samme kortene. Litt vanskelig å vite hvilken spiller man er, siden vi ikke har fått til å fremheve spilleren.
 
 ##Deloppgave 3: Produktleveranse og kodekvalitet
 - Dere må dokumentere hvordan prosjektet bygger, testes og kjøres, slik at det er lett for gruppelderne å bygge, teste
