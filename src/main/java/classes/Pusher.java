@@ -11,7 +11,6 @@ public class Pusher {
     public Pusher(Vector2 pos, int ID) {
         this.pos = pos;
         this.dir = getDir(ID);
-        System.out.println(dir);
     }
 
     private Direction getDir(int ID){
