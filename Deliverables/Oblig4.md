@@ -24,7 +24,8 @@
 
 - Legg ved skjermdump av project board ved innlevering. Sørg for at det er oppdatert med siste status ved innlevering.
 
-        https://trello.com/b/Olr9FOFd/wobbly-blues
+     ![](progBoard.png)
+     
         Her er en link til projektboardet, og gruppeleder har tilgang til det
 
 - Hvordan fungerer gruppedynamikken og kommunikasjonen nå i forhold til i starten? Hvordan påvirket karantene og
