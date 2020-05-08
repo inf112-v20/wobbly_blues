@@ -37,69 +37,99 @@
 ##Deloppgave 2: Krav
 - Oppdater hvilke krav dere har prioritert, hvor langt dere har kommet og hva dere har gjort siden forrige gang
 
-        svar
+        Denne gangen har vi fokusert på MVP, og gjort en del bugfikser. VI mener at vi har kommet i mål med det, men 
+        siden vi mistet en person helt i slutten så manlger vi en del tester. Dette er jo en viktig del av å programere,
+        men med bare 3 stykker så var det ikke mulig å komme i mål med programmet og testing. Så vi vurderte det heller viktig at
+        vi hadde noe å levere som vi er fornøyd med en å skrive tester, men vi har prøvd å skrive så mange tester som mulig. 
 
 - For hvert krav dere jobber med, må dere lage
  1) ordentlige brukerhistorier,
  2) akseptansekriterier og
  3) arbeidsoppgaver. 
- Husk at akseptansekriterier ofte skrives mer eller mindre som tester
-
-        svar
-
-- Dersom dere har oppgaver som dere skal til å starte med, hvor dere har oversikt over både brukerhistorie,
- akseptansekriterier og arbeidsoppgaver, kan dere ta med disse i innleveringen også.
-
-        svar
-
-- Forklar kort hvilke hovedkrav dere anser som en del av MVP og hvorfor. Hvis det er gjort endringer i rekkefølge utfra
- hva som er gitt fra kunde, hvorfor er dette gjort?
-
-        svar
+ Husk at akseptansekriterier ofte skrives mer eller mindre som tester 
+     - Brukerhistorie: Random Deck of Cards.
+            Som spiller vil jeg ha programmeringskort, slik at jeg kan programmere roboten min
+          
+          - Akseptansekriterier
+            
+            spiller skal få tilfeldige programeringskort.
+            
+          - Arbeidsoppgaver:
+            
+            Generer tilfeldige programmeringskort som spiller kan bruke.
+            Spiller skal kunne se kortene som er generert.
+            
+     -  Brukerhistorie: Conveyor Belts
+            Roboten skal bli skyvet av beltene.  
+          
+          - Akseptansekriterier
+           
+            Roboten skal bli påvirket av conveyor belts i alle retninger.
+    
+          - Arbeidsoppgaver:
+           
+            Legge til conveyor belts visuelt.
+            Legge til logikk for conveyor belts.
+            
+     - Brukerhistorie: Laser
+            Som spiller vil jeg at roboten skal ta skade av laseren på brettet.
+          
+          - Akseptansekriterier
+            
+            Roboten skal ta skade av laseren som er på brettet og lasere som blir skutt fra roboter
+            
+- MVP
+ - [X] Spillbrett
+ - [X] Vise en og/eller flere roboter
+ - [X] Flytte en brikke med kort
+ - [X] Vise flagg og hull på brett
+ - [X] Kunne dø og vinne
+ - [X] Dele ut kort
+ - [X] Registrere at en robot har vært innom et flagg
+ - [X] Håndtere konflikter i bevegelser
+ - [X] Roboter og lasere på kunne skyte lasere
+ - [X] Delere ut ny kort ved en ny runde
+ - [X] Legge igjen en backup
+ - [X] Roboter tar skade etter å ha blitt skut av en laser 
+ - [X] Tar en robot 9 skade blir den ødelagt og respawner på backupen
+ - [X] Kan ikke gå igjnnom en vegg
+ - [X] Brenne fast et kort hvis du tar for mye skade 
+ - [X] Flytter Roboter ut i fra prioriteringen på kortet
 
 - Husk å skrive hvilke bugs som finnes i de kravene dere har utført (dersom det finnes bugs).
 
-        svar
-
-- Kravlista er lang, men det er ikke nødvendig å levere på alle kravene hvis det ikke er realistisk. Det er viktigere at
- de oppgavene som er utført holder høy kvalitet. Utførte oppgaver skal være ferdige (spillbare).
-
-        svar
+        Det er noen små bugs, som man kan merke til tider, men det er ikke noe som skal være spill ødelegende.
+        Men det er også en liten bug kan man kalle det på kortene, siden de ikke er satt opp helt som de skulle vært ifølge reglene.
+        Priorteringen kan være litt rar og det kan være flere av de samme kortene.
 
 ##Deloppgave 3: Produktleveranse og kodekvalitet
 - Dere må dokumentere hvordan prosjektet bygger, testes og kjøres, slik at det er lett for gruppelderne å bygge, teste
  og kjøre koden deres. Under vurdering kommer koden også til å brukertestes.
 
-        svar
+        For å kjøre spillet så må du kjøre Main klassen under run, og for å teste spillet, så må du kjøre testen som er under test/run
 
 - Prosjektet skal kunne bygge, testes og kjøres på Linux, Windows og OSX.
-
-        svar
+        
+        Dette viser vi gjennom at vi har forkjelige Maskiner som vi bygger selve oppgaven på, og vi tester det også med Travis.
 
 - Lever klassediagram. (Hvis det er veldig mange klasser, lager dere for de viktigste.)
 
-        svar
-
-- Kodekvalitet og testdekning vektlegges. Merk at testene dere skriver skal brukes i produktet. Det kan være smart å
- skrive manuelle tester for å teste det som er grafisk.
-
-        svar
-
-- Utførte oppgaver skal være ferdige.
-
-        svar
-
-- Hvis dere tester manuelt: lever beskrivelser av hvordan testen foregår, slik at gruppeleder kan utføre testen selv.
-
-        svar
+![](Oblig4UML.png)
 
 - Under vurdering vil det vektlegges at alle bidrar til kodebasen. Hvis det er stor forskjell i hvem som committer, må
  dere legge ved en kort forklaring for hvorfor det er sånn. Husk å committe alt. (Også designfiler)
 
-        svar
+        I denne innleveringen så er det stor forskjell på hvem som har gjort hva og med det så merker vi at det er noen 
+        som har gjort en del mer enn andre, men ette er fordi at denne situasjoen vi er i nå er vledig spesiel. 
+        Samtidg så er den flere på gruppen som er ferdig med de andre fagene sine noe som fører til at de har mere tid
+        til å bruke på denne oppgaven.
 
 - Prosjektresentasjonen teller ved denne leveransen. Dere blir vurdert på demo av spillet, en beskrivelse av det
  viktigste dere har lært, en beskrivelse av hvordan nedstengningen av universitetet påvirket prosjektet og hva dere
  ville gjort annerledes nå som dere har mer erfaring med gruppearbeid.
 
-        svar
+        Gruppen har merket at det har blitt vanskligere å jobbe sammen, og det å begynne å jobbe generelt. Det at vi har 
+        måtte jobbet remote har gjort at arbeidslysten har falt siden vi må jobbe mye mer alene. Dette har ført til at fremganeng i utviklingen hargår veldig treigt
+        , men det har gått. Det vi tenker at vi kunne gjort anderledes til en annen gang er å ha flere møter og mer oppfølging.
+        samt sette skikkelige frister på hva som må gjøres til når. 
+        
