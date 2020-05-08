@@ -107,7 +107,8 @@
 - Dere må dokumentere hvordan prosjektet bygger, testes og kjøres, slik at det er lett for gruppelderne å bygge, teste
  og kjøre koden deres. Under vurdering kommer koden også til å brukertestes.
 
-        For å kjøre spillet så må du kjøre Main klassen under run, og for å teste spillet, så må du kjøre testen som er under test/run
+        For å kjøre spillet så må du kjøre Main klassen under run, og for å teste spillet, så må du kjøre testen som er under test/run.
+        Hvis man leser på README så ser man kontrolerene til spillet funker.
 
 - Prosjektet skal kunne bygge, testes og kjøres på Linux, Windows og OSX.
         

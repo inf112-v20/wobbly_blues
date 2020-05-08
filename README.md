@@ -6,7 +6,13 @@ When a win- or lose condition is met, the program closes and a will print if you
 ### Key binds:
 * Arrow keys => Move UiB-Owl.
 * S to switch between robots
-
+* F skyte laser fra skip
+* C for å fjerne laserlinjer
+* L for a skute laserpunkter
+* B for å kjøre belter
+* R for rotator pads
+* T for skiftenøkkler
+* p for push pads
 ### Win condition:
 * UiB-Owl steps on the flags in the right order.
 
