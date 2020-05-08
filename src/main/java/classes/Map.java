@@ -521,7 +521,8 @@ public class Map extends MapLayers{
      */
     public List<Robot> getListOfPlayers(){
         List<Robot> list = new ArrayList<>();
-        if(AIList.size() != 0){ list.addAll(AIList);}
+
+        if(AIList != null){ list.addAll(AIList);}
         list.addAll(playerList);
         return list;
     }
